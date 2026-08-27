@@ -1,11 +1,120 @@
 ---
-title: "ISSS626_GAA"
+page-layout: full
+toc: false
+editor: source
 ---
 
-This is a Quarto website.
+::: {.home-shell}
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+::: {.home-hero}
 
-```{r}
-1 + 1
+::: {.hero-copy}
+
+```{=html}
+<div class="hero-kicker"><i class="bi bi-geo-alt-fill"></i> ISSS626 · AY2026–27 August Term</div>
 ```
+
+# My Geospatial Analytics Journey
+
+```{=html}
+<p class="hero-lead">Welcome to my student portfolio for ISSS626 Geospatial Analytics and Applications. This website documents my work in geospatial data wrangling, spatial analysis, GeoMachine Learning, geovisualisation, and reproducible reporting with R.</p>
+```
+
+```{=html}
+<div class="hero-actions">
+  <a class="home-button home-button-primary" href="#portfolio">
+    View assignment list <i class="bi bi-arrow-down"></i>
+  </a>
+  <a class="home-button home-button-secondary" href="#learning">My learning process</a>
+</div>
+```
+
+:::
+
+::: {.hero-visual aria-label="Decorative spatial data visualization"}
+
+```{=html}
+<div class="map-grid"></div>
+<div class="map-orbit orbit-one"></div>
+<div class="map-orbit orbit-two"></div>
+<div class="map-route route-one"></div>
+<div class="map-route route-two"></div>
+<span class="map-node node-one"></span>
+<span class="map-node node-two"></span>
+<span class="map-node node-three"></span>
+<span class="map-node node-four"></span>
+```
+
+:::
+
+:::
+
+```{=html}
+<section id="portfolio" class="home-section">
+  <div class="section-heading">
+    <span class="section-eyebrow">My coursework</span>
+    <h2>Explore my work</h2>
+    <p>Follow my progress from guided practice to independent geospatial analysis.</p>
+  </div>
+
+  <div class="portfolio-grid">
+    <a class="portfolio-card featured-card" href="Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html">
+      <span class="card-icon"><i class="bi bi-compass-fill"></i></span>
+      <span class="card-meta">Step-by-step practice</span>
+      <h3>Hands-on Exercises</h3>
+      <p>Practical work using R and R packages to build geospatial analysis skills through step-by-step, real-world use cases.</p>
+      <span class="card-link">Start exploring <i class="bi bi-arrow-up-right"></i></span>
+    </a>
+
+    <div class="portfolio-card">
+      <span class="card-icon"><i class="bi bi-map-fill"></i></span>
+      <span class="card-meta">Applied analysis</span>
+      <h3>Take-home Exercises</h3>
+      <p>Independent mini real-world cases that synthesise methods learned from readings, hands-on work, and in-class exercises.</p>
+      <span class="status-pill"><i class="bi bi-hourglass-split"></i> In progress</span>
+    </div>
+
+    <div class="portfolio-card">
+      <span class="card-icon"><i class="bi bi-tools"></i></span>
+      <span class="card-meta">My learning toolkit</span>
+      <h3>Skills & Methods</h3>
+      <p>R programming · Spatial data wrangling · Geoprocessing · Spatial statistics · GeoMachine Learning · Geovisualisation</p>
+      <span class="status-pill neutral"><i class="bi bi-stars"></i> Building as I learn</span>
+    </div>
+  </div>
+</section>
+```
+
+```{=html}
+<section id="learning" class="home-section learning-section">
+  <div class="section-heading compact-heading">
+    <span class="section-eyebrow">Course learning objectives</span>
+    <h2>Building a reproducible spatial workflow</h2>
+  </div>
+
+  <div class="learning-grid">
+    <div class="learning-step">
+      <span class="step-number">01</span>
+      <span class="step-icon"><i class="bi bi-database-fill"></i></span>
+      <h3>Wrangle</h3>
+      <p>Import, tidy, manipulate, transform, project, and process geospatial data programmatically.</p>
+    </div>
+
+    <div class="learning-step">
+      <span class="step-number">02</span>
+      <span class="step-icon"><i class="bi bi-diagram-3-fill"></i></span>
+      <h3>Analyse</h3>
+      <p>Apply spatial statistics and GeoMachine Learning methods to address specific analytical needs.</p>
+    </div>
+
+    <div class="learning-step">
+      <span class="step-number">03</span>
+      <span class="step-icon"><i class="bi bi-bar-chart-fill"></i></span>
+      <h3>Communicate</h3>
+      <p>Explain results clearly through appropriate geovisualisation and fully reproducible reports.</p>
+    </div>
+  </div>
+</section>
+```
+
+:::

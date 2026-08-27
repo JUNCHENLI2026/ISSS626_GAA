@@ -2,9 +2,86 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "ISSS626_GAA",
+    "title": "My Geospatial Analytics Journey",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "ISSS626 · AY2026–27 August Term\n\nMy Geospatial Analytics Journey\nWelcome to my student portfolio for ISSS626 Geospatial Analytics and Applications. This website documents my work in geospatial data wrangling, spatial analysis, GeoMachine Learning, geovisualisation, and reproducible reporting with R.\n\n  \n    View assignment list \n  \n  My learning process\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    My coursework\n    Explore my work\n    Follow my progress from guided practice to independent geospatial analysis.\n  \n\n  \n    \n      \n      Step-by-step practice\n      Hands-on Exercises\n      Practical work using R and R packages to build geospatial analysis skills through step-by-step, real-world use cases.\n      Start exploring \n    \n\n    \n      \n      Applied analysis\n      Take-home Exercises\n      Independent mini real-world cases that synthesise methods learned from readings, hands-on work, and in-class exercises.\n       In progress\n    \n\n    \n      \n      My learning toolkit\n      Skills & Methods\n      R programming · Spatial data wrangling · Geoprocessing · Spatial statistics · GeoMachine Learning · Geovisualisation\n       Building as I learn\n    \n  \n\n\n  \n    Course learning objectives\n    Building a reproducible spatial workflow\n  \n\n  \n    \n      01\n      \n      Wrangle\n      Import, tidy, manipulate, transform, project, and process geospatial data programmatically.\n    \n\n    \n      02\n      \n      Analyse\n      Apply spatial statistics and GeoMachine Learning methods to address specific analytical needs.\n    \n\n    \n      03\n      \n      Communicate\n      Explain results clearly through appropriate geovisualisation and fully reproducible reports."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "",
+    "text": "This hands-on exercise introduces the sf data model and a simple spatial-analysis workflow in R. I work with polygon, line, and point data, check coordinate reference systems, convert a non-spatial table into an sf object, and perform buffer, intersection, and point-in-polygon operations.\nThe workflow is adapted from Chapter 1: Geospatial Data Science with R. The data files used here are stored locally so that the exercise remains reproducible.\n\n\nBy the end of this exercise, I should be able to:\n\nimport GeoJSON and CSV files into R;\nrecognise polygon, line, and point geometries;\ninspect and transform coordinate reference systems;\nconvert longitude and latitude columns into spatial points; and\napply basic geoprocessing operations with sf."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#learning-objectives",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#learning-objectives",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "",
+    "text": "By the end of this exercise, I should be able to:\n\nimport GeoJSON and CSV files into R;\nrecognise polygon, line, and point geometries;\ninspect and transform coordinate reference systems;\nconvert longitude and latitude columns into spatial points; and\napply basic geoprocessing operations with sf."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#loading-the-r-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#loading-the-r-packages",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "Loading the R packages",
+    "text": "Loading the R packages\n\npacman::p_load(\n  sf,\n  tidyverse,\n  rvest,\n  knitr\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#data-used",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#data-used",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "Data used",
+    "text": "Data used\n\n\n\n\n\n\n\n\nFile\nGeometry / type\nPurpose\n\n\n\n\nMP14_SUBZONE_WEB_PL.shp\nMultipolygon\nMaster Plan 2014 subzone boundaries\n\n\nCyclingPathGazette.shp\nMultilinestring\nCycling path network\n\n\nPreSchoolsLocation.kml\nPoint\nPreschool locations\n\n\nlistings.csv\nAspatial CSV\nAirbnb listings with coordinates\n\n\n\nThe three geospatial datasets were obtained from data.gov.sg, while the listings data came from Inside Airbnb. The current cycling-path and preschool downloads were converted to the shapefile and KML formats used in the chapter."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#subzone-boundaries",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#subzone-boundaries",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "Subzone boundaries",
+    "text": "Subzone boundaries\n\nmpsz &lt;- st_read(\n  dsn = \"data/geospatial\",\n  layer = \"MP14_SUBZONE_WEB_PL\",\n  quiet = TRUE\n) |&gt;\n  st_make_valid()\n\nmpsz\n\nSimple feature collection with 323 features and 15 fields\nGeometry type: GEOMETRY\nDimension:     XY\nBounding box:  xmin: 2667.538 ymin: 15748.72 xmax: 56396.44 ymax: 50256.33\nProjected CRS: SVY21\nFirst 10 features:\n   OBJECTID SUBZONE_NO       SUBZONE_N SUBZONE_C CA_IND      PLN_AREA_N\n1         1          1    MARINA SOUTH    MSSZ01      Y    MARINA SOUTH\n2         2          1    PEARL'S HILL    OTSZ01      Y          OUTRAM\n3         3          3       BOAT QUAY    SRSZ03      Y SINGAPORE RIVER\n4         4          8  HENDERSON HILL    BMSZ08      N     BUKIT MERAH\n5         5          3         REDHILL    BMSZ03      N     BUKIT MERAH\n6         6          7  ALEXANDRA HILL    BMSZ07      N     BUKIT MERAH\n7         7          9   BUKIT HO SWEE    BMSZ09      N     BUKIT MERAH\n8         8          2     CLARKE QUAY    SRSZ02      Y SINGAPORE RIVER\n9         9         13 PASIR PANJANG 1    QTSZ13      N      QUEENSTOWN\n10       10          7       QUEENSWAY    QTSZ07      N      QUEENSTOWN\n   PLN_AREA_C       REGION_N REGION_C          INC_CRC FMEL_UPD_D   X_ADDR\n1          MS CENTRAL REGION       CR 5ED7EB253F99252E 2014-12-05 31595.84\n2          OT CENTRAL REGION       CR 8C7149B9EB32EEFC 2014-12-05 28679.06\n3          SR CENTRAL REGION       CR C35FEFF02B13E0E5 2014-12-05 29654.96\n4          BM CENTRAL REGION       CR 3775D82C5DDBEFBD 2014-12-05 26782.83\n5          BM CENTRAL REGION       CR 85D9ABEF0A40678F 2014-12-05 26201.96\n6          BM CENTRAL REGION       CR 9D286521EF5E3B59 2014-12-05 25358.82\n7          BM CENTRAL REGION       CR 7839A8577144EFE2 2014-12-05 27680.06\n8          SR CENTRAL REGION       CR 48661DC0FBA09F7A 2014-12-05 29253.21\n9          QT CENTRAL REGION       CR 1F721290C421BFAB 2014-12-05 22077.34\n10         QT CENTRAL REGION       CR 3580D2AFFBEE914C 2014-12-05 24168.31\n     Y_ADDR SHAPE_Leng SHAPE_Area                       geometry\n1  29220.19   5267.381  1630379.3 POLYGON ((31495.56 30140.01...\n2  29782.05   3506.107   559816.2 POLYGON ((29092.28 30021.89...\n3  29974.66   1740.926   160807.5 POLYGON ((29932.33 29879.12...\n4  29933.77   3313.625   595428.9 POLYGON ((27131.28 30059.73...\n5  30005.70   2825.594   387429.4 POLYGON ((26451.03 30396.46...\n6  29991.38   4428.913  1030378.8 POLYGON ((25899.7 29766.74,...\n7  30230.86   3275.312   551732.0 POLYGON ((27746.95 30497.17...\n8  30222.86   2208.619   290184.7 POLYGON ((29351.26 29902.05...\n9  29893.78   6571.323  1084792.3 POLYGON ((20996.49 30542.35...\n10 30104.18   3454.239   631644.3 POLYGON ((24472.11 29621.83...\n\n\nThe object contains one feature for each Master Plan 2014 subzone. Its attributes include the subzone, planning-area, and region names."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#cycling-paths",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#cycling-paths",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "Cycling paths",
+    "text": "Cycling paths\n\ncycling_path &lt;- st_read(\n  dsn = \"data/geospatial\",\n  layer = \"CyclingPathGazette\",\n  quiet = TRUE\n)\n\ncycling_path\n\nSimple feature collection with 8523 features and 6 fields\nGeometry type: MULTILINESTRING\nDimension:     XY\nBounding box:  xmin: 6156.422 ymin: 27550.13 xmax: 42809.37 ymax: 49878.85\nProjected CRS: SVY21 / Singapore TM\nFirst 10 features:\n   OBJECTI         CYL_PAT                  AGENCY_          INC_CRC\n1   147638        Sengkang Land Transport Authority 51EE5DB1B7BA2BB5\n2   147639   Bukit Panjang Land Transport Authority 8905286E2129158F\n3   147640      Ang Mo Kio Land Transport Authority C1BE0614AAF208D7\n4   147641 Tuas & Joo Koon Land Transport Authority 5F962E258536A011\n5   147642 Tuas & Joo Koon Land Transport Authority 00DD4B045A574193\n6   147643         Punggol Land Transport Authority 08C2F9FD74BCAE1A\n7   147644     Bukit Batok Land Transport Authority C0A69F96672D5D34\n8   147645         Hougang Land Transport Authority CFA9CA5FD65F043E\n9   147646     Bukit Batok             LTA (Others) F0EEBE7ACD5DA9CB\n10  147647     Bukit Batok Land Transport Authority CBECD7A5AF8ED813\n          FMEL_UP    SHAPE_1                       geometry\n1  20260605154757  39.178917 MULTILINESTRING ((35373.74 ...\n2  20240714130101  51.395448 MULTILINESTRING ((20175.72 ...\n3  20240714130101   5.799726 MULTILINESTRING ((30077.72 ...\n4  20260605154757 124.071825 MULTILINESTRING ((6164.266 ...\n5  20260605154757   7.579566 MULTILINESTRING ((6163.715 ...\n6  20260605154757 408.708367 MULTILINESTRING ((36704.16 ...\n7  20260605154757  52.261327 MULTILINESTRING ((18586.21 ...\n8  20260605154756  30.194897 MULTILINESTRING ((35072.95 ...\n9  20260605154757   6.626497 MULTILINESTRING ((18585.95 ...\n10 20260605154757  43.660005 MULTILINESTRING ((18429.55 ..."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#preschool-locations",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#preschool-locations",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "Preschool locations",
+    "text": "Preschool locations\nThe preschool GeoJSON stores useful attributes inside an HTML description. The helper function below extracts a requested value from that table.\n\nextract_description_value &lt;- function(description, field_name) {\n  attributes &lt;- description |&gt;\n    read_html() |&gt;\n    html_table(fill = TRUE) |&gt;\n    pluck(1)\n\n  names(attributes)[1:2] &lt;- c(\"field\", \"value\")\n\n  result &lt;- attributes |&gt;\n    filter(field == field_name) |&gt;\n    pull(value)\n\n  if (length(result) == 0) NA_character_ else result[[1]]\n}\n\npreschool &lt;- st_read(\n  \"data/geospatial/PreSchoolsLocation.kml\",\n  quiet = TRUE\n) |&gt;\n  mutate(\n    CENTRE_NAME = map_chr(\n      Description,\n      ~ extract_description_value(.x, \"CENTRE_NAME\")\n    )\n  )\n\npreschool |&gt;\n  st_drop_geometry() |&gt;\n  select(CENTRE_NAME) |&gt;\n  head() |&gt;\n  kable()\n\n\n\n\nCENTRE_NAME\n\n\n\n\nCHILDREN’S COVE PRESCHOOL PTE.LTD.\n\n\nCHILDREN’S COVE PTE. LTD.\n\n\nCHILDREN’S VINEYARD PRESCHOOL PTE. LTD\n\n\nCHILDTIME CARE & DEVELOPMENT CENTRE PTE.LTD.\n\n\nCHILTERN HOUSE\n\n\nCHILTERN HOUSE EAST COAST"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#geometry-types-and-coordinate-reference-systems",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#geometry-types-and-coordinate-reference-systems",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "Geometry types and coordinate reference systems",
+    "text": "Geometry types and coordinate reference systems\n\nspatial_summary &lt;- tibble(\n  data = c(\"Subzones\", \"Cycling paths\", \"Preschools\"),\n  features = c(nrow(mpsz), nrow(cycling_path), nrow(preschool)),\n  geometry = c(\n    as.character(st_geometry_type(mpsz, by_geometry = FALSE)),\n    as.character(st_geometry_type(cycling_path, by_geometry = FALSE)),\n    as.character(st_geometry_type(preschool, by_geometry = FALSE))\n  ),\n  epsg = c(\n    st_crs(mpsz)$epsg,\n    st_crs(cycling_path)$epsg,\n    st_crs(preschool)$epsg\n  )\n)\n\nspatial_summary |&gt;\n  kable()\n\n\n\n\ndata\nfeatures\ngeometry\nepsg\n\n\n\n\nSubzones\n323\nGEOMETRY\nNA\n\n\nCycling paths\n8523\nMULTILINESTRING\n3414\n\n\nPreschools\n2290\nPOINT\n4326\n\n\n\n\n\nAll three files use WGS 84 (EPSG:4326). This geographic CRS is useful for sharing data, but distance and area calculations should use a projected CRS. I therefore transform the layers to Singapore SVY21 (EPSG:3414).\n\nmpsz_svy21 &lt;- st_transform(mpsz, 3414)\ncycling_path_svy21 &lt;- st_transform(cycling_path, 3414)\npreschool_svy21 &lt;- st_transform(preschool, 3414)\n\nst_crs(mpsz_svy21)\n\nCoordinate Reference System:\n  User input: EPSG:3414 \n  wkt:\nPROJCRS[\"SVY21 / Singapore TM\",\n    BASEGEOGCRS[\"SVY21\",\n        DATUM[\"SVY21\",\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1]]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"EPSG\",4757]],\n    CONVERSION[\"Singapore Transverse Mercator\",\n        METHOD[\"Transverse Mercator\",\n            ID[\"EPSG\",9807]],\n        PARAMETER[\"Latitude of natural origin\",1.36666666666667,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",103.833333333333,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",1,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",28001.642,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",38744.572,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"northing (N)\",north,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"easting (E)\",east,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n    USAGE[\n        SCOPE[\"Cadastre, engineering survey, topographic mapping.\"],\n        AREA[\"Singapore - onshore and offshore.\"],\n        BBOX[1.13,103.59,1.47,104.07]],\n    ID[\"EPSG\",3414]]"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#plotting-different-geometry-layers",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#plotting-different-geometry-layers",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "Plotting different geometry layers",
+    "text": "Plotting different geometry layers\n\nplot(\n  st_geometry(mpsz_svy21),\n  col = \"grey96\",\n  border = \"grey65\",\n  main = \"Subzones, cycling paths, and preschools\"\n)\nplot(\n  st_geometry(cycling_path_svy21),\n  col = \"#2C7FB8\",\n  lwd = 0.6,\n  add = TRUE\n)\nplot(\n  st_geometry(preschool_svy21),\n  col = \"#D95F0E\",\n  pch = 20,\n  cex = 0.25,\n  add = TRUE\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#five-metre-cycling-path-buffer-in-tampines-west",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#five-metre-cycling-path-buffer-in-tampines-west",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "Five-metre cycling-path buffer in Tampines West",
+    "text": "Five-metre cycling-path buffer in Tampines West\nI first select the Tampines West subzone, retain the cycling paths that intersect it, and then build a five-metre buffer. Because SVY21 uses metres, the buffer distance has a clear physical meaning.\n\ntampines_west &lt;- mpsz_svy21 |&gt;\n  filter(SUBZONE_N == \"TAMPINES WEST\")\n\ntampines_cycling &lt;- cycling_path_svy21 |&gt;\n  st_filter(tampines_west)\n\ncycling_buffer_5m &lt;- tampines_cycling |&gt;\n  st_buffer(dist = 5) |&gt;\n  st_intersection(tampines_west)\n\nbuffer_area_km2 &lt;- cycling_buffer_5m |&gt;\n  summarise() |&gt;\n  st_area() |&gt;\n  as.numeric() / 1e6\n\ntibble(\n  cycling_features = nrow(tampines_cycling),\n  buffered_area_km2 = round(buffer_area_km2, 3)\n) |&gt;\n  kable()\n\n\n\n\ncycling_features\nbuffered_area_km2\n\n\n\n\n169\n0.106\n\n\n\n\n\n\nplot(\n  st_geometry(tampines_west),\n  col = \"grey95\",\n  border = \"grey40\",\n  main = \"Five-metre buffer around cycling paths in Tampines West\"\n)\nplot(\n  st_geometry(cycling_buffer_5m),\n  col = adjustcolor(\"#41B6C4\", alpha.f = 0.65),\n  border = NA,\n  add = TRUE\n)\nplot(\n  st_geometry(tampines_cycling),\n  col = \"#253494\",\n  lwd = 1,\n  add = TRUE\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#counting-preschools-within-each-subzone",
+    "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html#counting-preschools-within-each-subzone",
+    "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
+    "section": "Counting preschools within each subzone",
+    "text": "Counting preschools within each subzone\nst_intersects() returns the matching preschool points for each polygon. The length of each result is the number of preschools in that subzone.\n\nmpsz_analysis &lt;- mpsz_svy21 |&gt;\n  mutate(\n    PRE_SCH_COUNT = lengths(st_intersects(geometry, preschool_svy21)),\n    AREA_KM2 = as.numeric(st_area(geometry)) / 1e6,\n    PRE_SCH_DENSITY = PRE_SCH_COUNT / AREA_KM2\n  )\n\nmpsz_analysis |&gt;\n  st_drop_geometry() |&gt;\n  select(SUBZONE_N, PLN_AREA_N, PRE_SCH_COUNT, AREA_KM2, PRE_SCH_DENSITY) |&gt;\n  slice_max(PRE_SCH_COUNT, n = 10, with_ties = FALSE) |&gt;\n  mutate(\n    AREA_KM2 = round(AREA_KM2, 2),\n    PRE_SCH_DENSITY = round(PRE_SCH_DENSITY, 2)\n  ) |&gt;\n  kable(\n    caption = \"Ten subzones with the largest number of preschools\"\n  )\n\n\nTen subzones with the largest number of preschools\n\n\n\n\n\n\n\n\n\nSUBZONE_N\nPLN_AREA_N\nPRE_SCH_COUNT\nAREA_KM2\nPRE_SCH_DENSITY\n\n\n\n\nTAMPINES EAST\nTAMPINES\n72\n4.34\n16.59\n\n\nWOODLANDS EAST\nWOODLANDS\n54\n2.55\n21.15\n\n\nALJUNIED\nGEYLANG\n40\n2.96\n13.52\n\n\nTAMPINES WEST\nTAMPINES\n38\n3.48\n10.93\n\n\nBEDOK NORTH\nBEDOK\n38\n3.20\n11.86\n\n\nFRANKEL\nBEDOK\n36\n4.30\n8.38\n\n\nSENGKANG TOWN CENTRE\nSENGKANG\n33\n1.46\n22.67\n\n\nYUNNAN\nJURONG WEST\n32\n2.21\n14.50\n\n\nHONG KAH\nJURONG WEST\n30\n1.79\n16.73\n\n\nBEDOK SOUTH\nBEDOK\n29\n3.00\n9.68\n\n\n\n\n\n\nplot(\n  mpsz_analysis[\"PRE_SCH_COUNT\"],\n  pal = function(n) hcl.colors(n, \"YlOrRd\", rev = TRUE),\n  main = \"Number of preschools by subzone\",\n  key.pos = 1\n)"
   },
   {
     "objectID": "about.html",
@@ -12,5 +89,68 @@
     "title": "About",
     "section": "",
     "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "",
+    "text": "This hands-on exercise develops a reproducible thematic-mapping workflow with sf, tidyverse, and tmap. I prepare 2024 resident population data, join it to Singapore’s Master Plan 2019 subzones, and design choropleth maps that communicate demographic patterns.\nThe workflow follows Chapter 2: Thematic Mapping and GeoVisualisation with R, using the same Master Plan 2019 KML boundary and June 2024 population dataset specified in the chapter.\n\n\nBy the end of this exercise, I should be able to:\n\nprepare demographic variables from a detailed population table;\njoin aspatial attributes to a spatial boundary layer;\nproduce choropleth maps with suitable classification methods and palettes;\nimprove map layout, titles, legends, and explanatory elements; and\ncompare several related indicators using small multiples."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#learning-objectives",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#learning-objectives",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "",
+    "text": "By the end of this exercise, I should be able to:\n\nprepare demographic variables from a detailed population table;\njoin aspatial attributes to a spatial boundary layer;\nproduce choropleth maps with suitable classification methods and palettes;\nimprove map layout, titles, legends, and explanatory elements; and\ncompare several related indicators using small multiples."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#loading-the-r-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#loading-the-r-packages",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Loading the R packages",
+    "text": "Loading the R packages\n\npacman::p_load(\n  sf,\n  tidyverse,\n  rvest,\n  tmap,\n  knitr\n)\n\ntmap_mode(\"plot\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#importing-the-data",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#importing-the-data",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Importing the data",
+    "text": "Importing the data\n\nextract_kml_value &lt;- function(description, field_name) {\n  attributes &lt;- description |&gt;\n    read_html() |&gt;\n    html_table(fill = TRUE) |&gt;\n    pluck(1)\n\n  names(attributes)[1:2] &lt;- c(\"field\", \"value\")\n\n  result &lt;- attributes |&gt;\n    filter(field == field_name) |&gt;\n    pull(value)\n\n  if (length(result) == 0) NA_character_ else result[[1]]\n}\n\nmpsz &lt;- st_read(\n  \"data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml\",\n  quiet = TRUE\n) |&gt;\n  mutate(\n    SUBZONE_N = map_chr(\n      Description,\n      ~ extract_kml_value(.x, \"SUBZONE_N\")\n    ),\n    PLN_AREA_N = map_chr(\n      Description,\n      ~ extract_kml_value(.x, \"PLN_AREA_N\")\n    ),\n    REGION_N = map_chr(\n      Description,\n      ~ extract_kml_value(.x, \"REGION_N\")\n    )\n  ) |&gt;\n  select(SUBZONE_N, PLN_AREA_N, REGION_N) |&gt;\n  st_make_valid() |&gt;\n  st_transform(3414)\n\npop2024 &lt;- read_csv(\n  \"data/aspatial/respopagesextod2024.csv\",\n  show_col_types = FALSE\n)\n\n\ntibble(\n  data = c(\"Subzone boundaries\", \"Population records\"),\n  observations = c(nrow(mpsz), nrow(pop2024)),\n  year = c(2019, 2024)\n) |&gt;\n  kable()\n\n\n\n\ndata\nobservations\nyear\n\n\n\n\nSubzone boundaries\n332\n2019\n\n\nPopulation records\n100928\n2024"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#defining-broad-age-groups",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#defining-broad-age-groups",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Defining broad age groups",
+    "text": "Defining broad age groups\nFor this exercise, I define:\n\nYoung: age 0–24;\nEconomically active: age 25–64; and\nAged: age 65 and above.\n\n\nyoung_ages &lt;- c(\n  \"0_to_4\", \"5_to_9\", \"10_to_14\", \"15_to_19\",\n  \"20_to_24\"\n)\n\nactive_ages &lt;- c(\n  \"25_to_29\", \"30_to_34\", \"35_to_39\", \"40_to_44\",\n  \"45_to_49\", \"50_to_54\", \"55_to_59\", \"60_to_64\"\n)\n\naged_ages &lt;- c(\n  \"65_to_69\", \"70_to_74\", \"75_to_79\", \"80_to_84\",\n  \"85_to_89\", \"90_and_over\"\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#aggregating-by-subzone",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#aggregating-by-subzone",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Aggregating by subzone",
+    "text": "Aggregating by subzone\n\npop_profile &lt;- pop2024 |&gt;\n  mutate(\n    SZ = str_to_upper(SZ),\n    PA = str_to_upper(PA),\n    Pop = replace_na(Pop, 0)\n  ) |&gt;\n  group_by(PA, SZ) |&gt;\n  summarise(\n    YOUNG = sum(Pop[AG %in% young_ages]),\n    ECONOMY_ACTIVE = sum(Pop[AG %in% active_ages]),\n    AGED = sum(Pop[AG %in% aged_ages]),\n    TOTAL = sum(Pop),\n    .groups = \"drop\"\n  ) |&gt;\n  mutate(\n    DEPENDENCY = if_else(\n      ECONOMY_ACTIVE &gt; 0,\n      (YOUNG + AGED) / ECONOMY_ACTIVE * 100,\n      NA_real_\n    ),\n    PCT_YOUNG = YOUNG / TOTAL * 100,\n    PCT_AGED = AGED / TOTAL * 100\n  )\n\npop_profile |&gt;\n  arrange(desc(TOTAL)) |&gt;\n  slice_head(n = 10) |&gt;\n  mutate(\n    DEPENDENCY = round(DEPENDENCY, 1),\n    PCT_YOUNG = round(PCT_YOUNG, 1),\n    PCT_AGED = round(PCT_AGED, 1)\n  ) |&gt;\n  kable(\n    caption = \"Ten most populous subzones in the 2024 dataset\"\n  )\n\n\nTen most populous subzones in the 2024 dataset\n\n\n\n\n\n\n\n\n\n\n\n\n\nPA\nSZ\nYOUNG\nECONOMY_ACTIVE\nAGED\nTOTAL\nDEPENDENCY\nPCT_YOUNG\nPCT_AGED\n\n\n\n\nTAMPINES\nTAMPINES EAST\n28610\n73640\n26050\n128300\n74.2\n22.3\n20.3\n\n\nWOODLANDS\nWOODLANDS EAST\n28330\n60420\n11210\n99960\n65.4\n28.3\n11.2\n\n\nTAMPINES\nTAMPINES WEST\n20300\n48230\n14880\n83410\n72.9\n24.3\n17.8\n\n\nBEDOK\nBEDOK NORTH\n16670\n45210\n19750\n81630\n80.6\n20.4\n24.2\n\n\nYISHUN\nYISHUN EAST\n20090\n43070\n8840\n72000\n67.2\n27.9\n12.3\n\n\nSENGKANG\nFERNVALE\n20640\n40910\n7590\n69140\n69.0\n29.9\n11.0\n\n\nJURONG WEST\nYUNNAN\n16460\n39540\n10740\n66740\n68.8\n24.7\n16.1\n\n\nSENGKANG\nRIVERVALE\n16280\n36980\n9490\n62750\n69.7\n25.9\n15.1\n\n\nJURONG WEST\nJURONG WEST CENTRAL\n16360\n36940\n8680\n61980\n67.8\n26.4\n14.0\n\n\nSENGKANG\nSENGKANG TOWN CENTRE\n16070\n36110\n8360\n60540\n67.7\n26.5\n13.8"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#a-basic-choropleth-map",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#a-basic-choropleth-map",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "A basic choropleth map",
+    "text": "A basic choropleth map\nThe first map shows the total resident population. A sequential palette is appropriate because the variable ranges from lower to higher values.\n\ntm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"TOTAL\",\n    fill.scale = tm_scale_intervals(\n      style = \"quantile\",\n      values = \"brewer.blues\"\n    ),\n    fill.legend = tm_legend(title = \"Residents\"),\n    col = \"white\",\n    lwd = 0.25\n  ) +\n  tm_title(\"Resident population by subzone, 2024\") +\n  tm_layout(\n    frame = FALSE,\n    legend.outside = TRUE\n  )"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#comparing-classification-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#comparing-classification-methods",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Comparing classification methods",
+    "text": "Comparing classification methods\nDifferent classification methods can emphasise different aspects of the same data. The maps below compare equal intervals with Jenks natural breaks.\n\nequal_map &lt;- tm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"DEPENDENCY\",\n    fill.scale = tm_scale_intervals(\n      style = \"equal\",\n      n = 6,\n      values = \"brewer.oranges\"\n    ),\n    fill.legend = tm_legend(title = \"Dependants per 100\")\n  ) +\n  tm_title(\"Equal intervals\") +\n  tm_layout(frame = FALSE)\n\njenks_map &lt;- tm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"DEPENDENCY\",\n    fill.scale = tm_scale_intervals(\n      style = \"jenks\",\n      n = 6,\n      values = \"brewer.oranges\"\n    ),\n    fill.legend = tm_legend(title = \"Dependants per 100\")\n  ) +\n  tm_title(\"Jenks natural breaks\") +\n  tm_layout(frame = FALSE)\n\ntmap_arrange(equal_map, jenks_map, ncol = 2)\n\n\n\n\n\n\n\n\nQuantile classes contain a similar number of subzones per class, equal intervals preserve equal numerical widths, and Jenks breaks seek internally similar groups. The best choice depends on the distribution and the intended message."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#refining-the-map-layout",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#refining-the-map-layout",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Refining the map layout",
+    "text": "Refining the map layout\n\ntm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"PCT_AGED\",\n    fill.scale = tm_scale_intervals(\n      style = \"jenks\",\n      n = 6,\n      values = \"brewer.purples\"\n    ),\n    fill.legend = tm_legend(\n      title = \"Residents aged 65+ (%)\"\n    ),\n    col = \"grey85\",\n    lwd = 0.3\n  ) +\n  tm_title(\"Share of residents aged 65 and above, 2024\") +\n  tm_compass(type = \"8star\", position = c(\"right\", \"top\")) +\n  tm_scalebar(position = c(\"right\", \"bottom\")) +\n  tm_credits(\n    \"Source: Singapore Department of Statistics and data.gov.sg\",\n    position = c(\"left\", \"bottom\")\n  ) +\n  tm_layout(\n    frame = FALSE,\n    legend.outside = TRUE,\n    bg.color = \"grey98\"\n  )"
   }
 ]

@@ -2,9 +2,58 @@ project:
   type: website
 
 website:
-  title: "ISSS626_GAA"
+  title: "ISSS626-GAA"
+
   navbar:
     left:
+      - text: "Hands-on Exercise"
+        menu:
+          - text: "Hands-on Exercise 1(1)"
+            href: "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html"
+
+          - text: "Hands-on Exercise 1(2)"
+            href: "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html"
+
+          - text: "Hands-on Exercise 2(1)"
+            href: "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex0201.html"
+
+          - text: "Hands-on Exercise 2(2)"
+            href: "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex0202.html"
+
+          - text: "Hands-on Exercise 3"
+            href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html"
+
+          - text: "Hands-on Exercise 4"
+            href: "Hands-on_Ex/Hands-on_Ex04/Hands_on_Ex0401.html"
+
+          - text: "Hands-on Exercise 5(1)"
+            href: "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex0501.html"
+
+          - text: "Hands-on Exercise 5(2)"
+            href: "Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex0502.html"
+
+          - text: "Hands-on Exercise 6"
+            href: "Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex0601.html"
+
+          - text: "Hands-on Exercise 7"
+            href: "Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex0701.html"
+
+          - text: "Hands-on Exercise 8"
+            href: "Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex0801.html"
+
+          - text: "Hands-on Exercise 9"
+            href: "Hands-on_Ex/Hands-on_Ex09/Hands-on_Ex0901.html"
+
+          - text: "Hands-on Exercise 10(1)"
+            href: "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex1001.html"
+
+          - text: "Hands-on Exercise 10(2)"
+            href: "Hands-on_Ex/Hands-on_Ex10/Hands-on_Ex1002.html"
+      - text: "Take-Home Exercise"
+        menu:
+          - text: "Take-Home Exercise 1" 
+          - text: "Take-Home Exercise 2" 
+    right: 
       - href: index.qmd
         text: Home
       - about.qmd
@@ -12,10 +61,12 @@ website:
 format:
   html:
     theme:
-      - cosmo
+      - darkly
       - brand
     css: styles.css
     toc: true
 
 editor: visual
+
+
 

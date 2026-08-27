@@ -1,0 +1,330 @@
+---
+title: "Hands-on Exercise 1(1): Geospatial Data Science with R"
+author: "JUNCHEN LI"
+date: "August 27, 2026"
+date-modified: "last-modified"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    code-tools: true
+editor: visual
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+---
+
+# Overview
+
+This hands-on exercise introduces the **sf** data model and a simple spatial-analysis workflow in R. I work with polygon, line, and point data, check coordinate reference systems, convert a non-spatial table into an `sf` object, and perform buffer, intersection, and point-in-polygon operations.
+
+The workflow is adapted from [Chapter 1: Geospatial Data Science with R](https://r4gdsa.netlify.app/chap01.html). The data files used here are stored locally so that the exercise remains reproducible.
+
+## Learning objectives
+
+By the end of this exercise, I should be able to:
+
+- import GeoJSON and CSV files into R;
+- recognise polygon, line, and point geometries;
+- inspect and transform coordinate reference systems;
+- convert longitude and latitude columns into spatial points; and
+- apply basic geoprocessing operations with **sf**.
+
+# Getting started
+
+## Loading the R packages
+
+```{r}
+pacman::p_load(
+  sf,
+  tidyverse,
+  rvest,
+  knitr
+)
+```
+
+## Data used
+
+| File | Geometry / type | Purpose |
+|---|---|---|
+| `MP14_SUBZONE_WEB_PL.shp` | Multipolygon | Master Plan 2014 subzone boundaries |
+| `CyclingPathGazette.shp` | Multilinestring | Cycling path network |
+| `PreSchoolsLocation.kml` | Point | Preschool locations |
+| `listings.csv` | Aspatial CSV | Airbnb listings with coordinates |
+
+The three geospatial datasets were obtained from [data.gov.sg](https://data.gov.sg/), while the listings data came from [Inside Airbnb](https://insideairbnb.com/get-the-data/). The current cycling-path and preschool downloads were converted to the shapefile and KML formats used in the chapter.
+
+# Importing geospatial data
+
+## Subzone boundaries
+
+```{r}
+mpsz <- st_read(
+  dsn = "data/geospatial",
+  layer = "MP14_SUBZONE_WEB_PL",
+  quiet = TRUE
+) |>
+  st_make_valid()
+
+mpsz
+```
+
+The object contains one feature for each Master Plan 2014 subzone. Its attributes include the subzone, planning-area, and region names.
+
+## Cycling paths
+
+```{r}
+cycling_path <- st_read(
+  dsn = "data/geospatial",
+  layer = "CyclingPathGazette",
+  quiet = TRUE
+)
+
+cycling_path
+```
+
+## Preschool locations
+
+The preschool GeoJSON stores useful attributes inside an HTML description. The helper function below extracts a requested value from that table.
+
+```{r}
+extract_description_value <- function(description, field_name) {
+  attributes <- description |>
+    read_html() |>
+    html_table(fill = TRUE) |>
+    pluck(1)
+
+  names(attributes)[1:2] <- c("field", "value")
+
+  result <- attributes |>
+    filter(field == field_name) |>
+    pull(value)
+
+  if (length(result) == 0) NA_character_ else result[[1]]
+}
+
+preschool <- st_read(
+  "data/geospatial/PreSchoolsLocation.kml",
+  quiet = TRUE
+) |>
+  mutate(
+    CENTRE_NAME = map_chr(
+      Description,
+      ~ extract_description_value(.x, "CENTRE_NAME")
+    )
+  )
+
+preschool |>
+  st_drop_geometry() |>
+  select(CENTRE_NAME) |>
+  head() |>
+  kable()
+```
+
+# Examining spatial objects
+
+## Geometry types and coordinate reference systems
+
+```{r}
+spatial_summary <- tibble(
+  data = c("Subzones", "Cycling paths", "Preschools"),
+  features = c(nrow(mpsz), nrow(cycling_path), nrow(preschool)),
+  geometry = c(
+    as.character(st_geometry_type(mpsz, by_geometry = FALSE)),
+    as.character(st_geometry_type(cycling_path, by_geometry = FALSE)),
+    as.character(st_geometry_type(preschool, by_geometry = FALSE))
+  ),
+  epsg = c(
+    st_crs(mpsz)$epsg,
+    st_crs(cycling_path)$epsg,
+    st_crs(preschool)$epsg
+  )
+)
+
+spatial_summary |>
+  kable()
+```
+
+All three files use WGS 84 (`EPSG:4326`). This geographic CRS is useful for sharing data, but distance and area calculations should use a projected CRS. I therefore transform the layers to Singapore SVY21 (`EPSG:3414`).
+
+```{r}
+mpsz_svy21 <- st_transform(mpsz, 3414)
+cycling_path_svy21 <- st_transform(cycling_path, 3414)
+preschool_svy21 <- st_transform(preschool, 3414)
+
+st_crs(mpsz_svy21)
+```
+
+## Plotting different geometry layers
+
+```{r}
+#| fig-width: 10
+#| fig-height: 6
+
+plot(
+  st_geometry(mpsz_svy21),
+  col = "grey96",
+  border = "grey65",
+  main = "Subzones, cycling paths, and preschools"
+)
+plot(
+  st_geometry(cycling_path_svy21),
+  col = "#2C7FB8",
+  lwd = 0.6,
+  add = TRUE
+)
+plot(
+  st_geometry(preschool_svy21),
+  col = "#D95F0E",
+  pch = 20,
+  cex = 0.25,
+  add = TRUE
+)
+```
+
+# Converting aspatial data into an sf object
+
+The Airbnb table contains longitude and latitude values. `st_as_sf()` converts these columns into point geometry.
+
+```{r}
+listings <- read_csv(
+  "data/aspatial/listings.csv",
+  show_col_types = FALSE
+)
+
+airbnb_sf <- listings |>
+  filter(!is.na(longitude), !is.na(latitude)) |>
+  st_as_sf(
+    coords = c("longitude", "latitude"),
+    crs = 4326,
+    remove = FALSE
+  ) |>
+  st_transform(3414)
+
+airbnb_sf |>
+  select(name, room_type, price) |>
+  head()
+```
+
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+
+plot(
+  st_geometry(mpsz_svy21),
+  col = "grey97",
+  border = "grey75",
+  main = "Airbnb listings in Singapore"
+)
+plot(
+  st_geometry(airbnb_sf),
+  col = adjustcolor("#7B3294", alpha.f = 0.45),
+  pch = 20,
+  cex = 0.45,
+  add = TRUE
+)
+```
+
+# Basic geoprocessing
+
+## Five-metre cycling-path buffer in Tampines West
+
+I first select the Tampines West subzone, retain the cycling paths that intersect it, and then build a five-metre buffer. Because SVY21 uses metres, the buffer distance has a clear physical meaning.
+
+```{r}
+tampines_west <- mpsz_svy21 |>
+  filter(SUBZONE_N == "TAMPINES WEST")
+
+tampines_cycling <- cycling_path_svy21 |>
+  st_filter(tampines_west)
+
+cycling_buffer_5m <- tampines_cycling |>
+  st_buffer(dist = 5) |>
+  st_intersection(tampines_west)
+
+buffer_area_km2 <- cycling_buffer_5m |>
+  summarise() |>
+  st_area() |>
+  as.numeric() / 1e6
+
+tibble(
+  cycling_features = nrow(tampines_cycling),
+  buffered_area_km2 = round(buffer_area_km2, 3)
+) |>
+  kable()
+```
+
+```{r}
+#| fig-width: 8
+#| fig-height: 6
+
+plot(
+  st_geometry(tampines_west),
+  col = "grey95",
+  border = "grey40",
+  main = "Five-metre buffer around cycling paths in Tampines West"
+)
+plot(
+  st_geometry(cycling_buffer_5m),
+  col = adjustcolor("#41B6C4", alpha.f = 0.65),
+  border = NA,
+  add = TRUE
+)
+plot(
+  st_geometry(tampines_cycling),
+  col = "#253494",
+  lwd = 1,
+  add = TRUE
+)
+```
+
+## Counting preschools within each subzone
+
+`st_intersects()` returns the matching preschool points for each polygon. The length of each result is the number of preschools in that subzone.
+
+```{r}
+mpsz_analysis <- mpsz_svy21 |>
+  mutate(
+    PRE_SCH_COUNT = lengths(st_intersects(geometry, preschool_svy21)),
+    AREA_KM2 = as.numeric(st_area(geometry)) / 1e6,
+    PRE_SCH_DENSITY = PRE_SCH_COUNT / AREA_KM2
+  )
+
+mpsz_analysis |>
+  st_drop_geometry() |>
+  select(SUBZONE_N, PLN_AREA_N, PRE_SCH_COUNT, AREA_KM2, PRE_SCH_DENSITY) |>
+  slice_max(PRE_SCH_COUNT, n = 10, with_ties = FALSE) |>
+  mutate(
+    AREA_KM2 = round(AREA_KM2, 2),
+    PRE_SCH_DENSITY = round(PRE_SCH_DENSITY, 2)
+  ) |>
+  kable(
+    caption = "Ten subzones with the largest number of preschools"
+  )
+```
+
+```{r}
+#| fig-width: 9
+#| fig-height: 6
+
+plot(
+  mpsz_analysis["PRE_SCH_COUNT"],
+  pal = function(n) hcl.colors(n, "YlOrRd", rev = TRUE),
+  main = "Number of preschools by subzone",
+  key.pos = 1
+)
+```
+
+# Reflection
+
+This exercise shows why the CRS is an analytical decision rather than only a data label. WGS 84 is suitable for storing geographic coordinates, whereas SVY21 is more appropriate for Singapore-based distance and area calculations. The same `sf` structure also allows polygon, line, and point layers to be combined with a consistent set of R verbs.
+
+# References
+
+- [Geospatial Data Science with R, Chapter 1](https://r4gdsa.netlify.app/chap01.html)
+- [data.gov.sg](https://data.gov.sg/)
+- [Inside Airbnb data portal](https://insideairbnb.com/get-the-data/)
