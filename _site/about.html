@@ -23,41 +23,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -217,23 +182,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#about-me" id="toc-about-me" class="nav-link active" data-scroll-target="#about-me">About me</a></li>
+  <li><a href="#about-this-portfolio" id="toc-about-this-portfolio" class="nav-link" data-scroll-target="#about-this-portfolio">About this portfolio</a></li>
+  <li><a href="#what-i-am-learning" id="toc-what-i-am-learning" class="nav-link" data-scroll-target="#what-i-am-learning">What I am learning</a></li>
+  <li><a href="#tools-and-workflow" id="toc-tools-and-workflow" class="nav-link" data-scroll-target="#tools-and-workflow">Tools and workflow</a></li>
+  <li><a href="#my-learning-approach" id="toc-my-learning-approach" class="nav-link" data-scroll-target="#my-learning-approach">My learning approach</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">About</h1>
+<p class="subtitle lead">My learning journey in geospatial analytics</p>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-left">
 
     
   
@@ -245,15 +221,58 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>About this site</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<section id="about-me" class="level2">
+<h2 class="anchored" data-anchor-id="about-me">About me</h2>
+<p>Hello! I am a student taking <strong>ISSS626: Geospatial Analytics and Applications</strong> in the AY2026–27 August Term.</p>
+<p>I created this website as a personal learning portfolio to document how I develop practical skills in geospatial analytics with R. It records not only completed maps and analytical results, but also the decisions, experiments, challenges, and improvements that form part of my learning process.</p>
+</section>
+<section id="about-this-portfolio" class="level2">
+<h2 class="anchored" data-anchor-id="about-this-portfolio">About this portfolio</h2>
+<p>This portfolio brings together my:</p>
+<ul>
+<li>hands-on exercises;</li>
+<li>in-class exercises;</li>
+<li>take-home exercises;</li>
+<li>spatial visualisations and analytical workflows; and</li>
+<li>reflections on methods, findings, and areas for improvement.</li>
+</ul>
+<p>Each entry aims to present a clear and reproducible workflow—from obtaining and preparing data, to selecting suitable spatial methods, interpreting the results, and communicating the findings effectively.</p>
+</section>
+<section id="what-i-am-learning" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-am-learning">What I am learning</h2>
+<p>Throughout the course, I am developing my ability to:</p>
+<ul>
+<li>import, tidy, transform, project, and process geospatial data programmatically;</li>
+<li>visualise and describe geographical patterns using thematic maps and other geovisualisation techniques;</li>
+<li>apply spatial statistics and geographical machine-learning methods to real-world questions;</li>
+<li>explore topics such as spatial point patterns, spatial weights and association, geographic segmentation, geographically weighted models, accessibility, and spatial interaction; and</li>
+<li>document the complete analytical process in a reproducible and easy-to-understand report.</li>
+</ul>
+</section>
+<section id="tools-and-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="tools-and-workflow">Tools and workflow</h2>
+<p>My work is mainly created with <strong>R</strong> and <strong>RStudio</strong>, supported by packages for data wrangling, spatial analysis, and visualisation. I use <strong>Quarto</strong> to produce this website and <strong>GitHub</strong> to manage versions of my work and publish the portfolio.</p>
+</section>
+<section id="my-learning-approach" class="level2">
+<h2 class="anchored" data-anchor-id="my-learning-approach">My learning approach</h2>
+<p>Learning R and geospatial analytics takes patience and regular practice. When an analysis does not work as expected, I treat the problem as an opportunity to examine my assumptions, improve my code, and understand the method more deeply. My goal is to make steady progress throughout the term and communicate each analysis more clearly than the last.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="About the work shown here">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>About the work shown here
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>This is a student learning portfolio prepared for educational purposes. The analyses and writing are my own work. Data sources, course references, and external materials are acknowledged on the relevant pages.</p>
+</div>
+</div>
+<p>For an overview of the module, visit the <a href="https://isss626-ay2026-27aug.netlify.app/">ISSS626 course website</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

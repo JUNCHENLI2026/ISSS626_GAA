@@ -1,9 +1,49 @@
 ---
 title: "About"
+subtitle: "My learning journey in geospatial analytics"
+page-layout: full
+toc: true
+toc-title: "On this page"
 ---
 
-About this site
+## About me
 
-```{r}
-1 + 1
-```
+Hello! I am a student taking **ISSS626: Geospatial Analytics and Applications** in the AY2026–27 August Term.
+
+I created this website as a personal learning portfolio to document how I develop practical skills in geospatial analytics with R. It records not only completed maps and analytical results, but also the decisions, experiments, challenges, and improvements that form part of my learning process.
+
+## About this portfolio
+
+This portfolio brings together my:
+
+- hands-on exercises;
+- in-class exercises;
+- take-home exercises;
+- spatial visualisations and analytical workflows; and
+- reflections on methods, findings, and areas for improvement.
+
+Each entry aims to present a clear and reproducible workflow—from obtaining and preparing data, to selecting suitable spatial methods, interpreting the results, and communicating the findings effectively.
+
+## What I am learning
+
+Throughout the course, I am developing my ability to:
+
+- import, tidy, transform, project, and process geospatial data programmatically;
+- visualise and describe geographical patterns using thematic maps and other geovisualisation techniques;
+- apply spatial statistics and geographical machine-learning methods to real-world questions;
+- explore topics such as spatial point patterns, spatial weights and association, geographic segmentation, geographically weighted models, accessibility, and spatial interaction; and
+- document the complete analytical process in a reproducible and easy-to-understand report.
+
+## Tools and workflow
+
+My work is mainly created with **R** and **RStudio**, supported by packages for data wrangling, spatial analysis, and visualisation. I use **Quarto** to produce this website and **GitHub** to manage versions of my work and publish the portfolio.
+
+## My learning approach
+
+Learning R and geospatial analytics takes patience and regular practice. When an analysis does not work as expected, I treat the problem as an opportunity to examine my assumptions, improve my code, and understand the method more deeply. My goal is to make steady progress throughout the term and communicate each analysis more clearly than the last.
+
+::: {.callout-note title="About the work shown here"}
+This is a student learning portfolio prepared for educational purposes. The analyses and writing are my own work. Data sources, course references, and external materials are acknowledged on the relevant pages.
+:::
+
+For an overview of the module, visit the [ISSS626 course website](https://isss626-ay2026-27aug.netlify.app/).

@@ -88,7 +88,42 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "Hello! I am a student taking ISSS626: Geospatial Analytics and Applications in the AY2026–27 August Term.\nI created this website as a personal learning portfolio to document how I develop practical skills in geospatial analytics with R. It records not only completed maps and analytical results, but also the decisions, experiments, challenges, and improvements that form part of my learning process."
+  },
+  {
+    "objectID": "about.html#about-me",
+    "href": "about.html#about-me",
+    "title": "About",
+    "section": "",
+    "text": "Hello! I am a student taking ISSS626: Geospatial Analytics and Applications in the AY2026–27 August Term.\nI created this website as a personal learning portfolio to document how I develop practical skills in geospatial analytics with R. It records not only completed maps and analytical results, but also the decisions, experiments, challenges, and improvements that form part of my learning process."
+  },
+  {
+    "objectID": "about.html#about-this-portfolio",
+    "href": "about.html#about-this-portfolio",
+    "title": "About",
+    "section": "About this portfolio",
+    "text": "About this portfolio\nThis portfolio brings together my:\n\nhands-on exercises;\nin-class exercises;\ntake-home exercises;\nspatial visualisations and analytical workflows; and\nreflections on methods, findings, and areas for improvement.\n\nEach entry aims to present a clear and reproducible workflow—from obtaining and preparing data, to selecting suitable spatial methods, interpreting the results, and communicating the findings effectively."
+  },
+  {
+    "objectID": "about.html#what-i-am-learning",
+    "href": "about.html#what-i-am-learning",
+    "title": "About",
+    "section": "What I am learning",
+    "text": "What I am learning\nThroughout the course, I am developing my ability to:\n\nimport, tidy, transform, project, and process geospatial data programmatically;\nvisualise and describe geographical patterns using thematic maps and other geovisualisation techniques;\napply spatial statistics and geographical machine-learning methods to real-world questions;\nexplore topics such as spatial point patterns, spatial weights and association, geographic segmentation, geographically weighted models, accessibility, and spatial interaction; and\ndocument the complete analytical process in a reproducible and easy-to-understand report."
+  },
+  {
+    "objectID": "about.html#tools-and-workflow",
+    "href": "about.html#tools-and-workflow",
+    "title": "About",
+    "section": "Tools and workflow",
+    "text": "Tools and workflow\nMy work is mainly created with R and RStudio, supported by packages for data wrangling, spatial analysis, and visualisation. I use Quarto to produce this website and GitHub to manage versions of my work and publish the portfolio."
+  },
+  {
+    "objectID": "about.html#my-learning-approach",
+    "href": "about.html#my-learning-approach",
+    "title": "About",
+    "section": "My learning approach",
+    "text": "My learning approach\nLearning R and geospatial analytics takes patience and regular practice. When an analysis does not work as expected, I treat the problem as an opportunity to examine my assumptions, improve my code, and understand the method more deeply. My goal is to make steady progress throughout the term and communicate each analysis more clearly than the last.\n\n\n\n\n\n\nNoteAbout the work shown here\n\n\n\nThis is a student learning portfolio prepared for educational purposes. The analyses and writing are my own work. Data sources, course references, and external materials are acknowledged on the relevant pages.\n\n\nFor an overview of the module, visit the ISSS626 course website."
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html",
