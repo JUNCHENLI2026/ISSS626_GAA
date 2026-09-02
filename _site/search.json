@@ -7,6 +7,69 @@
     "text": "ISSS626 · AY2026–27 August Term\n\nMy Geospatial Analytics Journey\nWelcome to my student portfolio for ISSS626 Geospatial Analytics and Applications. This website documents my work in geospatial data wrangling, spatial analysis, GeoMachine Learning, geovisualisation, and reproducible reporting with R.\n\n  \n    View assignment list \n  \n  My learning process\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    My coursework\n    Explore my work\n    Follow my progress from guided practice to independent geospatial analysis.\n  \n\n  \n    \n      \n      Step-by-step practice\n      Hands-on Exercises\n      Practical work using R and R packages to build geospatial analysis skills through step-by-step, real-world use cases.\n      Start exploring \n    \n\n    \n      \n      Applied analysis\n      Take-home Exercises\n      Independent mini real-world cases that synthesise methods learned from readings, hands-on work, and in-class exercises.\n       In progress\n    \n\n    \n      \n      My learning toolkit\n      Skills & Methods\n      R programming · Spatial data wrangling · Geoprocessing · Spatial statistics · GeoMachine Learning · Geovisualisation\n       Building as I learn\n    \n  \n\n\n  \n    Course learning objectives\n    Building a reproducible spatial workflow\n  \n\n  \n    \n      01\n      \n      Wrangle\n      Import, tidy, manipulate, transform, project, and process geospatial data programmatically.\n    \n\n    \n      02\n      \n      Analyse\n      Apply spatial statistics and GeoMachine Learning methods to address specific analytical needs.\n    \n\n    \n      03\n      \n      Communicate\n      Explain results clearly through appropriate geovisualisation and fully reproducible reports."
   },
   {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "",
+    "text": "This exercise examines the first-order spatial pattern of childcare services in Singapore. First-order analysis focuses on spatial intensity: whether events are evenly distributed and where their concentration is relatively high.\nThe workflow is adapted from Chapter 4: First-order Spatial Point Patterns Analysis Methods. I use the Clark–Evans nearest-neighbour test to assess clustering and kernel density estimation (KDE) to visualise variations in point intensity.\n\n\nBy the end of this exercise, I should be able to:\n\nprepare point and polygon features for spatial point pattern analysis;\nconvert sf objects into ppp and owin objects used by spatstat;\napply the Clark–Evans test under Complete Spatial Randomness (CSR);\nconstruct and interpret kernel density surfaces; and\ncompare point intensity within selected planning areas."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#learning-objectives",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#learning-objectives",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "",
+    "text": "By the end of this exercise, I should be able to:\n\nprepare point and polygon features for spatial point pattern analysis;\nconvert sf objects into ppp and owin objects used by spatstat;\napply the Clark–Evans test under Complete Spatial Randomness (CSR);\nconstruct and interpret kernel density surfaces; and\ncompare point intensity within selected planning areas."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#loading-the-r-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#loading-the-r-packages",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Loading the R packages",
+    "text": "Loading the R packages\n\npacman::p_load(\n  sf,\n  spatstat,\n  terra,\n  tmap,\n  tidyverse,\n  knitr\n)\n\ntmap_mode(\"plot\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#data-used",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#data-used",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Data used",
+    "text": "Data used\n\n\n\n\n\n\n\n\nFile\nGeometry\nPurpose\n\n\n\n\nChildCareServices.geojson\nPoint\nLocations and attributes of childcare services\n\n\nMasterPlan2019SubzoneBoundaryNoSea.geojson\nPolygon\nSingapore Master Plan 2019 subzone boundaries\n\n\n\nBoth files were downloaded from data.gov.sg and stored locally in this exercise’s data/geospatial folder."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#mapping-the-point-distribution",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#mapping-the-point-distribution",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Mapping the point distribution",
+    "text": "Mapping the point distribution\n\ntm_shape(sg_boundary) +\n  tm_polygons(fill = \"grey96\", col = \"grey55\", lwd = 0.5) +\n  tm_shape(childcare_sg) +\n  tm_dots(fill = \"#E45756\", size = 0.018, fill_alpha = 0.55) +\n  tm_title(\"Distribution of childcare services in Singapore\") +\n  tm_layout(frame = FALSE)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#analytical-test",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#analytical-test",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Analytical test",
+    "text": "Analytical test\n\nce_test &lt;- clarkevans.test(\n  childcare_ppp,\n  correction = \"none\",\n  alternative = \"clustered\"\n)\n\ntibble(\n  aggregation_index_R = unname(ce_test$estimate),\n  z_statistic = unname(ce_test$statistic),\n  p_value = ce_test$p.value\n) |&gt;\n  mutate(across(everything(), ~ signif(.x, 4))) |&gt;\n  kable(caption = \"Clark--Evans test for all childcare services\")\n\n\nClark–Evans test for all childcare services\n\n\nz_statistic\np_value\n\n\n\n\n0.5353\n0\n\n\n\n\n\nAn index below one indicates that nearest neighbours are closer than would be expected under a random point process. The p-value provides evidence for deciding whether the observed clustering is statistically distinguishable from CSR."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#monte-carlo-csr-test",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#monte-carlo-csr-test",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Monte Carlo CSR test",
+    "text": "Monte Carlo CSR test\n\nset.seed(1234)\n\nce_mc &lt;- clarkevans.test(\n  childcare_ppp,\n  correction = \"none\",\n  alternative = \"clustered\",\n  method = \"MonteCarlo\",\n  nsim = 99\n)\n\ntibble(\n  simulations = 99,\n  aggregation_index_R = unname(ce_mc$estimate),\n  p_value = ce_mc$p.value\n) |&gt;\n  mutate(across(where(is.numeric), ~ signif(.x, 4))) |&gt;\n  kable(caption = \"Monte Carlo Clark--Evans test\")\n\n\nMonte Carlo Clark–Evans test\n\n\nsimulations\np_value\n\n\n\n\n99\n0.01\n\n\n\n\n\nThe simulation-based result compares the observed index with 99 random patterns containing the same number of points in the same study window."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#automatic-bandwidth-selection",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#automatic-bandwidth-selection",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Automatic bandwidth selection",
+    "text": "Automatic bandwidth selection\n\nkde_sg &lt;- density(\n  childcare_ppp,\n  sigma = bw.diggle,\n  edge = TRUE,\n  kernel = \"gaussian\"\n)\n\nselected_bandwidth &lt;- attr(kde_sg, \"sigma\")\n\ntibble(\n  method = \"Diggle cross-validation\",\n  bandwidth_metres = round(selected_bandwidth, 1)\n) |&gt;\n  kable(caption = \"Selected KDE bandwidth\")\n\n\nSelected KDE bandwidth\n\n\nmethod\nbandwidth_metres\n\n\n\n\nDiggle cross-validation\n296\n\n\n\n\n\n\nplot(\n  kde_sg,\n  main = \"Kernel density of childcare services\",\n  ribargs = list(las = 1)\n)\ncontour(kde_sg, add = TRUE)\nplot(sg_owin, add = TRUE, border = \"grey30\", lwd = 0.8)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#rescaling-intensity",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#rescaling-intensity",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Rescaling intensity",
+    "text": "Rescaling intensity\nBecause SVY21 uses metres, the default KDE values are expressed as points per square metre. Multiplying by one million gives a more readable measure of points per square kilometre.\n\nkde_sg_km2 &lt;- eval.im(kde_sg * 1e6)\n\nsummary(kde_sg_km2)\n\nreal-valued pixel image\n128 x 128 pixel array (ny, nx)\nenclosing rectangle: [2667.537, 55941.95] x [21448.48, 50256.33] units\ndimensions of each pixel: 416 x 225.0614 units\nImage is defined on a subset of the rectangular grid\nSubset area = 669941827.488091 square units\nSubset area fraction = 0.437\nPixel values (inside window):\n    range = [-4.811475e-15, 30.63699]\n    integral = 1927788000\n    mean = 2.877546\n\n\n\nplot(\n  kde_sg_km2,\n  main = \"Childcare-service intensity per square kilometre\",\n  ribargs = list(las = 1)\n)\nplot(sg_owin, add = TRUE, border = \"grey25\", lwd = 0.8)"
+  },
+  {
     "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html",
     "href": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html",
     "title": "Hands-on Exercise 1(1): Geospatial Data Science with R",
@@ -187,5 +250,68 @@
     "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
     "section": "Refining the map layout",
     "text": "Refining the map layout\n\ntm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"PCT_AGED\",\n    fill.scale = tm_scale_intervals(\n      style = \"jenks\",\n      n = 6,\n      values = \"brewer.purples\"\n    ),\n    fill.legend = tm_legend(\n      title = \"Residents aged 65+ (%)\"\n    ),\n    col = \"grey85\",\n    lwd = 0.3\n  ) +\n  tm_title(\"Share of residents aged 65 and above, 2024\") +\n  tm_compass(type = \"8star\", position = c(\"right\", \"top\")) +\n  tm_scalebar(position = c(\"right\", \"bottom\")) +\n  tm_credits(\n    \"Source: Singapore Department of Statistics and data.gov.sg\",\n    position = c(\"left\", \"bottom\")\n  ) +\n  tm_layout(\n    frame = FALSE,\n    legend.outside = TRUE,\n    bg.color = \"grey98\"\n  )"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "",
+    "text": "This exercise extends the first-order analysis by examining interactions among childcare-service locations over a range of distances. Second-order methods help determine whether an observed point pattern is more clustered or dispersed than expected under Complete Spatial Randomness (CSR).\nThe workflow follows Chapter 5: Second-order Spatial Point Patterns Analysis Methods. I apply the G, F, K, and L functions to childcare services in Choa Chu Kang and Tampines, then use Monte Carlo envelopes to compare selected results with CSR.\n\n\nBy the end of this exercise, I should be able to:\n\nexplain the different perspectives provided by G, F, K, and L functions;\nestimate second-order summary functions with spatstat;\nconstruct Monte Carlo simulation envelopes under CSR;\ncompare observed and simulated curves across distance; and\ncommunicate whether a pattern is clustered, dispersed, or compatible with randomness."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#learning-objectives",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#learning-objectives",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "",
+    "text": "By the end of this exercise, I should be able to:\n\nexplain the different perspectives provided by G, F, K, and L functions;\nestimate second-order summary functions with spatstat;\nconstruct Monte Carlo simulation envelopes under CSR;\ncompare observed and simulated curves across distance; and\ncommunicate whether a pattern is clustered, dispersed, or compatible with randomness."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#loading-the-r-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#loading-the-r-packages",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "Loading the R packages",
+    "text": "Loading the R packages\n\npacman::p_load(\n  sf,\n  spatstat,\n  tidyverse,\n  knitr\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#data-used",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#data-used",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "Data used",
+    "text": "Data used\n\n\n\n\n\n\n\n\nFile\nGeometry\nPurpose\n\n\n\n\nChildCareServices.geojson\nPoint\nChildcare-service locations\n\n\nMasterPlan2019SubzoneBoundaryNoSea.geojson\nPolygon\nPlanning-area and subzone boundaries\n\n\n\nThe same official datasets used in Exercise 2(1) are copied into this exercise’s own data/geospatial folder so that the page can be rendered independently."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#g-envelope-for-choa-chu-kang",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#g-envelope-for-choa-chu-kang",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "G-envelope for Choa Chu Kang",
+    "text": "G-envelope for Choa Chu Kang\n\nset.seed(1234)\n\nG_cck_csr &lt;- envelope(\n  cck$ppp,\n  fun = Gest,\n  correction = \"border\",\n  nsim = 39,\n  rank = 1,\n  verbose = FALSE\n)\n\n\nplot(\n  G_cck_csr,\n  main = \"CSR envelope for G-function: Choa Chu Kang\",\n  xlim = c(0, 500),\n  legend = FALSE\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#f-envelope-for-choa-chu-kang",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#f-envelope-for-choa-chu-kang",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "F-envelope for Choa Chu Kang",
+    "text": "F-envelope for Choa Chu Kang\n\nset.seed(1234)\n\nF_cck_csr &lt;- envelope(\n  cck$ppp,\n  fun = Fest,\n  correction = \"km\",\n  nsim = 39,\n  rank = 1,\n  verbose = FALSE\n)\n\n\nplot(\n  F_cck_csr,\n  main = \"CSR envelope for F-function: Choa Chu Kang\",\n  xlim = c(0, 500),\n  legend = FALSE\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#k-envelope-for-tampines",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#k-envelope-for-tampines",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "K-envelope for Tampines",
+    "text": "K-envelope for Tampines\n\nset.seed(1234)\n\nK_tampines_csr &lt;- envelope(\n  tampines$ppp,\n  fun = Kest,\n  correction = \"Ripley\",\n  nsim = 39,\n  rank = 1,\n  global = TRUE,\n  verbose = FALSE\n)\n\n\nplot(\n  K_tampines_csr,\n  . - pi * r^2 ~ r,\n  main = \"CSR envelope for K-function: Tampines\",\n  xlim = c(0, 1000),\n  xlab = \"Distance (m)\",\n  ylab = \"K(r) - pi*r^2\",\n  legend = FALSE\n)\nabline(h = 0, lty = 2, col = \"grey45\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#l-envelope-for-tampines",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#l-envelope-for-tampines",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "L-envelope for Tampines",
+    "text": "L-envelope for Tampines\n\nset.seed(1234)\n\nL_tampines_csr &lt;- envelope(\n  tampines$ppp,\n  fun = Lest,\n  correction = \"Ripley\",\n  nsim = 39,\n  rank = 1,\n  global = TRUE,\n  verbose = FALSE\n)\n\n\nplot(\n  L_tampines_csr,\n  . - r ~ r,\n  main = \"CSR envelope for L-function: Tampines\",\n  xlim = c(0, 1000),\n  xlab = \"Distance (m)\",\n  ylab = \"L(r) - r\",\n  legend = FALSE\n)\nabline(h = 0, lty = 2, col = \"grey45\")"
+  },
+  {
+    "objectID": "hands-on.html",
+    "href": "hands-on.html",
+    "title": "Hands-on Exercises",
+    "section": "",
+    "text": "ISSS626 · Learning Portfolio\n    Hands-on Exercises\n    Explore my practical work in geospatial data science. Each exercise documents the data preparation, analytical decisions, R workflow, results, and reflections developed during the course.\n  \n  \n    04\n    Exercises completed\n  \n\n\n\n  \n    Assignment directory\n    Choose an exercise\n  \n  The exercises progress from preparing and visualising geospatial data to analysing the spatial distribution and interaction of point events.\n\n\n\n  \n    \n      01.1\n      \n    \n    Geospatial foundations\n    Geospatial Data Science with R\n    Import polygon, line, point, and aspatial data; examine coordinate reference systems; convert coordinate tables into spatial features; and perform basic geoprocessing with sf.\n    \n      sfCRSGeoprocessing\n    \n    \n      Open Exercise 1(1) \n    \n  \n\n  \n    \n      01.2\n      \n    \n    Thematic mapping\n    Thematic Mapping and Geovisualisation\n    Prepare Singapore's 2024 resident population data, join it to subzone boundaries, and create choropleth maps using suitable classifications, colour palettes, and layouts.\n    \n      tmapChoropleth2024 population\n    \n    \n      Open Exercise 1(2) \n    \n  \n\n  \n    \n      02.1\n      \n    \n    First-order point patterns\n    Spatial Intensity and Kernel Density\n    Examine childcare-service locations using the Clark–Evans nearest-neighbour test, Complete Spatial Randomness simulations, and kernel density estimation at national and planning-area scales.\n    \n      spatstatClark–EvansKDE\n    \n    \n      Open Exercise 2(1) \n    \n  \n\n  \n    \n      02.2\n      \n    \n    Second-order point patterns\n    Spatial Interaction Across Distance\n    Use G, F, K, and L functions with Monte Carlo envelopes to investigate whether childcare-service patterns are clustered, dispersed, or compatible with randomness across distance.\n    \n      G & FK & LCSR envelopes\n    \n    \n      Open Exercise 2(2) \n    \n  \n\n\n\n  \n  \n    This portfolio is still growing.\n    New hands-on exercises will be added here as the course progresses."
   }
 ]

@@ -8,6 +8,9 @@ website:
     left:
       - text: "Hands-on Exercise"
         menu:
+          - text: "Hands-on Exercise Overview"
+            href: "hands-on.html"
+
           - text: "Hands-on Exercise 1(1)"
             href: "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html"
 
@@ -15,10 +18,10 @@ website:
             href: "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html"
 
           - text: "Hands-on Exercise 2(1)"
-            href: "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex0201.html"
+            href: "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html"
 
           - text: "Hands-on Exercise 2(2)"
-            href: "Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex0202.html"
+            href: "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html"
 
           - text: "Hands-on Exercise 3"
             href: "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html"

@@ -1,0 +1,106 @@
+---
+pagetitle: "Hands-on Exercises"
+page-layout: full
+toc: false
+editor: source
+---
+
+::: {.exercise-shell}
+
+```{=html}
+<header class="exercise-hero">
+  <div class="exercise-hero-copy">
+    <span class="exercise-eyebrow"><i class="bi bi-journal-code"></i> ISSS626 · Learning Portfolio</span>
+    <h1>Hands-on Exercises</h1>
+    <p>Explore my practical work in geospatial data science. Each exercise documents the data preparation, analytical decisions, R workflow, results, and reflections developed during the course.</p>
+  </div>
+  <div class="exercise-summary" aria-label="Portfolio summary">
+    <span class="summary-value">04</span>
+    <span class="summary-label">Exercises completed</span>
+  </div>
+</header>
+
+<section class="exercise-intro">
+  <div>
+    <span class="exercise-eyebrow">Assignment directory</span>
+    <h2>Choose an exercise</h2>
+  </div>
+  <p>The exercises progress from preparing and visualising geospatial data to analysing the spatial distribution and interaction of point events.</p>
+</section>
+
+<div class="exercise-grid">
+  <article class="exercise-card accent-cyan">
+    <div class="exercise-card-top">
+      <span class="exercise-number">01.1</span>
+      <span class="exercise-icon"><i class="bi bi-layers-fill"></i></span>
+    </div>
+    <span class="exercise-category">Geospatial foundations</span>
+    <h3>Geospatial Data Science with R</h3>
+    <p>Import polygon, line, point, and aspatial data; examine coordinate reference systems; convert coordinate tables into spatial features; and perform basic geoprocessing with <strong>sf</strong>.</p>
+    <div class="exercise-tags">
+      <span>sf</span><span>CRS</span><span>Geoprocessing</span>
+    </div>
+    <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html">
+      Open Exercise 1(1) <i class="bi bi-arrow-up-right"></i>
+    </a>
+  </article>
+
+  <article class="exercise-card accent-blue">
+    <div class="exercise-card-top">
+      <span class="exercise-number">01.2</span>
+      <span class="exercise-icon"><i class="bi bi-map-fill"></i></span>
+    </div>
+    <span class="exercise-category">Thematic mapping</span>
+    <h3>Thematic Mapping and Geovisualisation</h3>
+    <p>Prepare Singapore's 2024 resident population data, join it to subzone boundaries, and create choropleth maps using suitable classifications, colour palettes, and layouts.</p>
+    <div class="exercise-tags">
+      <span>tmap</span><span>Choropleth</span><span>2024 population</span>
+    </div>
+    <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html">
+      Open Exercise 1(2) <i class="bi bi-arrow-up-right"></i>
+    </a>
+  </article>
+
+  <article class="exercise-card accent-violet">
+    <div class="exercise-card-top">
+      <span class="exercise-number">02.1</span>
+      <span class="exercise-icon"><i class="bi bi-geo-fill"></i></span>
+    </div>
+    <span class="exercise-category">First-order point patterns</span>
+    <h3>Spatial Intensity and Kernel Density</h3>
+    <p>Examine childcare-service locations using the Clark–Evans nearest-neighbour test, Complete Spatial Randomness simulations, and kernel density estimation at national and planning-area scales.</p>
+    <div class="exercise-tags">
+      <span>spatstat</span><span>Clark–Evans</span><span>KDE</span>
+    </div>
+    <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html">
+      Open Exercise 2(1) <i class="bi bi-arrow-up-right"></i>
+    </a>
+  </article>
+
+  <article class="exercise-card accent-amber">
+    <div class="exercise-card-top">
+      <span class="exercise-number">02.2</span>
+      <span class="exercise-icon"><i class="bi bi-bullseye"></i></span>
+    </div>
+    <span class="exercise-category">Second-order point patterns</span>
+    <h3>Spatial Interaction Across Distance</h3>
+    <p>Use G, F, K, and L functions with Monte Carlo envelopes to investigate whether childcare-service patterns are clustered, dispersed, or compatible with randomness across distance.</p>
+    <div class="exercise-tags">
+      <span>G &amp; F</span><span>K &amp; L</span><span>CSR envelopes</span>
+    </div>
+    <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html">
+      Open Exercise 2(2) <i class="bi bi-arrow-up-right"></i>
+    </a>
+  </article>
+</div>
+
+<div class="exercise-footer-note">
+  <i class="bi bi-plus-circle"></i>
+  <div>
+    <strong>This portfolio is still growing.</strong>
+    <span>New hands-on exercises will be added here as the course progresses.</span>
+  </div>
+</div>
+```
+
+:::

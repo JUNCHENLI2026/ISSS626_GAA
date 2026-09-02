@@ -22,8 +22,8 @@ editor: source
 
 ```{=html}
 <div class="hero-actions">
-  <a class="home-button home-button-primary" href="#portfolio">
-    View assignment list <i class="bi bi-arrow-down"></i>
+  <a class="home-button home-button-primary" href="hands-on.html">
+    View assignment list <i class="bi bi-arrow-right"></i>
   </a>
   <a class="home-button home-button-secondary" href="#learning">My learning process</a>
 </div>
@@ -58,7 +58,7 @@ editor: source
   </div>
 
   <div class="portfolio-grid">
-    <a class="portfolio-card featured-card" href="Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html">
+    <a class="portfolio-card featured-card" href="hands-on.html">
       <span class="card-icon"><i class="bi bi-compass-fill"></i></span>
       <span class="card-meta">Step-by-step practice</span>
       <h3>Hands-on Exercises</h3>
