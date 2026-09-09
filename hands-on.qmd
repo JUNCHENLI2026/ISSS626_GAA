@@ -15,7 +15,7 @@ editor: source
     <p>Explore my practical work in geospatial data science. Each exercise documents the data preparation, analytical decisions, R workflow, results, and reflections developed during the course.</p>
   </div>
   <div class="exercise-summary" aria-label="Portfolio summary">
-    <span class="summary-value">04</span>
+    <span class="summary-value">05</span>
     <span class="summary-label">Exercises completed</span>
   </div>
 </header>
@@ -91,6 +91,20 @@ editor: source
     <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html">
       Open Exercise 2(2) <i class="bi bi-arrow-up-right"></i>
     </a>
+  </article>
+</div>
+
+<div class="exercise-grid" style="margin-top: 1rem;">
+  <article class="exercise-card accent-cyan">
+    <div class="exercise-card-top">
+      <span class="exercise-number">03</span>
+      <span class="exercise-icon"><i class="bi bi-calendar3"></i></span>
+    </div>
+    <span class="exercise-category">Spatio-temporal patterns</span>
+    <h3>Fire Detections Across Space and Time</h3>
+    <p>Explore 2023 MODIS detections on Bangka through monthly maps, space-time kernel density estimates, bandwidth selection and the space-time K-function.</p>
+    <div class="exercise-tags"><span>STKDE</span><span>sparr</span><span>stpp</span></div>
+    <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html">Open Exercise 3 <i class="bi bi-arrow-up-right"></i></a>
   </article>
 </div>
 
