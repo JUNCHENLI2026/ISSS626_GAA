@@ -8,3 +8,6 @@
 /data
 /.quarto/
 **/*.quarto_ipynb
+
+# Keep the large original national boundary dataset locally, outside Git.
+/Take-Home_Ex/Take-Home_Ex01/data/Indonesia-geospasial/

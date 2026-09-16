@@ -7,172 +7,130 @@
     "text": "ISSS626 · AY2026–27 August Term\n\nMy Geospatial Analytics Journey\nWelcome to my student portfolio for ISSS626 Geospatial Analytics and Applications. This website documents my work in geospatial data wrangling, spatial analysis, GeoMachine Learning, geovisualisation, and reproducible reporting with R.\n\n  \n    View assignment list \n  \n  My learning process\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  \n    My coursework\n    Explore my work\n    Follow my progress from guided practice to independent geospatial analysis.\n  \n\n  \n    \n      \n      Step-by-step practice\n      Hands-on Exercises\n      Practical work using R and R packages to build geospatial analysis skills through step-by-step, real-world use cases.\n      Start exploring \n    \n\n    \n      \n      Applied analysis\n      Take-home Exercises\n      Independent mini real-world cases that synthesise methods learned from readings, hands-on work, and in-class exercises.\n       In progress\n    \n\n    \n      \n      My learning toolkit\n      Skills & Methods\n      R programming · Spatial data wrangling · Geoprocessing · Spatial statistics · GeoMachine Learning · Geovisualisation\n       Building as I learn\n    \n  \n\n\n  \n    Course learning objectives\n    Building a reproducible spatial workflow\n  \n\n  \n    \n      01\n      \n      Wrangle\n      Import, tidy, manipulate, transform, project, and process geospatial data programmatically.\n    \n\n    \n      02\n      \n      Analyse\n      Apply spatial statistics and GeoMachine Learning methods to address specific analytical needs.\n    \n\n    \n      03\n      \n      Communicate\n      Explain results clearly through appropriate geovisualisation and fully reproducible reports."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html",
-    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html",
-    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html",
+    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
     "section": "",
-    "text": "This exercise extends the first-order analysis by examining interactions among childcare-service locations over a range of distances. Second-order methods help determine whether an observed point pattern is more clustered or dispersed than expected under Complete Spatial Randomness (CSR).\nThe workflow follows Chapter 5: Second-order Spatial Point Patterns Analysis Methods. I apply the G, F, K, and L functions to childcare services in Choa Chu Kang and Tampines, then use Monte Carlo envelopes to compare selected results with CSR.\n\n\nBy the end of this exercise, I should be able to:\n\nexplain the different perspectives provided by G, F, K, and L functions;\nestimate second-order summary functions with spatstat;\nconstruct Monte Carlo simulation envelopes under CSR;\ncompare observed and simulated curves across distance; and\ncommunicate whether a pattern is clustered, dispersed, or compatible with randomness."
+    "text": "Following Chapter 6, I explore the locations and timing of MODIS active-fire detections during 2023. The analysis combines spatial data preparation, temporal summaries, space-time kernel density estimation (STKDE), bandwidth selection and the space-time K-function.\nMy questions are: when are detections most frequent, how does their geographical concentration change through the year, and what can the joint spatial and temporal pattern tell us? Satellite detections are observations of thermal anomalies, not necessarily distinct fires or confirmed forest fires."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#learning-objectives",
-    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#learning-objectives",
-    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
-    "section": "",
-    "text": "By the end of this exercise, I should be able to:\n\nexplain the different perspectives provided by G, F, K, and L functions;\nestimate second-order summary functions with spatstat;\nconstruct Monte Carlo simulation envelopes under CSR;\ncompare observed and simulated curves across distance; and\ncommunicate whether a pattern is clustered, dispersed, or compatible with randomness."
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#loading-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#loading-packages",
+    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
+    "section": "Loading packages",
+    "text": "Loading packages\n\n\nShow code\nlibrary(sf)\nlibrary(spatstat)\nlibrary(sparr)\nlibrary(tidyverse)\nlibrary(lubridate)\nlibrary(knitr)\ntheme_set(theme_minimal(base_size = 12))"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#loading-the-r-packages",
-    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#loading-the-r-packages",
-    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#overall-point-map",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#overall-point-map",
+    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
+    "section": "Overall point map",
+    "text": "Overall point map\n\n\nShow code\nggplot() +\n  geom_sf(data = kbb_sf, fill = \"#f1f5f9\", colour = \"#64748b\") +\n  geom_sf(data = fire_sf, aes(colour = DayofYear), size = .8, alpha = .7) +\n  scale_colour_viridis_c(option = \"C\") +\n  labs(title = \"MODIS detections on Bangka, 2023\", colour = \"Day of year\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#monthly-counts-and-maps",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#monthly-counts-and-maps",
+    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
+    "section": "Monthly counts and maps",
+    "text": "Monthly counts and maps\nCounts include months with zero detections. A count measures observations recorded by the sensor; cloud cover, revisit frequency and repeated observations can influence it.\n\n\nShow code\nmonthly &lt;- fire |&gt; count(Month_num) |&gt;\n  complete(Month_num = 1:12, fill = list(n = 0)) |&gt;\n  mutate(Month = factor(month.abb[Month_num], levels = month.abb))\nggplot(monthly, aes(Month, n)) +\n  geom_col(fill = \"#238b8d\") +\n  labs(title = \"Monthly fire detections\", x = NULL, y = \"Detections\")\n\n\n\n\n\n\n\n\n\nThe largest monthly total is in Oct, with 185 detections, or 24.9% of this study’s annual total.\n\n\nShow code\nggplot() +\n  geom_sf(data = kbb_sf, fill = \"grey96\", colour = \"grey65\", linewidth = .2) +\n  geom_sf(data = fire_sf, colour = \"#d95f02\", size = .5, alpha = .7) +\n  facet_wrap(~Month_fac, ncol = 4, drop = FALSE) +\n  labs(title = \"Monthly spatial distribution, 2023\") +\n  theme(axis.text = element_text(size = 6))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#automatic-daily-bandwidth",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#automatic-daily-bandwidth",
+    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
+    "section": "Automatic daily bandwidth",
+    "text": "Automatic daily bandwidth\nThe observation interval is the full 2023 calendar year, including days without detections. The returned bandwidths are estimated from the local data, so they can differ from the chapter’s values.\n\n\nShow code\nst_day &lt;- spattemp.density(fire_yday_owin, tlim = c(1,365),\n                           sres = 128, verbose = FALSE)\nsummary(st_day)\n\n\nSpatiotemporal Kernel Density Estimate\n\nBandwidths\n  h = 15097.84 (spatial)\n  lambda = 6.2712 (temporal)\n\nNo. of observations\n  744 \n\nSpatial bound\n  Type: polygonal\n  2D enclosure: [512066.8, 705559.4] x [9655398, 9834006]\n\nTemporal bound\n  [1, 365]\n\nEvaluation\n  128 x 128 x 365 trivariate lattice\n  Density range: [2.313361e-29, 2.749113e-12]"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#bootstrap-bandwidth-selection",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#bootstrap-bandwidth-selection",
+    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
+    "section": "Bootstrap bandwidth selection",
+    "text": "Bootstrap bandwidth selection\nThe bootstrap selector jointly chooses spatial and temporal smoothing parameters. Its numerical integration uses a 64 by 64 spatial grid and 64 temporal evaluation points. The final density is evaluated on a finer spatial grid and every day of the year.\n\n\nShow code\nset.seed(1234)\nbandwidths &lt;- BOOT.spattemp(fire_yday_owin, tlim = c(1,365),\n                            sres = 64, tres = 64, verbose = FALSE)\nst_boot &lt;- spattemp.density(fire_yday_owin,\n                            h = unname(bandwidths[1]),\n                            lambda = unname(bandwidths[2]),\n                            tlim = c(1,365), sres = 128, verbose = FALSE)\ntibble(Method = c(\"Automatic\", \"Bootstrap\"),\n       Spatial_m = c(st_day$h, st_boot$h),\n       Temporal_days = c(st_day$lambda, st_boot$lambda)) |&gt; kable(digits = 2)\n\n\n\n\n\nMethod\nSpatial_m\nTemporal_days\n\n\n\n\nAutomatic\n15097.84\n6.27\n\n\nBootstrap\n8963.05\n18.90\n\n\n\n\n\n\n\nShow code\nselected_days &lt;- yday(as.Date(paste0(\"2023-\", 7:12, \"-15\")))\npar(mfrow = c(2,3))\nfor (d in selected_days) {\n  plot(st_boot, d, override.par = FALSE, fix.range = TRUE,\n       main = paste(\"Joint density: day\", d))\n}\n\n\n\n\n\n\n\n\n\nShow code\npar(mfrow = c(1,1))\n\n\nThe common colour range supports comparison between dates. In the fitted surfaces, July and August show stronger concentration in the northwest; October and November shift toward the south and southeast. These are joint probability-density surfaces, measured per square metre per day, not burned area or a count per pixel. Multiplying by the event count converts the joint density into an estimated detection intensity."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#comparing-smoothing-on-the-same-date",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#comparing-smoothing-on-the-same-date",
+    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
+    "section": "Comparing smoothing on the same date",
+    "text": "Comparing smoothing on the same date\n\n\nShow code\ncomparison_day &lt;- selected_days[3]\nsurfaces &lt;- list(st_day$z[[as.character(comparison_day)]],\n                 st_boot$z[[as.character(comparison_day)]])\ncommon_range &lt;- range(unlist(lapply(surfaces, function(z) z$v)), na.rm = TRUE)\npar(mfrow = c(1,2))\nplot(surfaces[[1]], zlim = common_range, main = \"Automatic: 15 September\")\nplot(surfaces[[2]], zlim = common_range, main = \"Bootstrap: 15 September\")\n\n\n\n\n\n\n\n\n\nShow code\npar(mfrow = c(1,1))"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#constructing-the-stpp-object",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#constructing-the-stpp-object",
+    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
+    "section": "Constructing the stpp object",
+    "text": "Constructing the stpp object\nI convert coordinates to kilometres so that spatial lags are readable. The time coordinate remains day of year. This example follows the chapter’s rectangular-window K analysis: the bounding rectangle includes sea, unlike the polygon window used for KDE. That difference limits the comparison.\n\n\nShow code\nfire_stpp &lt;- stpp::as.3dpoints(data.frame(\n  x = xy[,1]/1000, y = xy[,2]/1000, t = as.integer(fire$DayofYear)))\nclass(fire_stpp)\n\n\n[1] \"stpp\""
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#estimating-k-over-spatial-and-temporal-lags",
+    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#estimating-k-over-spatial-and-temporal-lags",
+    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
+    "section": "Estimating K over spatial and temporal lags",
+    "text": "Estimating K over spatial and temporal lags\n\n\nShow code\nkbb_stik &lt;- stpp::STIKhat(fire_stpp, t.region = c(1,365),\n                         dist = seq(0,40,by = 2),\n                         times = seq(0,80,by = 4),\n                         correction = \"isotropic\")\n\n\nAlthough the function supports an inhomogeneous estimator, this call omits lambda and therefore uses the homogeneous estimator. Theoretical Poisson values are a reference, not a simulation envelope or a significance test.\n\n\nShow code\nfilled.contour(kbb_stik$dist, kbb_stik$times, kbb_stik$Khat,\n               color.palette = hcl.colors,\n               xlab = \"Spatial lag (km)\", ylab = \"Temporal lag (days)\",\n               main = \"Space-time K: Bangka detections\")\n\n\n\n\n\n\n\n\n\n\n\nShow code\nexcess &lt;- kbb_stik$Khat - kbb_stik$Ktheo\ncontour(kbb_stik$dist, kbb_stik$times, excess,\n        xlab = \"Spatial lag (km)\", ylab = \"Temporal lag (days)\",\n        main = \"Estimated K minus the Poisson reference\")\n\n\n\n\n\n\n\n\n\nPositive differences identify lags with excess close pairs relative to the homogeneous reference. Seasonal variation and unequal spatial intensity can also generate this pattern. Establishing space-time dependence would require an appropriate null model, for example a time-permutation test, and a study-window treatment consistent with the land boundary."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "",
+    "text": "This exercise examines the first-order spatial pattern of childcare services in Singapore. First-order analysis focuses on spatial intensity: whether events are evenly distributed and where their concentration is relatively high.\nThe workflow is adapted from Chapter 4: First-order Spatial Point Patterns Analysis Methods. I use the Clark–Evans nearest-neighbour test to assess clustering and kernel density estimation (KDE) to visualise variations in point intensity.\n\n\nBy the end of this exercise, I should be able to:\n\nprepare point and polygon features for spatial point pattern analysis;\nconvert sf objects into ppp and owin objects used by spatstat;\napply the Clark–Evans test under Complete Spatial Randomness (CSR);\nconstruct and interpret kernel density surfaces; and\ncompare point intensity within selected planning areas."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#learning-objectives",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#learning-objectives",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "",
+    "text": "By the end of this exercise, I should be able to:\n\nprepare point and polygon features for spatial point pattern analysis;\nconvert sf objects into ppp and owin objects used by spatstat;\napply the Clark–Evans test under Complete Spatial Randomness (CSR);\nconstruct and interpret kernel density surfaces; and\ncompare point intensity within selected planning areas."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#loading-the-r-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#loading-the-r-packages",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
     "section": "Loading the R packages",
-    "text": "Loading the R packages\n\npacman::p_load(\n  sf,\n  spatstat,\n  tidyverse,\n  knitr\n)"
+    "text": "Loading the R packages\n\npacman::p_load(\n  sf,\n  spatstat,\n  terra,\n  tmap,\n  tidyverse,\n  knitr\n)\n\ntmap_mode(\"plot\")"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#data-used",
-    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#data-used",
-    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#data-used",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#data-used",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
     "section": "Data used",
-    "text": "Data used\n\n\n\n\n\n\n\n\nFile\nGeometry\nPurpose\n\n\n\n\nChildCareServices.geojson\nPoint\nChildcare-service locations\n\n\nMasterPlan2019SubzoneBoundaryNoSea.geojson\nPolygon\nPlanning-area and subzone boundaries\n\n\n\nThe same official datasets used in Exercise 2(1) are copied into this exercise’s own data/geospatial folder so that the page can be rendered independently."
+    "text": "Data used\n\n\n\n\n\n\n\n\nFile\nGeometry\nPurpose\n\n\n\n\nChildCareServices.geojson\nPoint\nLocations and attributes of childcare services\n\n\nMasterPlan2019SubzoneBoundaryNoSea.geojson\nPolygon\nSingapore Master Plan 2019 subzone boundaries\n\n\n\nBoth files were downloaded from data.gov.sg and stored locally in this exercise’s data/geospatial folder."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#g-envelope-for-choa-chu-kang",
-    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#g-envelope-for-choa-chu-kang",
-    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
-    "section": "G-envelope for Choa Chu Kang",
-    "text": "G-envelope for Choa Chu Kang\n\nset.seed(1234)\n\nG_cck_csr &lt;- envelope(\n  cck$ppp,\n  fun = Gest,\n  correction = \"border\",\n  nsim = 39,\n  rank = 1,\n  verbose = FALSE\n)\n\n\nplot(\n  G_cck_csr,\n  main = \"CSR envelope for G-function: Choa Chu Kang\",\n  xlim = c(0, 500),\n  legend = FALSE\n)"
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#mapping-the-point-distribution",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#mapping-the-point-distribution",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Mapping the point distribution",
+    "text": "Mapping the point distribution\n\ntm_shape(sg_boundary) +\n  tm_polygons(fill = \"grey96\", col = \"grey55\", lwd = 0.5) +\n  tm_shape(childcare_sg) +\n  tm_dots(fill = \"#E45756\", size = 0.018, fill_alpha = 0.55) +\n  tm_title(\"Distribution of childcare services in Singapore\") +\n  tm_layout(frame = FALSE)"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#f-envelope-for-choa-chu-kang",
-    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#f-envelope-for-choa-chu-kang",
-    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
-    "section": "F-envelope for Choa Chu Kang",
-    "text": "F-envelope for Choa Chu Kang\n\nset.seed(1234)\n\nF_cck_csr &lt;- envelope(\n  cck$ppp,\n  fun = Fest,\n  correction = \"km\",\n  nsim = 39,\n  rank = 1,\n  verbose = FALSE\n)\n\n\nplot(\n  F_cck_csr,\n  main = \"CSR envelope for F-function: Choa Chu Kang\",\n  xlim = c(0, 500),\n  legend = FALSE\n)"
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#analytical-test",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#analytical-test",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Analytical test",
+    "text": "Analytical test\n\nce_test &lt;- clarkevans.test(\n  childcare_ppp,\n  correction = \"none\",\n  alternative = \"clustered\"\n)\n\ntibble(\n  aggregation_index_R = unname(ce_test$estimate),\n  z_statistic = unname(ce_test$statistic),\n  p_value = ce_test$p.value\n) |&gt;\n  mutate(across(everything(), ~ signif(.x, 4))) |&gt;\n  kable(caption = \"Clark--Evans test for all childcare services\")\n\n\nClark–Evans test for all childcare services\n\n\nz_statistic\np_value\n\n\n\n\n0.5353\n0\n\n\n\n\n\nAn index below one indicates that nearest neighbours are closer than would be expected under a random point process. The p-value provides evidence for deciding whether the observed clustering is statistically distinguishable from CSR."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#k-envelope-for-tampines",
-    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#k-envelope-for-tampines",
-    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
-    "section": "K-envelope for Tampines",
-    "text": "K-envelope for Tampines\n\nset.seed(1234)\n\nK_tampines_csr &lt;- envelope(\n  tampines$ppp,\n  fun = Kest,\n  correction = \"Ripley\",\n  nsim = 39,\n  rank = 1,\n  global = TRUE,\n  verbose = FALSE\n)\n\n\nplot(\n  K_tampines_csr,\n  . - pi * r^2 ~ r,\n  main = \"CSR envelope for K-function: Tampines\",\n  xlim = c(0, 1000),\n  xlab = \"Distance (m)\",\n  ylab = \"K(r) - pi*r^2\",\n  legend = FALSE\n)\nabline(h = 0, lty = 2, col = \"grey45\")"
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#monte-carlo-csr-test",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#monte-carlo-csr-test",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Monte Carlo CSR test",
+    "text": "Monte Carlo CSR test\n\nset.seed(1234)\n\nce_mc &lt;- clarkevans.test(\n  childcare_ppp,\n  correction = \"none\",\n  alternative = \"clustered\",\n  method = \"MonteCarlo\",\n  nsim = 99\n)\n\ntibble(\n  simulations = 99,\n  aggregation_index_R = unname(ce_mc$estimate),\n  p_value = ce_mc$p.value\n) |&gt;\n  mutate(across(where(is.numeric), ~ signif(.x, 4))) |&gt;\n  kable(caption = \"Monte Carlo Clark--Evans test\")\n\n\nMonte Carlo Clark–Evans test\n\n\nsimulations\np_value\n\n\n\n\n99\n0.01\n\n\n\n\n\nThe simulation-based result compares the observed index with 99 random patterns containing the same number of points in the same study window."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#l-envelope-for-tampines",
-    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#l-envelope-for-tampines",
-    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
-    "section": "L-envelope for Tampines",
-    "text": "L-envelope for Tampines\n\nset.seed(1234)\n\nL_tampines_csr &lt;- envelope(\n  tampines$ppp,\n  fun = Lest,\n  correction = \"Ripley\",\n  nsim = 39,\n  rank = 1,\n  global = TRUE,\n  verbose = FALSE\n)\n\n\nplot(\n  L_tampines_csr,\n  . - r ~ r,\n  main = \"CSR envelope for L-function: Tampines\",\n  xlim = c(0, 1000),\n  xlab = \"Distance (m)\",\n  ylab = \"L(r) - r\",\n  legend = FALSE\n)\nabline(h = 0, lty = 2, col = \"grey45\")"
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#automatic-bandwidth-selection",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#automatic-bandwidth-selection",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Automatic bandwidth selection",
+    "text": "Automatic bandwidth selection\n\nkde_sg &lt;- density(\n  childcare_ppp,\n  sigma = bw.diggle,\n  edge = TRUE,\n  kernel = \"gaussian\"\n)\n\nselected_bandwidth &lt;- attr(kde_sg, \"sigma\")\n\ntibble(\n  method = \"Diggle cross-validation\",\n  bandwidth_metres = round(selected_bandwidth, 1)\n) |&gt;\n  kable(caption = \"Selected KDE bandwidth\")\n\n\nSelected KDE bandwidth\n\n\nmethod\nbandwidth_metres\n\n\n\n\nDiggle cross-validation\n296\n\n\n\n\n\n\nplot(\n  kde_sg,\n  main = \"Kernel density of childcare services\",\n  ribargs = list(las = 1)\n)\ncontour(kde_sg, add = TRUE)\nplot(sg_owin, add = TRUE, border = \"grey30\", lwd = 0.8)"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html",
-    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html",
-    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
-    "section": "",
-    "text": "This hands-on exercise develops a reproducible thematic-mapping workflow with sf, tidyverse, and tmap. I prepare 2024 resident population data, join it to Singapore’s Master Plan 2019 subzones, and design choropleth maps that communicate demographic patterns.\nThe workflow follows Chapter 2: Thematic Mapping and GeoVisualisation with R, using the same Master Plan 2019 KML boundary and June 2024 population dataset specified in the chapter.\n\n\nBy the end of this exercise, I should be able to:\n\nprepare demographic variables from a detailed population table;\njoin aspatial attributes to a spatial boundary layer;\nproduce choropleth maps with suitable classification methods and palettes;\nimprove map layout, titles, legends, and explanatory elements; and\ncompare several related indicators using small multiples."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#learning-objectives",
-    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#learning-objectives",
-    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
-    "section": "",
-    "text": "By the end of this exercise, I should be able to:\n\nprepare demographic variables from a detailed population table;\njoin aspatial attributes to a spatial boundary layer;\nproduce choropleth maps with suitable classification methods and palettes;\nimprove map layout, titles, legends, and explanatory elements; and\ncompare several related indicators using small multiples."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#loading-the-r-packages",
-    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#loading-the-r-packages",
-    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
-    "section": "Loading the R packages",
-    "text": "Loading the R packages\n\npacman::p_load(\n  sf,\n  tidyverse,\n  rvest,\n  tmap,\n  knitr\n)\n\ntmap_mode(\"plot\")"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#importing-the-data",
-    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#importing-the-data",
-    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
-    "section": "Importing the data",
-    "text": "Importing the data\n\nextract_kml_value &lt;- function(description, field_name) {\n  attributes &lt;- description |&gt;\n    read_html() |&gt;\n    html_table(fill = TRUE) |&gt;\n    pluck(1)\n\n  names(attributes)[1:2] &lt;- c(\"field\", \"value\")\n\n  result &lt;- attributes |&gt;\n    filter(field == field_name) |&gt;\n    pull(value)\n\n  if (length(result) == 0) NA_character_ else result[[1]]\n}\n\nmpsz &lt;- st_read(\n  \"data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml\",\n  quiet = TRUE\n) |&gt;\n  mutate(\n    SUBZONE_N = map_chr(\n      Description,\n      ~ extract_kml_value(.x, \"SUBZONE_N\")\n    ),\n    PLN_AREA_N = map_chr(\n      Description,\n      ~ extract_kml_value(.x, \"PLN_AREA_N\")\n    ),\n    REGION_N = map_chr(\n      Description,\n      ~ extract_kml_value(.x, \"REGION_N\")\n    )\n  ) |&gt;\n  select(SUBZONE_N, PLN_AREA_N, REGION_N) |&gt;\n  st_make_valid() |&gt;\n  st_transform(3414)\n\npop2024 &lt;- read_csv(\n  \"data/aspatial/respopagesextod2024.csv\",\n  show_col_types = FALSE\n)\n\n\ntibble(\n  data = c(\"Subzone boundaries\", \"Population records\"),\n  observations = c(nrow(mpsz), nrow(pop2024)),\n  year = c(2019, 2024)\n) |&gt;\n  kable()\n\n\n\n\ndata\nobservations\nyear\n\n\n\n\nSubzone boundaries\n332\n2019\n\n\nPopulation records\n100928\n2024"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#defining-broad-age-groups",
-    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#defining-broad-age-groups",
-    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
-    "section": "Defining broad age groups",
-    "text": "Defining broad age groups\nFor this exercise, I define:\n\nYoung: age 0–24;\nEconomically active: age 25–64; and\nAged: age 65 and above.\n\n\nyoung_ages &lt;- c(\n  \"0_to_4\", \"5_to_9\", \"10_to_14\", \"15_to_19\",\n  \"20_to_24\"\n)\n\nactive_ages &lt;- c(\n  \"25_to_29\", \"30_to_34\", \"35_to_39\", \"40_to_44\",\n  \"45_to_49\", \"50_to_54\", \"55_to_59\", \"60_to_64\"\n)\n\naged_ages &lt;- c(\n  \"65_to_69\", \"70_to_74\", \"75_to_79\", \"80_to_84\",\n  \"85_to_89\", \"90_and_over\"\n)"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#aggregating-by-subzone",
-    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#aggregating-by-subzone",
-    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
-    "section": "Aggregating by subzone",
-    "text": "Aggregating by subzone\n\npop_profile &lt;- pop2024 |&gt;\n  mutate(\n    SZ = str_to_upper(SZ),\n    PA = str_to_upper(PA),\n    Pop = replace_na(Pop, 0)\n  ) |&gt;\n  group_by(PA, SZ) |&gt;\n  summarise(\n    YOUNG = sum(Pop[AG %in% young_ages]),\n    ECONOMY_ACTIVE = sum(Pop[AG %in% active_ages]),\n    AGED = sum(Pop[AG %in% aged_ages]),\n    TOTAL = sum(Pop),\n    .groups = \"drop\"\n  ) |&gt;\n  mutate(\n    DEPENDENCY = if_else(\n      ECONOMY_ACTIVE &gt; 0,\n      (YOUNG + AGED) / ECONOMY_ACTIVE * 100,\n      NA_real_\n    ),\n    PCT_YOUNG = YOUNG / TOTAL * 100,\n    PCT_AGED = AGED / TOTAL * 100\n  )\n\npop_profile |&gt;\n  arrange(desc(TOTAL)) |&gt;\n  slice_head(n = 10) |&gt;\n  mutate(\n    DEPENDENCY = round(DEPENDENCY, 1),\n    PCT_YOUNG = round(PCT_YOUNG, 1),\n    PCT_AGED = round(PCT_AGED, 1)\n  ) |&gt;\n  kable(\n    caption = \"Ten most populous subzones in the 2024 dataset\"\n  )\n\n\nTen most populous subzones in the 2024 dataset\n\n\n\n\n\n\n\n\n\n\n\n\n\nPA\nSZ\nYOUNG\nECONOMY_ACTIVE\nAGED\nTOTAL\nDEPENDENCY\nPCT_YOUNG\nPCT_AGED\n\n\n\n\nTAMPINES\nTAMPINES EAST\n28610\n73640\n26050\n128300\n74.2\n22.3\n20.3\n\n\nWOODLANDS\nWOODLANDS EAST\n28330\n60420\n11210\n99960\n65.4\n28.3\n11.2\n\n\nTAMPINES\nTAMPINES WEST\n20300\n48230\n14880\n83410\n72.9\n24.3\n17.8\n\n\nBEDOK\nBEDOK NORTH\n16670\n45210\n19750\n81630\n80.6\n20.4\n24.2\n\n\nYISHUN\nYISHUN EAST\n20090\n43070\n8840\n72000\n67.2\n27.9\n12.3\n\n\nSENGKANG\nFERNVALE\n20640\n40910\n7590\n69140\n69.0\n29.9\n11.0\n\n\nJURONG WEST\nYUNNAN\n16460\n39540\n10740\n66740\n68.8\n24.7\n16.1\n\n\nSENGKANG\nRIVERVALE\n16280\n36980\n9490\n62750\n69.7\n25.9\n15.1\n\n\nJURONG WEST\nJURONG WEST CENTRAL\n16360\n36940\n8680\n61980\n67.8\n26.4\n14.0\n\n\nSENGKANG\nSENGKANG TOWN CENTRE\n16070\n36110\n8360\n60540\n67.7\n26.5\n13.8"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#a-basic-choropleth-map",
-    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#a-basic-choropleth-map",
-    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
-    "section": "A basic choropleth map",
-    "text": "A basic choropleth map\nThe first map shows the total resident population. A sequential palette is appropriate because the variable ranges from lower to higher values.\n\ntm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"TOTAL\",\n    fill.scale = tm_scale_intervals(\n      style = \"quantile\",\n      values = \"brewer.blues\"\n    ),\n    fill.legend = tm_legend(title = \"Residents\"),\n    col = \"white\",\n    lwd = 0.25\n  ) +\n  tm_title(\"Resident population by subzone, 2024\") +\n  tm_layout(\n    frame = FALSE,\n    legend.outside = TRUE\n  )"
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#comparing-classification-methods",
-    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#comparing-classification-methods",
-    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
-    "section": "Comparing classification methods",
-    "text": "Comparing classification methods\nDifferent classification methods can emphasise different aspects of the same data. The maps below compare equal intervals with Jenks natural breaks.\n\nequal_map &lt;- tm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"DEPENDENCY\",\n    fill.scale = tm_scale_intervals(\n      style = \"equal\",\n      n = 6,\n      values = \"brewer.oranges\"\n    ),\n    fill.legend = tm_legend(title = \"Dependants per 100\")\n  ) +\n  tm_title(\"Equal intervals\") +\n  tm_layout(frame = FALSE)\n\njenks_map &lt;- tm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"DEPENDENCY\",\n    fill.scale = tm_scale_intervals(\n      style = \"jenks\",\n      n = 6,\n      values = \"brewer.oranges\"\n    ),\n    fill.legend = tm_legend(title = \"Dependants per 100\")\n  ) +\n  tm_title(\"Jenks natural breaks\") +\n  tm_layout(frame = FALSE)\n\ntmap_arrange(equal_map, jenks_map, ncol = 2)\n\n\n\n\n\n\n\n\nQuantile classes contain a similar number of subzones per class, equal intervals preserve equal numerical widths, and Jenks breaks seek internally similar groups. The best choice depends on the distribution and the intended message."
-  },
-  {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#refining-the-map-layout",
-    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#refining-the-map-layout",
-    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
-    "section": "Refining the map layout",
-    "text": "Refining the map layout\n\ntm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"PCT_AGED\",\n    fill.scale = tm_scale_intervals(\n      style = \"jenks\",\n      n = 6,\n      values = \"brewer.purples\"\n    ),\n    fill.legend = tm_legend(\n      title = \"Residents aged 65+ (%)\"\n    ),\n    col = \"grey85\",\n    lwd = 0.3\n  ) +\n  tm_title(\"Share of residents aged 65 and above, 2024\") +\n  tm_compass(type = \"8star\", position = c(\"right\", \"top\")) +\n  tm_scalebar(position = c(\"right\", \"bottom\")) +\n  tm_credits(\n    \"Source: Singapore Department of Statistics and data.gov.sg\",\n    position = c(\"left\", \"bottom\")\n  ) +\n  tm_layout(\n    frame = FALSE,\n    legend.outside = TRUE,\n    bg.color = \"grey98\"\n  )"
-  },
-  {
-    "objectID": "hands-on.html",
-    "href": "hands-on.html",
-    "title": "Hands-on Exercises",
-    "section": "",
-    "text": "ISSS626 · Learning Portfolio\n    Hands-on Exercises\n    Explore my practical work in geospatial data science. Each exercise documents the data preparation, analytical decisions, R workflow, results, and reflections developed during the course.\n  \n  \n    05\n    Exercises completed\n  \n\n\n\n  \n    Assignment directory\n    Choose an exercise\n  \n  The exercises progress from preparing and visualising geospatial data to analysing the spatial distribution and interaction of point events.\n\n\n\n  \n    \n      01.1\n      \n    \n    Geospatial foundations\n    Geospatial Data Science with R\n    Import polygon, line, point, and aspatial data; examine coordinate reference systems; convert coordinate tables into spatial features; and perform basic geoprocessing with sf.\n    \n      sfCRSGeoprocessing\n    \n    \n      Open Exercise 1(1) \n    \n  \n\n  \n    \n      01.2\n      \n    \n    Thematic mapping\n    Thematic Mapping and Geovisualisation\n    Prepare Singapore's 2024 resident population data, join it to subzone boundaries, and create choropleth maps using suitable classifications, colour palettes, and layouts.\n    \n      tmapChoropleth2024 population\n    \n    \n      Open Exercise 1(2) \n    \n  \n\n  \n    \n      02.1\n      \n    \n    First-order point patterns\n    Spatial Intensity and Kernel Density\n    Examine childcare-service locations using the Clark–Evans nearest-neighbour test, Complete Spatial Randomness simulations, and kernel density estimation at national and planning-area scales.\n    \n      spatstatClark–EvansKDE\n    \n    \n      Open Exercise 2(1) \n    \n  \n\n  \n    \n      02.2\n      \n    \n    Second-order point patterns\n    Spatial Interaction Across Distance\n    Use G, F, K, and L functions with Monte Carlo envelopes to investigate whether childcare-service patterns are clustered, dispersed, or compatible with randomness across distance.\n    \n      G & FK & LCSR envelopes\n    \n    \n      Open Exercise 2(2) \n    \n  \n\n\n\n  \n    \n      03\n      \n    \n    Spatio-temporal patterns\n    Fire Detections Across Space and Time\n    Explore 2023 MODIS detections on Bangka through monthly maps, space-time kernel density estimates, bandwidth selection and the space-time K-function.\n    STKDEsparrstpp\n    Open Exercise 3 \n  \n\n\n\n  \n  \n    This portfolio is still growing.\n    New hands-on exercises will be added here as the course progresses."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Hello! I am a student taking ISSS626: Geospatial Analytics and Applications in the AY2026–27 August Term.\nI created this website as a personal learning portfolio to document how I develop practical skills in geospatial analytics with R. It records not only completed maps and analytical results, but also the decisions, experiments, challenges, and improvements that form part of my learning process."
-  },
-  {
-    "objectID": "about.html#about-me",
-    "href": "about.html#about-me",
-    "title": "About",
-    "section": "",
-    "text": "Hello! I am a student taking ISSS626: Geospatial Analytics and Applications in the AY2026–27 August Term.\nI created this website as a personal learning portfolio to document how I develop practical skills in geospatial analytics with R. It records not only completed maps and analytical results, but also the decisions, experiments, challenges, and improvements that form part of my learning process."
-  },
-  {
-    "objectID": "about.html#about-this-portfolio",
-    "href": "about.html#about-this-portfolio",
-    "title": "About",
-    "section": "About this portfolio",
-    "text": "About this portfolio\nThis portfolio brings together my:\n\nhands-on exercises;\nin-class exercises;\ntake-home exercises;\nspatial visualisations and analytical workflows; and\nreflections on methods, findings, and areas for improvement.\n\nEach entry aims to present a clear and reproducible workflow—from obtaining and preparing data, to selecting suitable spatial methods, interpreting the results, and communicating the findings effectively."
-  },
-  {
-    "objectID": "about.html#what-i-am-learning",
-    "href": "about.html#what-i-am-learning",
-    "title": "About",
-    "section": "What I am learning",
-    "text": "What I am learning\nThroughout the course, I am developing my ability to:\n\nimport, tidy, transform, project, and process geospatial data programmatically;\nvisualise and describe geographical patterns using thematic maps and other geovisualisation techniques;\napply spatial statistics and geographical machine-learning methods to real-world questions;\nexplore topics such as spatial point patterns, spatial weights and association, geographic segmentation, geographically weighted models, accessibility, and spatial interaction; and\ndocument the complete analytical process in a reproducible and easy-to-understand report."
-  },
-  {
-    "objectID": "about.html#tools-and-workflow",
-    "href": "about.html#tools-and-workflow",
-    "title": "About",
-    "section": "Tools and workflow",
-    "text": "Tools and workflow\nMy work is mainly created with R and RStudio, supported by packages for data wrangling, spatial analysis, and visualisation. I use Quarto to produce this website and GitHub to manage versions of my work and publish the portfolio."
-  },
-  {
-    "objectID": "about.html#my-learning-approach",
-    "href": "about.html#my-learning-approach",
-    "title": "About",
-    "section": "My learning approach",
-    "text": "My learning approach\nLearning R and geospatial analytics takes patience and regular practice. When an analysis does not work as expected, I treat the problem as an opportunity to examine my assumptions, improve my code, and understand the method more deeply. My goal is to make steady progress throughout the term and communicate each analysis more clearly than the last.\n\n\n\n\n\n\nNoteAbout the work shown here\n\n\n\nThis is a student learning portfolio prepared for educational purposes. The analyses and writing are my own work. Data sources, course references, and external materials are acknowledged on the relevant pages.\n\n\nFor an overview of the module, visit the ISSS626 course website."
+    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#rescaling-intensity",
+    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#rescaling-intensity",
+    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "section": "Rescaling intensity",
+    "text": "Rescaling intensity\nBecause SVY21 uses metres, the default KDE values are expressed as points per square metre. Multiplying by one million gives a more readable measure of points per square kilometre.\n\nkde_sg_km2 &lt;- eval.im(kde_sg * 1e6)\n\nsummary(kde_sg_km2)\n\nreal-valued pixel image\n128 x 128 pixel array (ny, nx)\nenclosing rectangle: [2667.537, 55941.95] x [21448.48, 50256.33] units\ndimensions of each pixel: 416 x 225.0614 units\nImage is defined on a subset of the rectangular grid\nSubset area = 669941827.488091 square units\nSubset area fraction = 0.437\nPixel values (inside window):\n    range = [-4.811475e-15, 30.63699]\n    integral = 1927788000\n    mean = 2.877546\n\n\n\nplot(\n  kde_sg_km2,\n  main = \"Childcare-service intensity per square kilometre\",\n  ribargs = list(las = 1)\n)\nplot(sg_owin, add = TRUE, border = \"grey25\", lwd = 0.8)"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex0101/Hands-on_Ex0101.html",
@@ -252,129 +210,241 @@
     "text": "Counting preschools within each subzone\nst_intersects() returns the matching preschool points for each polygon. The length of each result is the number of preschools in that subzone.\n\nmpsz_analysis &lt;- mpsz_svy21 |&gt;\n  mutate(\n    PRE_SCH_COUNT = lengths(st_intersects(geometry, preschool_svy21)),\n    AREA_KM2 = as.numeric(st_area(geometry)) / 1e6,\n    PRE_SCH_DENSITY = PRE_SCH_COUNT / AREA_KM2\n  )\n\nmpsz_analysis |&gt;\n  st_drop_geometry() |&gt;\n  select(SUBZONE_N, PLN_AREA_N, PRE_SCH_COUNT, AREA_KM2, PRE_SCH_DENSITY) |&gt;\n  slice_max(PRE_SCH_COUNT, n = 10, with_ties = FALSE) |&gt;\n  mutate(\n    AREA_KM2 = round(AREA_KM2, 2),\n    PRE_SCH_DENSITY = round(PRE_SCH_DENSITY, 2)\n  ) |&gt;\n  kable(\n    caption = \"Ten subzones with the largest number of preschools\"\n  )\n\n\nTen subzones with the largest number of preschools\n\n\n\n\n\n\n\n\n\nSUBZONE_N\nPLN_AREA_N\nPRE_SCH_COUNT\nAREA_KM2\nPRE_SCH_DENSITY\n\n\n\n\nTAMPINES EAST\nTAMPINES\n72\n4.34\n16.59\n\n\nWOODLANDS EAST\nWOODLANDS\n54\n2.55\n21.15\n\n\nALJUNIED\nGEYLANG\n40\n2.96\n13.52\n\n\nTAMPINES WEST\nTAMPINES\n38\n3.48\n10.93\n\n\nBEDOK NORTH\nBEDOK\n38\n3.20\n11.86\n\n\nFRANKEL\nBEDOK\n36\n4.30\n8.38\n\n\nSENGKANG TOWN CENTRE\nSENGKANG\n33\n1.46\n22.67\n\n\nYUNNAN\nJURONG WEST\n32\n2.21\n14.50\n\n\nHONG KAH\nJURONG WEST\n30\n1.79\n16.73\n\n\nBEDOK SOUTH\nBEDOK\n29\n3.00\n9.68\n\n\n\n\n\n\nplot(\n  mpsz_analysis[\"PRE_SCH_COUNT\"],\n  pal = function(n) hcl.colors(n, \"YlOrRd\", rev = TRUE),\n  main = \"Number of preschools by subzone\",\n  key.pos = 1\n)"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html",
-    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html",
-    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "This exercise examines the first-order spatial pattern of childcare services in Singapore. First-order analysis focuses on spatial intensity: whether events are evenly distributed and where their concentration is relatively high.\nThe workflow is adapted from Chapter 4: First-order Spatial Point Patterns Analysis Methods. I use the Clark–Evans nearest-neighbour test to assess clustering and kernel density estimation (KDE) to visualise variations in point intensity.\n\n\nBy the end of this exercise, I should be able to:\n\nprepare point and polygon features for spatial point pattern analysis;\nconvert sf objects into ppp and owin objects used by spatstat;\napply the Clark–Evans test under Complete Spatial Randomness (CSR);\nconstruct and interpret kernel density surfaces; and\ncompare point intensity within selected planning areas."
+    "text": "Hello! I am a student taking ISSS626: Geospatial Analytics and Applications in the AY2026–27 August Term.\nI created this website as a personal learning portfolio to document how I develop practical skills in geospatial analytics with R. It records not only completed maps and analytical results, but also the decisions, experiments, challenges, and improvements that form part of my learning process."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#learning-objectives",
-    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#learning-objectives",
-    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "objectID": "about.html#about-me",
+    "href": "about.html#about-me",
+    "title": "About",
     "section": "",
-    "text": "By the end of this exercise, I should be able to:\n\nprepare point and polygon features for spatial point pattern analysis;\nconvert sf objects into ppp and owin objects used by spatstat;\napply the Clark–Evans test under Complete Spatial Randomness (CSR);\nconstruct and interpret kernel density surfaces; and\ncompare point intensity within selected planning areas."
+    "text": "Hello! I am a student taking ISSS626: Geospatial Analytics and Applications in the AY2026–27 August Term.\nI created this website as a personal learning portfolio to document how I develop practical skills in geospatial analytics with R. It records not only completed maps and analytical results, but also the decisions, experiments, challenges, and improvements that form part of my learning process."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#loading-the-r-packages",
-    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#loading-the-r-packages",
-    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
+    "objectID": "about.html#about-this-portfolio",
+    "href": "about.html#about-this-portfolio",
+    "title": "About",
+    "section": "About this portfolio",
+    "text": "About this portfolio\nThis portfolio brings together my:\n\nhands-on exercises;\nin-class exercises;\ntake-home exercises;\nspatial visualisations and analytical workflows; and\nreflections on methods, findings, and areas for improvement.\n\nEach entry aims to present a clear and reproducible workflow—from obtaining and preparing data, to selecting suitable spatial methods, interpreting the results, and communicating the findings effectively."
+  },
+  {
+    "objectID": "about.html#what-i-am-learning",
+    "href": "about.html#what-i-am-learning",
+    "title": "About",
+    "section": "What I am learning",
+    "text": "What I am learning\nThroughout the course, I am developing my ability to:\n\nimport, tidy, transform, project, and process geospatial data programmatically;\nvisualise and describe geographical patterns using thematic maps and other geovisualisation techniques;\napply spatial statistics and geographical machine-learning methods to real-world questions;\nexplore topics such as spatial point patterns, spatial weights and association, geographic segmentation, geographically weighted models, accessibility, and spatial interaction; and\ndocument the complete analytical process in a reproducible and easy-to-understand report."
+  },
+  {
+    "objectID": "about.html#tools-and-workflow",
+    "href": "about.html#tools-and-workflow",
+    "title": "About",
+    "section": "Tools and workflow",
+    "text": "Tools and workflow\nMy work is mainly created with R and RStudio, supported by packages for data wrangling, spatial analysis, and visualisation. I use Quarto to produce this website and GitHub to manage versions of my work and publish the portfolio."
+  },
+  {
+    "objectID": "about.html#my-learning-approach",
+    "href": "about.html#my-learning-approach",
+    "title": "About",
+    "section": "My learning approach",
+    "text": "My learning approach\nLearning R and geospatial analytics takes patience and regular practice. When an analysis does not work as expected, I treat the problem as an opportunity to examine my assumptions, improve my code, and understand the method more deeply. My goal is to make steady progress throughout the term and communicate each analysis more clearly than the last.\n\n\n\n\n\n\nNoteAbout the work shown here\n\n\n\nThis is a student learning portfolio prepared for educational purposes. The analyses and writing are my own work. Data sources, course references, and external materials are acknowledged on the relevant pages.\n\n\nFor an overview of the module, visit the ISSS626 course website."
+  },
+  {
+    "objectID": "hands-on.html",
+    "href": "hands-on.html",
+    "title": "Hands-on Exercises",
+    "section": "",
+    "text": "ISSS626 · Learning Portfolio\n    Hands-on Exercises\n    Explore my practical work in geospatial data science. Each exercise documents the data preparation, analytical decisions, R workflow, results, and reflections developed during the course.\n  \n  \n    06\n    Exercises completed\n  \n\n\n\n  \n    Assignment directory\n    Choose an exercise\n  \n  The exercises progress from preparing and visualising geospatial data to analysing point patterns, spatial neighbourhoods, and weighted regional indicators.\n\n\n\n  \n    \n      01.1\n      \n    \n    Geospatial foundations\n    Geospatial Data Science with R\n    Import polygon, line, point, and aspatial data; examine coordinate reference systems; convert coordinate tables into spatial features; and perform basic geoprocessing with sf.\n    \n      sfCRSGeoprocessing\n    \n    \n      Open Exercise 1(1) \n    \n  \n\n  \n    \n      01.2\n      \n    \n    Thematic mapping\n    Thematic Mapping and Geovisualisation\n    Prepare Singapore's 2024 resident population data, join it to subzone boundaries, and create choropleth maps using suitable classifications, colour palettes, and layouts.\n    \n      tmapChoropleth2024 population\n    \n    \n      Open Exercise 1(2) \n    \n  \n\n  \n    \n      02.1\n      \n    \n    First-order point patterns\n    Spatial Intensity and Kernel Density\n    Examine childcare-service locations using the Clark–Evans nearest-neighbour test, Complete Spatial Randomness simulations, and kernel density estimation at national and planning-area scales.\n    \n      spatstatClark–EvansKDE\n    \n    \n      Open Exercise 2(1) \n    \n  \n\n  \n    \n      02.2\n      \n    \n    Second-order point patterns\n    Spatial Interaction Across Distance\n    Use G, F, K, and L functions with Monte Carlo envelopes to investigate whether childcare-service patterns are clustered, dispersed, or compatible with randomness across distance.\n    \n      G & FK & LCSR envelopes\n    \n    \n      Open Exercise 2(2) \n    \n  \n\n\n\n  \n    \n      03\n      \n    \n    Spatio-temporal patterns\n    Fire Detections Across Space and Time\n    Explore 2023 MODIS detections on Bangka through monthly maps, space-time kernel density estimates, bandwidth selection and the space-time K-function.\n    STKDEsparrstpp\n    Open Exercise 3 \n  \n  \n    \n      04\n      \n    \n    Spatial weights\n    Spatial Weights and Neighbourhood Summaries\n    Use Hunan's 2012 indicators to compare queen and rook contiguity, distance bands, nearest neighbours, inverse-distance weights, and spatial means and sums.\n    spdepSpatial weightsSpatial lag\n    Open Exercise 4 \n  \n\n\n\n  \n  \n    This portfolio is still growing.\n    New hands-on exercises will be added here as the course progresses."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "",
+    "text": "This hands-on exercise develops a reproducible thematic-mapping workflow with sf, tidyverse, and tmap. I prepare 2024 resident population data, join it to Singapore’s Master Plan 2019 subzones, and design choropleth maps that communicate demographic patterns.\nThe workflow follows Chapter 2: Thematic Mapping and GeoVisualisation with R, using the same Master Plan 2019 KML boundary and June 2024 population dataset specified in the chapter.\n\n\nBy the end of this exercise, I should be able to:\n\nprepare demographic variables from a detailed population table;\njoin aspatial attributes to a spatial boundary layer;\nproduce choropleth maps with suitable classification methods and palettes;\nimprove map layout, titles, legends, and explanatory elements; and\ncompare several related indicators using small multiples."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#learning-objectives",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#learning-objectives",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "",
+    "text": "By the end of this exercise, I should be able to:\n\nprepare demographic variables from a detailed population table;\njoin aspatial attributes to a spatial boundary layer;\nproduce choropleth maps with suitable classification methods and palettes;\nimprove map layout, titles, legends, and explanatory elements; and\ncompare several related indicators using small multiples."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#loading-the-r-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#loading-the-r-packages",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
     "section": "Loading the R packages",
-    "text": "Loading the R packages\n\npacman::p_load(\n  sf,\n  spatstat,\n  terra,\n  tmap,\n  tidyverse,\n  knitr\n)\n\ntmap_mode(\"plot\")"
+    "text": "Loading the R packages\n\npacman::p_load(\n  sf,\n  tidyverse,\n  rvest,\n  tmap,\n  knitr\n)\n\ntmap_mode(\"plot\")"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#data-used",
-    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#data-used",
-    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
-    "section": "Data used",
-    "text": "Data used\n\n\n\n\n\n\n\n\nFile\nGeometry\nPurpose\n\n\n\n\nChildCareServices.geojson\nPoint\nLocations and attributes of childcare services\n\n\nMasterPlan2019SubzoneBoundaryNoSea.geojson\nPolygon\nSingapore Master Plan 2019 subzone boundaries\n\n\n\nBoth files were downloaded from data.gov.sg and stored locally in this exercise’s data/geospatial folder."
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#importing-the-data",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#importing-the-data",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Importing the data",
+    "text": "Importing the data\n\nextract_kml_value &lt;- function(description, field_name) {\n  attributes &lt;- description |&gt;\n    read_html() |&gt;\n    html_table(fill = TRUE) |&gt;\n    pluck(1)\n\n  names(attributes)[1:2] &lt;- c(\"field\", \"value\")\n\n  result &lt;- attributes |&gt;\n    filter(field == field_name) |&gt;\n    pull(value)\n\n  if (length(result) == 0) NA_character_ else result[[1]]\n}\n\nmpsz &lt;- st_read(\n  \"data/geospatial/MasterPlan2019SubzoneBoundaryNoSeaKML.kml\",\n  quiet = TRUE\n) |&gt;\n  mutate(\n    SUBZONE_N = map_chr(\n      Description,\n      ~ extract_kml_value(.x, \"SUBZONE_N\")\n    ),\n    PLN_AREA_N = map_chr(\n      Description,\n      ~ extract_kml_value(.x, \"PLN_AREA_N\")\n    ),\n    REGION_N = map_chr(\n      Description,\n      ~ extract_kml_value(.x, \"REGION_N\")\n    )\n  ) |&gt;\n  select(SUBZONE_N, PLN_AREA_N, REGION_N) |&gt;\n  st_make_valid() |&gt;\n  st_transform(3414)\n\npop2024 &lt;- read_csv(\n  \"data/aspatial/respopagesextod2024.csv\",\n  show_col_types = FALSE\n)\n\n\ntibble(\n  data = c(\"Subzone boundaries\", \"Population records\"),\n  observations = c(nrow(mpsz), nrow(pop2024)),\n  year = c(2019, 2024)\n) |&gt;\n  kable()\n\n\n\n\ndata\nobservations\nyear\n\n\n\n\nSubzone boundaries\n332\n2019\n\n\nPopulation records\n100928\n2024"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#mapping-the-point-distribution",
-    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#mapping-the-point-distribution",
-    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
-    "section": "Mapping the point distribution",
-    "text": "Mapping the point distribution\n\ntm_shape(sg_boundary) +\n  tm_polygons(fill = \"grey96\", col = \"grey55\", lwd = 0.5) +\n  tm_shape(childcare_sg) +\n  tm_dots(fill = \"#E45756\", size = 0.018, fill_alpha = 0.55) +\n  tm_title(\"Distribution of childcare services in Singapore\") +\n  tm_layout(frame = FALSE)"
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#defining-broad-age-groups",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#defining-broad-age-groups",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Defining broad age groups",
+    "text": "Defining broad age groups\nFor this exercise, I define:\n\nYoung: age 0–24;\nEconomically active: age 25–64; and\nAged: age 65 and above.\n\n\nyoung_ages &lt;- c(\n  \"0_to_4\", \"5_to_9\", \"10_to_14\", \"15_to_19\",\n  \"20_to_24\"\n)\n\nactive_ages &lt;- c(\n  \"25_to_29\", \"30_to_34\", \"35_to_39\", \"40_to_44\",\n  \"45_to_49\", \"50_to_54\", \"55_to_59\", \"60_to_64\"\n)\n\naged_ages &lt;- c(\n  \"65_to_69\", \"70_to_74\", \"75_to_79\", \"80_to_84\",\n  \"85_to_89\", \"90_and_over\"\n)"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#analytical-test",
-    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#analytical-test",
-    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
-    "section": "Analytical test",
-    "text": "Analytical test\n\nce_test &lt;- clarkevans.test(\n  childcare_ppp,\n  correction = \"none\",\n  alternative = \"clustered\"\n)\n\ntibble(\n  aggregation_index_R = unname(ce_test$estimate),\n  z_statistic = unname(ce_test$statistic),\n  p_value = ce_test$p.value\n) |&gt;\n  mutate(across(everything(), ~ signif(.x, 4))) |&gt;\n  kable(caption = \"Clark--Evans test for all childcare services\")\n\n\nClark–Evans test for all childcare services\n\n\nz_statistic\np_value\n\n\n\n\n0.5353\n0\n\n\n\n\n\nAn index below one indicates that nearest neighbours are closer than would be expected under a random point process. The p-value provides evidence for deciding whether the observed clustering is statistically distinguishable from CSR."
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#aggregating-by-subzone",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#aggregating-by-subzone",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Aggregating by subzone",
+    "text": "Aggregating by subzone\n\npop_profile &lt;- pop2024 |&gt;\n  mutate(\n    SZ = str_to_upper(SZ),\n    PA = str_to_upper(PA),\n    Pop = replace_na(Pop, 0)\n  ) |&gt;\n  group_by(PA, SZ) |&gt;\n  summarise(\n    YOUNG = sum(Pop[AG %in% young_ages]),\n    ECONOMY_ACTIVE = sum(Pop[AG %in% active_ages]),\n    AGED = sum(Pop[AG %in% aged_ages]),\n    TOTAL = sum(Pop),\n    .groups = \"drop\"\n  ) |&gt;\n  mutate(\n    DEPENDENCY = if_else(\n      ECONOMY_ACTIVE &gt; 0,\n      (YOUNG + AGED) / ECONOMY_ACTIVE * 100,\n      NA_real_\n    ),\n    PCT_YOUNG = YOUNG / TOTAL * 100,\n    PCT_AGED = AGED / TOTAL * 100\n  )\n\npop_profile |&gt;\n  arrange(desc(TOTAL)) |&gt;\n  slice_head(n = 10) |&gt;\n  mutate(\n    DEPENDENCY = round(DEPENDENCY, 1),\n    PCT_YOUNG = round(PCT_YOUNG, 1),\n    PCT_AGED = round(PCT_AGED, 1)\n  ) |&gt;\n  kable(\n    caption = \"Ten most populous subzones in the 2024 dataset\"\n  )\n\n\nTen most populous subzones in the 2024 dataset\n\n\n\n\n\n\n\n\n\n\n\n\n\nPA\nSZ\nYOUNG\nECONOMY_ACTIVE\nAGED\nTOTAL\nDEPENDENCY\nPCT_YOUNG\nPCT_AGED\n\n\n\n\nTAMPINES\nTAMPINES EAST\n28610\n73640\n26050\n128300\n74.2\n22.3\n20.3\n\n\nWOODLANDS\nWOODLANDS EAST\n28330\n60420\n11210\n99960\n65.4\n28.3\n11.2\n\n\nTAMPINES\nTAMPINES WEST\n20300\n48230\n14880\n83410\n72.9\n24.3\n17.8\n\n\nBEDOK\nBEDOK NORTH\n16670\n45210\n19750\n81630\n80.6\n20.4\n24.2\n\n\nYISHUN\nYISHUN EAST\n20090\n43070\n8840\n72000\n67.2\n27.9\n12.3\n\n\nSENGKANG\nFERNVALE\n20640\n40910\n7590\n69140\n69.0\n29.9\n11.0\n\n\nJURONG WEST\nYUNNAN\n16460\n39540\n10740\n66740\n68.8\n24.7\n16.1\n\n\nSENGKANG\nRIVERVALE\n16280\n36980\n9490\n62750\n69.7\n25.9\n15.1\n\n\nJURONG WEST\nJURONG WEST CENTRAL\n16360\n36940\n8680\n61980\n67.8\n26.4\n14.0\n\n\nSENGKANG\nSENGKANG TOWN CENTRE\n16070\n36110\n8360\n60540\n67.7\n26.5\n13.8"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#monte-carlo-csr-test",
-    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#monte-carlo-csr-test",
-    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
-    "section": "Monte Carlo CSR test",
-    "text": "Monte Carlo CSR test\n\nset.seed(1234)\n\nce_mc &lt;- clarkevans.test(\n  childcare_ppp,\n  correction = \"none\",\n  alternative = \"clustered\",\n  method = \"MonteCarlo\",\n  nsim = 99\n)\n\ntibble(\n  simulations = 99,\n  aggregation_index_R = unname(ce_mc$estimate),\n  p_value = ce_mc$p.value\n) |&gt;\n  mutate(across(where(is.numeric), ~ signif(.x, 4))) |&gt;\n  kable(caption = \"Monte Carlo Clark--Evans test\")\n\n\nMonte Carlo Clark–Evans test\n\n\nsimulations\np_value\n\n\n\n\n99\n0.01\n\n\n\n\n\nThe simulation-based result compares the observed index with 99 random patterns containing the same number of points in the same study window."
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#a-basic-choropleth-map",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#a-basic-choropleth-map",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "A basic choropleth map",
+    "text": "A basic choropleth map\nThe first map shows the total resident population. A sequential palette is appropriate because the variable ranges from lower to higher values.\n\ntm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"TOTAL\",\n    fill.scale = tm_scale_intervals(\n      style = \"quantile\",\n      values = \"brewer.blues\"\n    ),\n    fill.legend = tm_legend(title = \"Residents\"),\n    col = \"white\",\n    lwd = 0.25\n  ) +\n  tm_title(\"Resident population by subzone, 2024\") +\n  tm_layout(\n    frame = FALSE,\n    legend.outside = TRUE\n  )"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#automatic-bandwidth-selection",
-    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#automatic-bandwidth-selection",
-    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
-    "section": "Automatic bandwidth selection",
-    "text": "Automatic bandwidth selection\n\nkde_sg &lt;- density(\n  childcare_ppp,\n  sigma = bw.diggle,\n  edge = TRUE,\n  kernel = \"gaussian\"\n)\n\nselected_bandwidth &lt;- attr(kde_sg, \"sigma\")\n\ntibble(\n  method = \"Diggle cross-validation\",\n  bandwidth_metres = round(selected_bandwidth, 1)\n) |&gt;\n  kable(caption = \"Selected KDE bandwidth\")\n\n\nSelected KDE bandwidth\n\n\nmethod\nbandwidth_metres\n\n\n\n\nDiggle cross-validation\n296\n\n\n\n\n\n\nplot(\n  kde_sg,\n  main = \"Kernel density of childcare services\",\n  ribargs = list(las = 1)\n)\ncontour(kde_sg, add = TRUE)\nplot(sg_owin, add = TRUE, border = \"grey30\", lwd = 0.8)"
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#comparing-classification-methods",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#comparing-classification-methods",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Comparing classification methods",
+    "text": "Comparing classification methods\nDifferent classification methods can emphasise different aspects of the same data. The maps below compare equal intervals with Jenks natural breaks.\n\nequal_map &lt;- tm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"DEPENDENCY\",\n    fill.scale = tm_scale_intervals(\n      style = \"equal\",\n      n = 6,\n      values = \"brewer.oranges\"\n    ),\n    fill.legend = tm_legend(title = \"Dependants per 100\")\n  ) +\n  tm_title(\"Equal intervals\") +\n  tm_layout(frame = FALSE)\n\njenks_map &lt;- tm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"DEPENDENCY\",\n    fill.scale = tm_scale_intervals(\n      style = \"jenks\",\n      n = 6,\n      values = \"brewer.oranges\"\n    ),\n    fill.legend = tm_legend(title = \"Dependants per 100\")\n  ) +\n  tm_title(\"Jenks natural breaks\") +\n  tm_layout(frame = FALSE)\n\ntmap_arrange(equal_map, jenks_map, ncol = 2)\n\n\n\n\n\n\n\n\nQuantile classes contain a similar number of subzones per class, equal intervals preserve equal numerical widths, and Jenks breaks seek internally similar groups. The best choice depends on the distribution and the intended message."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#rescaling-intensity",
-    "href": "Hands-on_Ex/Hands-on_Ex0201/Hands-on_Ex0201.html#rescaling-intensity",
-    "title": "Hands-on Exercise 2(1): First-order Spatial Point Pattern Analysis",
-    "section": "Rescaling intensity",
-    "text": "Rescaling intensity\nBecause SVY21 uses metres, the default KDE values are expressed as points per square metre. Multiplying by one million gives a more readable measure of points per square kilometre.\n\nkde_sg_km2 &lt;- eval.im(kde_sg * 1e6)\n\nsummary(kde_sg_km2)\n\nreal-valued pixel image\n128 x 128 pixel array (ny, nx)\nenclosing rectangle: [2667.537, 55941.95] x [21448.48, 50256.33] units\ndimensions of each pixel: 416 x 225.0614 units\nImage is defined on a subset of the rectangular grid\nSubset area = 669941827.488091 square units\nSubset area fraction = 0.437\nPixel values (inside window):\n    range = [-4.811475e-15, 30.63699]\n    integral = 1927788000\n    mean = 2.877546\n\n\n\nplot(\n  kde_sg_km2,\n  main = \"Childcare-service intensity per square kilometre\",\n  ribargs = list(las = 1)\n)\nplot(sg_owin, add = TRUE, border = \"grey25\", lwd = 0.8)"
+    "objectID": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#refining-the-map-layout",
+    "href": "Hands-on_Ex/Hands-on_Ex0102/Hands-on_Ex0102.html#refining-the-map-layout",
+    "title": "Hands-on Exercise 1(2): Thematic Mapping and Geovisualisation",
+    "section": "Refining the map layout",
+    "text": "Refining the map layout\n\ntm_shape(mpsz_pop) +\n  tm_polygons(\n    fill = \"PCT_AGED\",\n    fill.scale = tm_scale_intervals(\n      style = \"jenks\",\n      n = 6,\n      values = \"brewer.purples\"\n    ),\n    fill.legend = tm_legend(\n      title = \"Residents aged 65+ (%)\"\n    ),\n    col = \"grey85\",\n    lwd = 0.3\n  ) +\n  tm_title(\"Share of residents aged 65 and above, 2024\") +\n  tm_compass(type = \"8star\", position = c(\"right\", \"top\")) +\n  tm_scalebar(position = c(\"right\", \"bottom\")) +\n  tm_credits(\n    \"Source: Singapore Department of Statistics and data.gov.sg\",\n    position = c(\"left\", \"bottom\")\n  ) +\n  tm_layout(\n    frame = FALSE,\n    legend.outside = TRUE,\n    bg.color = \"grey98\"\n  )"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html",
-    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
     "section": "",
-    "text": "Following Chapter 6, I explore the locations and timing of MODIS active-fire detections during 2023. The analysis combines spatial data preparation, temporal summaries, space-time kernel density estimation (STKDE), bandwidth selection and the space-time K-function.\nMy questions are: when are detections most frequent, how does their geographical concentration change through the year, and what can the joint spatial and temporal pattern tell us? Satellite detections are observations of thermal anomalies, not necessarily distinct fires or confirmed forest fires."
+    "text": "This exercise extends the first-order analysis by examining interactions among childcare-service locations over a range of distances. Second-order methods help determine whether an observed point pattern is more clustered or dispersed than expected under Complete Spatial Randomness (CSR).\nThe workflow follows Chapter 5: Second-order Spatial Point Patterns Analysis Methods. I apply the G, F, K, and L functions to childcare services in Choa Chu Kang and Tampines, then use Monte Carlo envelopes to compare selected results with CSR.\n\n\nBy the end of this exercise, I should be able to:\n\nexplain the different perspectives provided by G, F, K, and L functions;\nestimate second-order summary functions with spatstat;\nconstruct Monte Carlo simulation envelopes under CSR;\ncompare observed and simulated curves across distance; and\ncommunicate whether a pattern is clustered, dispersed, or compatible with randomness."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#loading-packages",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#loading-packages",
-    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#learning-objectives",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#learning-objectives",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "",
+    "text": "By the end of this exercise, I should be able to:\n\nexplain the different perspectives provided by G, F, K, and L functions;\nestimate second-order summary functions with spatstat;\nconstruct Monte Carlo simulation envelopes under CSR;\ncompare observed and simulated curves across distance; and\ncommunicate whether a pattern is clustered, dispersed, or compatible with randomness."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#loading-the-r-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#loading-the-r-packages",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "Loading the R packages",
+    "text": "Loading the R packages\n\npacman::p_load(\n  sf,\n  spatstat,\n  tidyverse,\n  knitr\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#data-used",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#data-used",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "Data used",
+    "text": "Data used\n\n\n\n\n\n\n\n\nFile\nGeometry\nPurpose\n\n\n\n\nChildCareServices.geojson\nPoint\nChildcare-service locations\n\n\nMasterPlan2019SubzoneBoundaryNoSea.geojson\nPolygon\nPlanning-area and subzone boundaries\n\n\n\nThe same official datasets used in Exercise 2(1) are copied into this exercise’s own data/geospatial folder so that the page can be rendered independently."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#g-envelope-for-choa-chu-kang",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#g-envelope-for-choa-chu-kang",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "G-envelope for Choa Chu Kang",
+    "text": "G-envelope for Choa Chu Kang\n\nset.seed(1234)\n\nG_cck_csr &lt;- envelope(\n  cck$ppp,\n  fun = Gest,\n  correction = \"border\",\n  nsim = 39,\n  rank = 1,\n  verbose = FALSE\n)\n\n\nplot(\n  G_cck_csr,\n  main = \"CSR envelope for G-function: Choa Chu Kang\",\n  xlim = c(0, 500),\n  legend = FALSE\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#f-envelope-for-choa-chu-kang",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#f-envelope-for-choa-chu-kang",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "F-envelope for Choa Chu Kang",
+    "text": "F-envelope for Choa Chu Kang\n\nset.seed(1234)\n\nF_cck_csr &lt;- envelope(\n  cck$ppp,\n  fun = Fest,\n  correction = \"km\",\n  nsim = 39,\n  rank = 1,\n  verbose = FALSE\n)\n\n\nplot(\n  F_cck_csr,\n  main = \"CSR envelope for F-function: Choa Chu Kang\",\n  xlim = c(0, 500),\n  legend = FALSE\n)"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#k-envelope-for-tampines",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#k-envelope-for-tampines",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "K-envelope for Tampines",
+    "text": "K-envelope for Tampines\n\nset.seed(1234)\n\nK_tampines_csr &lt;- envelope(\n  tampines$ppp,\n  fun = Kest,\n  correction = \"Ripley\",\n  nsim = 39,\n  rank = 1,\n  global = TRUE,\n  verbose = FALSE\n)\n\n\nplot(\n  K_tampines_csr,\n  . - pi * r^2 ~ r,\n  main = \"CSR envelope for K-function: Tampines\",\n  xlim = c(0, 1000),\n  xlab = \"Distance (m)\",\n  ylab = \"K(r) - pi*r^2\",\n  legend = FALSE\n)\nabline(h = 0, lty = 2, col = \"grey45\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#l-envelope-for-tampines",
+    "href": "Hands-on_Ex/Hands-on_Ex0202/Hands-on_Ex0202.html#l-envelope-for-tampines",
+    "title": "Hands-on Exercise 2(2): Second-order Spatial Point Pattern Analysis",
+    "section": "L-envelope for Tampines",
+    "text": "L-envelope for Tampines\n\nset.seed(1234)\n\nL_tampines_csr &lt;- envelope(\n  tampines$ppp,\n  fun = Lest,\n  correction = \"Ripley\",\n  nsim = 39,\n  rank = 1,\n  global = TRUE,\n  verbose = FALSE\n)\n\n\nplot(\n  L_tampines_csr,\n  . - r ~ r,\n  main = \"CSR envelope for L-function: Tampines\",\n  xlim = c(0, 1000),\n  xlab = \"Distance (m)\",\n  ylab = \"L(r) - r\",\n  legend = FALSE\n)\nabline(h = 0, lty = 2, col = \"grey45\")"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html",
+    "title": "Hands-on Exercise 4: Spatial Weights and Applications",
+    "section": "",
+    "text": "This exercise follows Chapter 8: Spatial Weights and Applications. It uses Hunan county boundaries and the 2012 development indicators to explore how different definitions of a neighbour affect spatial summaries. The workflow covers contiguity, distance bands, nearest neighbours, inverse-distance weights and four spatial-lag operations."
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#loading-packages",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#loading-packages",
+    "title": "Hands-on Exercise 4: Spatial Weights and Applications",
     "section": "Loading packages",
-    "text": "Loading packages\n\n\nShow code\nlibrary(sf)\nlibrary(spatstat)\nlibrary(sparr)\nlibrary(tidyverse)\nlibrary(lubridate)\nlibrary(knitr)\ntheme_set(theme_minimal(base_size = 12))"
+    "text": "Loading packages\n\n\nShow code\nlibrary(sf)\nlibrary(spdep)\nlibrary(tmap)\nlibrary(dplyr)\nlibrary(readr)\nlibrary(knitr)\ntmap_mode(\"plot\")"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#overall-point-map",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#overall-point-map",
-    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
-    "section": "Overall point map",
-    "text": "Overall point map\n\n\nShow code\nggplot() +\n  geom_sf(data = kbb_sf, fill = \"#f1f5f9\", colour = \"#64748b\") +\n  geom_sf(data = fire_sf, aes(colour = DayofYear), size = .8, alpha = .7) +\n  scale_colour_viridis_c(option = \"C\") +\n  labs(title = \"MODIS detections on Bangka, 2023\", colour = \"Day of year\")"
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#importing-and-checking-the-join",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#importing-and-checking-the-join",
+    "title": "Hands-on Exercise 4: Spatial Weights and Applications",
+    "section": "Importing and checking the join",
+    "text": "Importing and checking the join\nThe join uses an explicit county key. Duplicate keys or unmatched counties would invalidate the positional relationship between observations and weights, so the checks stop execution rather than silently continuing.\n\n\nShow code\nhunan_boundary &lt;- st_read(\"data/geospatial/Hunan.shp\", quiet = TRUE)\nhunan2012 &lt;- read_csv(\"data/aspatial/Hunan_2012.csv\", show_col_types = FALSE)\nraw_files &lt;- c(list.files(\"data/geospatial\", full.names = TRUE),\n               \"data/aspatial/Hunan_2012.csv\")\nraw_md5 &lt;- tools::md5sum(raw_files)\nstopifnot(nrow(hunan_boundary) == 88L, nrow(hunan2012) == 88L,\n          !anyDuplicated(hunan_boundary$County),\n          !anyDuplicated(hunan2012$County),\n          setequal(hunan_boundary$County, hunan2012$County),\n          all(st_is_valid(hunan_boundary)),\n          !any(st_is_empty(hunan_boundary)),\n          st_is_longlat(hunan_boundary))\nhunan &lt;- left_join(hunan_boundary,\n                   select(hunan2012, County, GDPPC),\n                   by = \"County\", relationship = \"one-to-one\") |&gt;\n  select(NAME_2, ID_3, NAME_3, ENGTYPE_3, County, GDPPC)\nstopifnot(identical(hunan$County, hunan_boundary$County),\n          all(is.finite(hunan$GDPPC)), all(hunan$GDPPC &gt; 0))\ndata.frame(Counties = nrow(hunan), Indicator_year = 2012,\n           Missing_GDPPC = sum(is.na(hunan$GDPPC)),\n           Valid_geometries = sum(st_is_valid(hunan))) |&gt; kable()\n\n\n\n\n\nCounties\nIndicator_year\nMissing_GDPPC\nValid_geometries\n\n\n\n\n88\n2012\n0\n88\n\n\n\n\n\nShow code\nhead(st_drop_geometry(hunan)) |&gt; kable()\n\n\n\n\n\nNAME_2\nID_3\nNAME_3\nENGTYPE_3\nCounty\nGDPPC\n\n\n\n\nChangde\n21098\nAnxiang\nCounty\nAnxiang\n23667\n\n\nChangde\n21100\nHanshou\nCounty\nHanshou\n20981\n\n\nChangde\n21101\nJinshi\nCounty City\nJinshi\n34592\n\n\nChangde\n21102\nLi\nCounty\nLi\n24473\n\n\nChangde\n21103\nLinli\nCounty\nLinli\n25554\n\n\nChangde\n21104\nShimen\nCounty\nShimen\n27137"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#monthly-counts-and-maps",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#monthly-counts-and-maps",
-    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
-    "section": "Monthly counts and maps",
-    "text": "Monthly counts and maps\nCounts include months with zero detections. A count measures observations recorded by the sensor; cloud cover, revisit frequency and repeated observations can influence it.\n\n\nShow code\nmonthly &lt;- fire |&gt; count(Month_num) |&gt;\n  complete(Month_num = 1:12, fill = list(n = 0)) |&gt;\n  mutate(Month = factor(month.abb[Month_num], levels = month.abb))\nggplot(monthly, aes(Month, n)) +\n  geom_col(fill = \"#238b8d\") +\n  labs(title = \"Monthly fire detections\", x = NULL, y = \"Detections\")\n\n\n\n\n\n\n\n\n\nThe largest monthly total is in Oct, with 185 detections, or 24.9% of this study’s annual total.\n\n\nShow code\nggplot() +\n  geom_sf(data = kbb_sf, fill = \"grey96\", colour = \"grey65\", linewidth = .2) +\n  geom_sf(data = fire_sf, colour = \"#d95f02\", size = .5, alpha = .7) +\n  facet_wrap(~Month_fac, ncol = 4, drop = FALSE) +\n  labs(title = \"Monthly spatial distribution, 2023\") +\n  theme(axis.text = element_text(size = 6))"
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#inspecting-one-county",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#inspecting-one-county",
+    "title": "Hands-on Exercise 4: Spatial Weights and Applications",
+    "section": "Inspecting one county",
+    "text": "Inspecting one county\n\n\nShow code\nanxiang &lt;- match(\"Anxiang\", hunan$County)\nstopifnot(!is.na(anxiang))\nanxiang_neighbours &lt;- queen_nb[[anxiang]]\ndata.frame(County = hunan$County[anxiang_neighbours],\n           GDPPC = hunan$GDPPC[anxiang_neighbours]) |&gt; kable()\n\n\n\n\n\nCounty\nGDPPC\n\n\n\n\nHanshou\n20981\n\n\nJinshi\n34592\n\n\nLi\n24473\n\n\nNan\n21311\n\n\nTaoyuan\n22879"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#automatic-daily-bandwidth",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#automatic-daily-bandwidth",
-    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
-    "section": "Automatic daily bandwidth",
-    "text": "Automatic daily bandwidth\nThe observation interval is the full 2023 calendar year, including days without detections. The returned bandwidths are estimated from the local data, so they can differ from the chapter’s values.\n\n\nShow code\nst_day &lt;- spattemp.density(fire_yday_owin, tlim = c(1,365),\n                           sres = 128, verbose = FALSE)\nsummary(st_day)\n\n\nSpatiotemporal Kernel Density Estimate\n\nBandwidths\n  h = 15097.84 (spatial)\n  lambda = 6.2712 (temporal)\n\nNo. of observations\n  744 \n\nSpatial bound\n  Type: polygonal\n  2D enclosure: [512066.8, 705559.4] x [9655398, 9834006]\n\nTemporal bound\n  [1, 365]\n\nEvaluation\n  128 x 128 x 365 trivariate lattice\n  Density range: [2.313361e-29, 2.749113e-12]"
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#preparing-representative-points",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#preparing-representative-points",
+    "title": "Hands-on Exercise 4: Spatial Weights and Applications",
+    "section": "Preparing representative points",
+    "text": "Preparing representative points\nPolygon centroids are computed in UTM zone 49N and transformed back to longitude/latitude. Using a projected geometry avoids treating degrees as planar distance units when constructing centroids. These are geometric representatives, not county capitals, and centroids need not lie inside a concave polygon. The raw boundary remains unchanged.\n\n\nShow code\nhunan_projected &lt;- st_transform(hunan, 32649)\ncentroids &lt;- st_centroid(st_geometry(hunan_projected)) |&gt; st_transform(4326)\ncoords &lt;- st_coordinates(centroids)\nstopifnot(!anyDuplicated(as.data.frame(coords)), all(is.finite(coords)))\nplot_network &lt;- function(nb, title, colour = \"#0072B2\") {\n  plot(st_geometry(hunan), col = \"#f8fafc\", border = \"#94a3b8\", main = title)\n  plot(nb, coords, add = TRUE, col = colour, pch = 19, cex = 0.45)\n}\n\n\n\n\nShow code\npar(mfrow = c(1, 2), mar = c(1, 1, 3, 1))\nplot_network(queen_nb, \"Queen contiguity\")\nplot_network(rook_nb, \"Rook contiguity\", \"#D55E00\")\npar(mfrow = c(1, 1))\n\n\n\n\n\n\n\n\nFigure 2: Queen and rook connectivity between county representative points."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#bootstrap-bandwidth-selection",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#bootstrap-bandwidth-selection",
-    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
-    "section": "Bootstrap bandwidth selection",
-    "text": "Bootstrap bandwidth selection\nThe bootstrap selector jointly chooses spatial and temporal smoothing parameters. Its numerical integration uses a 64 by 64 spatial grid and 64 temporal evaluation points. The final density is evaluated on a finer spatial grid and every day of the year.\n\n\nShow code\nset.seed(1234)\nbandwidths &lt;- BOOT.spattemp(fire_yday_owin, tlim = c(1,365),\n                            sres = 64, tres = 64, verbose = FALSE)\nst_boot &lt;- spattemp.density(fire_yday_owin,\n                            h = unname(bandwidths[1]),\n                            lambda = unname(bandwidths[2]),\n                            tlim = c(1,365), sres = 128, verbose = FALSE)\ntibble(Method = c(\"Automatic\", \"Bootstrap\"),\n       Spatial_m = c(st_day$h, st_boot$h),\n       Temporal_days = c(st_day$lambda, st_boot$lambda)) |&gt; kable(digits = 2)\n\n\n\n\n\nMethod\nSpatial_m\nTemporal_days\n\n\n\n\nAutomatic\n15097.84\n6.27\n\n\nBootstrap\n8963.05\n18.90\n\n\n\n\n\n\n\nShow code\nselected_days &lt;- yday(as.Date(paste0(\"2023-\", 7:12, \"-15\")))\npar(mfrow = c(2,3))\nfor (d in selected_days) {\n  plot(st_boot, d, override.par = FALSE, fix.range = TRUE,\n       main = paste(\"Joint density: day\", d))\n}\n\n\n\n\n\n\n\n\n\nShow code\npar(mfrow = c(1,1))\n\n\nThe common colour range supports comparison between dates. In the fitted surfaces, July and August show stronger concentration in the northwest; October and November shift toward the south and southeast. These are joint probability-density surfaces, measured per square metre per day, not burned area or a count per pixel. Multiplying by the event count converts the joint density into an estimated detection intensity."
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#checking-the-distance-threshold",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#checking-the-distance-threshold",
+    "title": "Hands-on Exercise 4: Spatial Weights and Applications",
+    "section": "Checking the distance threshold",
+    "text": "Checking the distance threshold\nThe largest nearest-neighbour distance provides a threshold that avoids isolated counties. Having at least one neighbour does not guarantee that the complete graph is connected, so components are checked separately. The chapter’s 62 km band is retained for comparison. Distance-band documentation.\n\n\nShow code\nnearest1 &lt;- knn2nb(knearneigh(coords, k = 1, longlat = TRUE),\n                   row.names = hunan$County)\nnearest_distances &lt;- unlist(nbdists(nearest1, coords, longlat = TRUE))\nminimum_band_km &lt;- max(nearest_distances)\nrounded_band_km &lt;- ceiling(minimum_band_km)\ndistance_min_nb &lt;- dnearneigh(coords, 0, rounded_band_km,\n                             longlat = TRUE, row.names = hunan$County)\ndistance62_nb &lt;- dnearneigh(coords, 0, 62,\n                           longlat = TRUE, row.names = hunan$County)\nstopifnot(all(card(distance_min_nb) &gt; 0), all(card(distance62_nb) &gt; 0))\ndata.frame(Minimum_1NN_km = min(nearest_distances),\n           Maximum_1NN_km = minimum_band_km,\n           Rounded_band_km = rounded_band_km) |&gt; kable(digits = 3)\n\n\n\n\n\nMinimum_1NN_km\nMaximum_1NN_km\nRounded_band_km\n\n\n\n\n24.79\n58.357\n59\n\n\n\n\n\nShow code\nbind_rows(nb_summary(distance_min_nb, paste(rounded_band_km, \"km band\")),\n          nb_summary(distance62_nb, \"62 km band\")) |&gt; kable(digits = 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethod\nCounties\nDirected_links\nMinimum_neighbours\nMean_neighbours\nMaximum_neighbours\nIsolates\nWeak_components\n\n\n\n\n59 km band\n88\n298\n1\n3.39\n6\n0\n2\n\n\n62 km band\n88\n324\n1\n3.68\n6\n0\n1"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#comparing-smoothing-on-the-same-date",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#comparing-smoothing-on-the-same-date",
-    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
-    "section": "Comparing smoothing on the same date",
-    "text": "Comparing smoothing on the same date\n\n\nShow code\ncomparison_day &lt;- selected_days[3]\nsurfaces &lt;- list(st_day$z[[as.character(comparison_day)]],\n                 st_boot$z[[as.character(comparison_day)]])\ncommon_range &lt;- range(unlist(lapply(surfaces, function(z) z$v)), na.rm = TRUE)\npar(mfrow = c(1,2))\nplot(surfaces[[1]], zlim = common_range, main = \"Automatic: 15 September\")\nplot(surfaces[[2]], zlim = common_range, main = \"Bootstrap: 15 September\")\n\n\n\n\n\n\n\n\n\nShow code\npar(mfrow = c(1,1))"
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#six-nearest-neighbours",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#six-nearest-neighbours",
+    "title": "Hands-on Exercise 4: Spatial Weights and Applications",
+    "section": "Six nearest neighbours",
+    "text": "Six nearest neighbours\nEach county selects six neighbours, but the sixth neighbour can be much farther away in sparsely spaced areas. Selection need not be reciprocal: if A selects B, B may not select A. The graph is left directed rather than silently symmetrised. Nearest-neighbour documentation.\n\n\nShow code\nknn6_nb &lt;- knn2nb(knearneigh(coords, k = 6, longlat = TRUE),\n                  row.names = hunan$County, sym = FALSE)\nstopifnot(all(card(knn6_nb) == 6L))\nnb_summary(knn6_nb, \"Six nearest neighbours\") |&gt; kable(digits = 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethod\nCounties\nDirected_links\nMinimum_neighbours\nMean_neighbours\nMaximum_neighbours\nIsolates\nWeak_components\n\n\n\n\nSix nearest neighbours\n88\n528\n6\n6\n6\n0\n1\n\n\n\n\n\nShow code\nsixth_km &lt;- vapply(nbdists(knn6_nb, coords, longlat = TRUE), max, numeric(1))\nsummary(sixth_km)\n\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. \n  53.73   66.07   70.39   75.31   83.39  124.88 \n\n\n\n\nShow code\npar(mfrow = c(1, 2), mar = c(1, 1, 3, 1))\nplot_network(distance62_nb, \"Fixed distance: 62 km\")\nplot_network(knn6_nb, \"Adaptive distance: k = 6\", \"#D55E00\")\npar(mfrow = c(1, 1))\n\n\n\n\n\n\n\n\nFigure 3: Fixed 62 km and adaptive six-neighbour networks. Lines in the kNN panel show selected connections, not arrow directions."
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#constructing-the-stpp-object",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#constructing-the-stpp-object",
-    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
-    "section": "Constructing the stpp object",
-    "text": "Constructing the stpp object\nI convert coordinates to kilometres so that spatial lags are readable. The time coordinate remains day of year. This example follows the chapter’s rectangular-window K analysis: the bounding rectangle includes sea, unlike the polygon window used for KDE. That difference limits the comparison.\n\n\nShow code\nfire_stpp &lt;- stpp::as.3dpoints(data.frame(\n  x = xy[,1]/1000, y = xy[,2]/1000, t = as.integer(fire$DayofYear)))\nclass(fire_stpp)\n\n\n[1] \"stpp\""
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#neighbour-mean-and-sum",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#neighbour-mean-and-sum",
+    "title": "Hands-on Exercise 4: Spatial Weights and Applications",
+    "section": "Neighbour mean and sum",
+    "text": "Neighbour mean and sum\n\n\nShow code\nhunan$neighbour_mean &lt;- lag.listw(queen_w, hunan$GDPPC)\nhunan$neighbour_sum &lt;- lag.listw(queen_b, hunan$GDPPC)\nhunan$idw_mean &lt;- lag.listw(idw_w, hunan$GDPPC)\nstopifnot(isTRUE(all.equal(hunan$neighbour_mean,\n                          hunan$neighbour_sum / card(queen_nb))))\ndata.frame(Calculation = c(\"Direct mean\", \"Spatial lag\", \"Direct sum\", \"Spatial sum\"),\n           Value = c(mean(hunan$GDPPC[anxiang_neighbours]),\n                     hunan$neighbour_mean[anxiang],\n                     sum(hunan$GDPPC[anxiang_neighbours]),\n                     hunan$neighbour_sum[anxiang])) |&gt; kable(digits = 2)\n\n\n\n\n\nCalculation\nValue\n\n\n\n\nDirect mean\n24847.2\n\n\nSpatial lag\n24847.2\n\n\nDirect sum\n124236.0\n\n\nSpatial sum\n124236.0"
   },
   {
-    "objectID": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#estimating-k-over-spatial-and-temporal-lags",
-    "href": "Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex0301.html#estimating-k-over-spatial-and-temporal-lags",
-    "title": "Hands-on Exercise 3: Spatio-Temporal Point Pattern Analysis",
-    "section": "Estimating K over spatial and temporal lags",
-    "text": "Estimating K over spatial and temporal lags\n\n\nShow code\nkbb_stik &lt;- stpp::STIKhat(fire_stpp, t.region = c(1,365),\n                         dist = seq(0,40,by = 2),\n                         times = seq(0,80,by = 4),\n                         correction = \"isotropic\")\n\n\nAlthough the function supports an inhomogeneous estimator, this call omits lambda and therefore uses the homogeneous estimator. Theoretical Poisson values are a reference, not a simulation envelope or a significance test.\n\n\nShow code\nfilled.contour(kbb_stik$dist, kbb_stik$times, kbb_stik$Khat,\n               color.palette = hcl.colors,\n               xlab = \"Spatial lag (km)\", ylab = \"Temporal lag (days)\",\n               main = \"Space-time K: Bangka detections\")\n\n\n\n\n\n\n\n\n\n\n\nShow code\nexcess &lt;- kbb_stik$Khat - kbb_stik$Ktheo\ncontour(kbb_stik$dist, kbb_stik$times, excess,\n        xlab = \"Spatial lag (km)\", ylab = \"Temporal lag (days)\",\n        main = \"Estimated K minus the Poisson reference\")\n\n\n\n\n\n\n\n\n\nPositive differences identify lags with excess close pairs relative to the homogeneous reference. Seasonal variation and unequal spatial intensity can also generate this pattern. Establishing space-time dependence would require an appropriate null model, for example a time-permutation test, and a study-window treatment consistent with the land boundary."
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#window-mean-and-sum-including-the-focal-county",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#window-mean-and-sum-including-the-focal-county",
+    "title": "Hands-on Exercise 4: Spatial Weights and Applications",
+    "section": "Window mean and sum, including the focal county",
+    "text": "Window mean and sum, including the focal county\ninclude.self() adds the focal county before weights are constructed. Consequently, a window with five neighbours averages six values rather than five. Self-inclusion documentation.\n\n\nShow code\nwindow_nb &lt;- include.self(queen_nb)\nwindow_w &lt;- nb2listw(window_nb, style = \"W\", zero.policy = FALSE)\nwindow_b &lt;- nb2listw(window_nb, style = \"B\", zero.policy = FALSE)\nhunan$window_mean &lt;- lag.listw(window_w, hunan$GDPPC)\nhunan$window_sum &lt;- lag.listw(window_b, hunan$GDPPC)\nstopifnot(isTRUE(all.equal(hunan$window_sum, hunan$neighbour_sum + hunan$GDPPC)),\n          isTRUE(all.equal(hunan$window_mean,\n                           hunan$window_sum / (card(queen_nb) + 1))))\nhunan |&gt; st_drop_geometry() |&gt;\n  select(County, GDPPC, neighbour_mean, neighbour_sum, window_mean, window_sum) |&gt;\n  head(10) |&gt; kable(digits = 2)\n\n\n\n\n\n\n\n\n\n\n\n\n\nCounty\nGDPPC\nneighbour_mean\nneighbour_sum\nwindow_mean\nwindow_sum\n\n\n\n\nAnxiang\n23667\n24847.20\n124236\n24650.50\n147903\n\n\nHanshou\n20981\n22724.80\n113624\n22434.17\n134605\n\n\nJinshi\n34592\n24143.25\n96573\n26233.00\n131165\n\n\nLi\n24473\n27737.50\n110950\n27084.60\n135423\n\n\nLinli\n25554\n27270.25\n109081\n26927.00\n134635\n\n\nShimen\n27137\n21248.80\n106244\n22230.17\n133381\n\n\nLiuyang\n63118\n43747.00\n174988\n47621.20\n238106\n\n\nNingxiang\n62202\n33582.71\n235079\n37160.12\n297281\n\n\nWangcheng\n70666\n45651.17\n273907\n49224.71\n344573\n\n\nAnren\n12761\n32027.62\n256221\n29886.89\n268982"
+  },
+  {
+    "objectID": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#mapping-comparable-quantities",
+    "href": "Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html#mapping-comparable-quantities",
+    "title": "Hands-on Exercise 4: Spatial Weights and Applications",
+    "section": "Mapping comparable quantities",
+    "text": "Mapping comparable quantities\nThe original indicator and three averages share one set of breaks. The two sums use their own shared scale. Summing county GDP-per-capita ratios does not give combined GDP or population-weighted GDP per capita; those require appropriate GDP and population denominators. These sums illustrate the operator, not a regional economic total.\n\n\nShow code\naverage_fields &lt;- c(\"GDPPC\", \"neighbour_mean\", \"window_mean\", \"idw_mean\")\naverage_breaks &lt;- pretty(range(unlist(st_drop_geometry(hunan)[average_fields])), n = 5)\nmap_value &lt;- function(field, title, breaks, legend_title) {\n  tm_shape(hunan) +\n    tm_polygons(fill = field,\n                fill.scale = tm_scale_intervals(breaks = breaks,\n                                                 values = \"brewer.yl_or_br\"),\n                fill.legend = tm_legend(title = legend_title),\n                col = \"white\", lwd = 0.4) +\n    tm_title(title, size = 0.9) +\n    tm_layout(frame = FALSE, legend.outside = TRUE)\n}\n\n\n\n\nShow code\ntmap_arrange(\n  map_value(\"GDPPC\", \"Original GDPPC\", average_breaks, \"GDPPC scale\"),\n  map_value(\"neighbour_mean\", \"Queen neighbour mean\", average_breaks, \"GDPPC scale\"),\n  map_value(\"window_mean\", \"Window mean (including self)\", average_breaks, \"GDPPC scale\"),\n  map_value(\"idw_mean\", \"Inverse-distance neighbour mean\", average_breaks, \"GDPPC scale\"),\n  ncol = 2)\n\n\n\n\n\n\n\n\nFigure 4: The original indicator and three spatial averages, using common class breaks.\n\n\n\n\n\n\n\nShow code\nsum_breaks &lt;- pretty(range(c(hunan$neighbour_sum, hunan$window_sum)), n = 5)\ntmap_arrange(\n  map_value(\"neighbour_sum\", \"Neighbour sum\", sum_breaks, \"Sum of GDPPC values\"),\n  map_value(\"window_sum\", \"Window sum (including self)\", sum_breaks, \"Sum of GDPPC values\"),\n  ncol = 2)\n\n\n\n\n\n\n\n\nFigure 5: Sums of county GDPPC values. These are demonstrations of weighted sums, not estimates of combined GDP."
   }
 ]

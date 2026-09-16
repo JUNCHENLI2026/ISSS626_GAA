@@ -1,0 +1,94 @@
+EXPLORATORY DIAGNOSTICS: not a significance test or final model.
+Projection: EPSG:32749. Coordinate and distance units: km.
+Window area (km2): 29997.02 
+Estimator: homogeneous Kest, border correction; L = sqrt(K/pi).
+Initial diagnostic range: 0-10 km, not a final justified test range.
+All input points retained inside the full polygon; area conversion verified.
+
+ Confidence >=30 (n = 4,472) 
+Distinct dates: 95 
+Exact duplicate coordinates: 0 
+ r_km eligible_centres  fraction
+    0             4472 1.0000000
+    1             4411 0.9863596
+    2             4256 0.9516995
+    3             4065 0.9089893
+    4             3817 0.8535331
+    5             3591 0.8029964
+    6             3420 0.7647585
+    7             3250 0.7267442
+    8             3077 0.6880590
+    9             2908 0.6502683
+   10             2734 0.6113596
+
+ Confidence >=80 (n = 1,726) 
+Distinct dates: 67 
+Exact duplicate coordinates: 0 
+ r_km eligible_centres  fraction
+    0             1726 1.0000000
+    1             1704 0.9872538
+    2             1664 0.9640788
+    3             1581 0.9159907
+    4             1464 0.8482039
+    5             1363 0.7896871
+    6             1296 0.7508691
+    7             1226 0.7103129
+    8             1160 0.6720742
+    9             1085 0.6286211
+   10             1015 0.5880649
+
+No temporal interaction model, intensity adjustment, simulations or p-values.
+A homogeneous reference is not established as appropriate for these data.
+Boundary support does not address spatially varying observation opportunity.
+Input files unchanged; MD5:
+        E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_boundary.gpkg 
+                                                                     "14bbc09bebf57c6df47a7100dba3925f" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf30.csv 
+                                                                     "5983d12b76a3613d1a0383e4a6b79e9c" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf80.csv 
+                                                                     "e771bd6556dbcd59ffa98ddd393d8e8a" 
+
+References:
+https://search.r-project.org/CRAN/refmans/spatstat.explore/html/Kest.html
+https://search.r-project.org/CRAN/refmans/spatstat.explore/html/Lest.html
+R version 4.5.3 (2026-03-11 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: Asia/Singapore
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_4.0.3          spatstat.explore_3.8-2 nlme_3.1-168          
+[4] spatstat.random_3.5-1  spatstat.geom_3.8-2    spatstat.univar_3.2-0 
+[7] spatstat.data_3.1-9    sf_1.1-0              
+
+loaded via a namespace (and not attached):
+ [1] Matrix_1.7-4          gtable_0.3.6          dplyr_1.2.1          
+ [4] compiler_4.5.3        spatstat.utils_3.2-4  tidyselect_1.2.1     
+ [7] Rcpp_1.1.1-1.1        spatstat.sparse_3.2-0 textshaping_1.0.5    
+[10] systemfonts_1.3.2     scales_1.4.0          lattice_0.22-9       
+[13] deldir_2.0-4          tensor_1.5.1          R6_2.6.1             
+[16] labeling_0.4.3        generics_0.1.4        classInt_0.4-11      
+[19] polyclip_1.10-7       tibble_3.3.1          units_1.0-1          
+[22] DBI_1.3.0             pillar_1.11.1         RColorBrewer_1.1-3   
+[25] rlang_1.2.0           S7_0.2.2              otel_0.2.0           
+[28] cli_3.6.6             withr_3.0.2           magrittr_2.0.5       
+[31] class_7.3-23          grid_4.5.3            lifecycle_1.0.5      
+[34] vctrs_0.7.3           KernSmooth_2.23-26    proxy_0.4-29         
+[37] glue_1.8.1            farver_2.1.2          ragg_1.5.2           
+[40] goftest_1.2-3         abind_1.4-8           e1071_1.7-17         
+[43] pkgconfig_2.0.3       tools_4.5.3          

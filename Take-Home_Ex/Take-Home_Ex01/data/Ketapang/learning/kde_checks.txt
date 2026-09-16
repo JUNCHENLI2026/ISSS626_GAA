@@ -1,0 +1,58 @@
+Working projection: EPSG:32749; computational distance unit: km
+Derived study-window area (km2): 29997.02 
+All records inside polygon window; no dropped points.
+          subset sigma_km records integral relative_mass_error
+ confidence_ge30        5    4472     4472                   0
+ confidence_ge30       10    4472     4472                   0
+ confidence_ge30       20    4472     4472                   0
+ confidence_ge80       10    1726     1726                   0
+Original inputs unchanged; MD5:
+        E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_boundary.gpkg 
+                                                                     "14bbc09bebf57c6df47a7100dba3925f" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf30.csv 
+                                                                     "5983d12b76a3613d1a0383e4a6b79e9c" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf80.csv 
+                                                                     "e771bd6556dbcd59ffa98ddd393d8e8a" 
+
+Runtime versions:
+R version 4.5.3 (2026-03-11 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: Asia/Singapore
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_4.0.3          spatstat.explore_3.8-2 nlme_3.1-168          
+[4] spatstat.random_3.5-1  spatstat.geom_3.8-2    spatstat.univar_3.2-0 
+[7] spatstat.data_3.1-9    sf_1.1-0              
+
+loaded via a namespace (and not attached):
+ [1] Matrix_1.7-4          gtable_0.3.6          dplyr_1.2.1          
+ [4] compiler_4.5.3        spatstat.utils_3.2-4  tidyselect_1.2.1     
+ [7] Rcpp_1.1.1-1.1        spatstat.sparse_3.2-0 textshaping_1.0.5    
+[10] systemfonts_1.3.2     scales_1.4.0          lattice_0.22-9       
+[13] deldir_2.0-4          tensor_1.5.1          R6_2.6.1             
+[16] labeling_0.4.3        generics_0.1.4        classInt_0.4-11      
+[19] polyclip_1.10-7       tibble_3.3.1          units_1.0-1          
+[22] DBI_1.3.0             pillar_1.11.1         RColorBrewer_1.1-3   
+[25] rlang_1.2.0           S7_0.2.2              otel_0.2.0           
+[28] viridisLite_0.4.3     cli_3.6.6             withr_3.0.2          
+[31] magrittr_2.0.5        class_7.3-23          grid_4.5.3           
+[34] lifecycle_1.0.5       vctrs_0.7.3           KernSmooth_2.23-26   
+[37] proxy_0.4-29          glue_1.8.1            farver_2.1.2         
+[40] ragg_1.5.2            goftest_1.2-3         abind_1.4-8          
+[43] e1071_1.7-17          pkgconfig_2.0.3       tools_4.5.3          
