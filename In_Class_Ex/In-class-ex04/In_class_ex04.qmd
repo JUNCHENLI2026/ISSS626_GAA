@@ -18,6 +18,8 @@ execute:
   freeze: auto
 ---
 
+### Package Loading
+
 ::: {style="front-size: 1.50em"}
 ```{r}
 pacman::p_load(
@@ -34,6 +36,7 @@ pacman::p_load(
 :::
 
 ### data Preparing
+
 ```{r}
 hunan_sf <- st_read(dsn = "data/geospatial", layer = "Hunan")
 hunan2012 <- read_csv("data/aspatial/Hunan_2012.csv")
@@ -43,8 +46,10 @@ hunan_sf <- left_join(hunan_sf, hunan2012) %>%
 ```
 
 ### Mapping GDPPC
+
 ::: panel-tabset
 ## DIY
+
 ```{r, echo=FALSE}
 #| fig-width: 16
 #| fig-height: 6
@@ -59,6 +64,7 @@ tmap_arrange(basemap,gdppc,asp = 1,ncol = 2)
 ```
 
 ## The code
+
 ```{r, eval=FALSE}
 basemap <- tm_shape(hunan_sf) + 
   tm_polygons() +
@@ -71,3 +77,22 @@ tmap_arrange(basemap,gdppc,asp = 1,ncol = 2)
 ```
 :::
 
+### Converting to SpatialPolygonDataFrame
+
+```{r}
+hunan_sp <- hunan_sf %>%
+  as_Spatial()
+```
+
+### Geographically Weighted Summary Statistics(GSWW) with adaptivev bandwidth
+
+#### Determine adaptive bandwidth
+
+```{r}
+bw_CV <- bw.gwr(GDPPC ~1,
+                data = hunan_sp,
+                approach = "CV",
+                adaptive = TRUE,
+                kernel = "bisquare",
+                longlat = T)
+```
