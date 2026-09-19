@@ -46,6 +46,8 @@ hunan_sf <- left_join(hunan_sf, hunan2012) %>%
 ::: panel-tabset
 ## DIY
 ```{r, echo=FALSE}
+#| fig-width: 16
+#| fig-height: 6
 basemap <- tm_shape(hunan_sf) + 
   tm_polygons() +
   tm_text("NAME_3", size=0.5)
