@@ -50,7 +50,7 @@ pacman::p_load(
 ## Data used
 
 | File | Geometry / type | Purpose |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `MP14_SUBZONE_WEB_PL.shp` | Multipolygon | Master Plan 2014 subzone boundaries |
 | `CyclingPathGazette.shp` | Multilinestring | Cycling path network |
 | `PreSchoolsLocation.kml` | Point | Preschool locations |
