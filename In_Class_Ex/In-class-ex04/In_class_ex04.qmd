@@ -88,6 +88,9 @@ hunan_sp <- hunan_sf %>%
 
 #### Determine adaptive bandwidth
 
+::: panel-tabset
+### Cross-validation
+
 ```{r}
 bw_CV <- bw.gwr(GDPPC ~1,
                 data = hunan_sp,
@@ -96,3 +99,111 @@ bw_CV <- bw.gwr(GDPPC ~1,
                 kernel = "bisquare",
                 longlat = T)
 ```
+
+### AICc
+
+```{r}
+bw_AIC <- bw.gwr(GDPPC ~1,
+                data = hunan_sp,
+                approach = "AICc",
+                adaptive = TRUE,
+                kernel = "bisquare",
+                longlat = T)
+```
+
+```{r}
+bw_AIC
+```
+:::
+
+## GWSS with Fixed Bandwidth
+
+### Determine fixed bandwidth
+
+::: panel-tabset
+#### Cross-Validation
+
+```{r}
+bw_CV <- bw.gwr(GDPPC ~1,
+                data = hunan_sp,
+                approach = "CV",
+                adaptive = FALSE,
+                kernel = "bisquare",
+                longlat = T)
+```
+
+#### AICc
+
+```{r}
+w_AIC <- bw.gwr(GDPPC ~1,
+                data = hunan_sp,
+                approach = "AICc",
+                adaptive = FALSE,
+                kernel = "bisquare",
+                longlat = T)
+```
+
+```{r}
+bw_AIC
+```
+:::
+
+## Computing geographically wieghted summary statistics
+
+```{r}
+gwstat <- gwss(data = hunan_sp,
+               vars = "GDPPC",
+               bw = bw_AIC,
+               kernel = "bisquare",
+               quantile = TRUE,
+               adaptive = TRUE,
+               longlat = T)
+```
+
+## Preparing the output data
+
+```{r}
+gwstat_df <- as.data.frame(gwstat$SDF)
+```
+
+```{r}
+hunan_gstat <- cbind(hunan_sf, gwstat_df)
+```
+
+
+## Visualising geographically weighted summary statistics
+
+### The Geographically Weighted Mean
+```{r, echo=FALSE}
+#| fig-width: 16
+#| fig-height: 6
+tm_shape(hunan_gstat) + 
+  tm_polygons(fill = "GDPPC_LM", 
+              fill.scale = tm_scale_intervals(
+                style = "quantile",
+                n = 5,
+                values = "brewer.oranges"),
+              fill.legend = tm_legend(
+                title = "local Mean")) + 
+  tm_borders(fill_alpha = 0.5) +
+  tm_title("Distribution of geographically weighted mean") +
+  tm_layout(legend.position = c("left", "bottom"))
+```
+
+### The Code
+```{r, eval=FALSE}
+#| fig-width: 16
+#| fig-height: 6
+tm_shape(hunan_gstat) + 
+  tm_polygons(fill = "GDPPC_LM", 
+              fill.scale = tm_scale_intervals(
+                style = "quantile",
+                n = 5,
+                values = "brewer.oranges"),
+              fill.legend = tm_legend(
+                title = "local Mean")) + 
+  tm_borders(fill_alpha = 0.5) +
+  tm_title("Distribution of geographically weighted mean") +
+  tm_layout(legend.position = c("left", "bottom"))
+```
+
