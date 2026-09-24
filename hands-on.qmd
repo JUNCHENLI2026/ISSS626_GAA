@@ -15,7 +15,7 @@ editor: source
     <p>Explore my practical work in geospatial data science. Each exercise documents the data preparation, analytical decisions, R workflow, results, and reflections developed during the course.</p>
   </div>
   <div class="exercise-summary" aria-label="Portfolio summary">
-    <span class="summary-value">06</span>
+    <span class="summary-value">08</span>
     <span class="summary-label">Exercises completed</span>
   </div>
 </header>
@@ -25,7 +25,7 @@ editor: source
     <span class="exercise-eyebrow">Assignment directory</span>
     <h2>Choose an exercise</h2>
   </div>
-  <p>The exercises progress from preparing and visualising geospatial data to analysing point patterns, spatial neighbourhoods, and weighted regional indicators.</p>
+  <p>The exercises progress from preparing and visualising geospatial data to analysing point patterns, spatial neighbourhoods, and global and local spatial autocorrelation.</p>
 </section>
 
 <div class="exercise-grid">
@@ -116,6 +116,31 @@ editor: source
     <p>Use Hunan's 2012 indicators to compare queen and rook contiguity, distance bands, nearest neighbours, inverse-distance weights, and spatial means and sums.</p>
     <div class="exercise-tags"><span>spdep</span><span>Spatial weights</span><span>Spatial lag</span></div>
     <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex0401.html">Open Exercise 4 <i class="bi bi-arrow-up-right"></i></a>
+  </article>
+</div>
+
+<div class="exercise-grid" style="margin-top: 1rem;">
+  <article class="exercise-card accent-violet">
+    <div class="exercise-card-top">
+      <span class="exercise-number">05.1</span>
+      <span class="exercise-icon"><i class="bi bi-globe"></i></span>
+    </div>
+    <span class="exercise-category">Global spatial autocorrelation</span>
+    <h3>Regional Similarity Across Hunan</h3>
+    <p>Explore Hunan's 2012 GDP per capita using Moran's I, Geary's C, permutation tests, a Moran scatterplot, and spatial correlograms.</p>
+    <div class="exercise-tags"><span>Moran's I</span><span>Geary's C</span><span>spdep</span></div>
+    <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex0501.html">Open Exercise 5(1) <i class="bi bi-arrow-up-right"></i></a>
+  </article>
+  <article class="exercise-card accent-amber">
+    <div class="exercise-card-top">
+      <span class="exercise-number">05.2</span>
+      <span class="exercise-icon"><i class="bi bi-pin-map"></i></span>
+    </div>
+    <span class="exercise-category">Local spatial autocorrelation</span>
+    <h3>Local Clusters, Outliers and Hot Spots</h3>
+    <p>Map local Moran associations and Getis-Ord Gi* hot and cold spots, compare neighbourhood definitions, and distinguish raw from multiplicity-adjusted results.</p>
+    <div class="exercise-tags"><span>LISA</span><span>Gi*</span><span>sfdep</span></div>
+    <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex0502.html">Open Exercise 5(2) <i class="bi bi-arrow-up-right"></i></a>
   </article>
 </div>
 

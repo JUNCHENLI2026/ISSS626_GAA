@@ -228,6 +228,12 @@ html {
   gap: 1rem;
 }
 
+@media (min-width: 901px) {
+  .portfolio-grid.coursework-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .portfolio-card {
   position: relative;
   display: flex;

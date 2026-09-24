@@ -1,0 +1,58 @@
+---
+pagetitle: "In-class Exercises"
+page-layout: full
+toc: false
+editor: source
+---
+
+::: {.exercise-shell}
+
+```{=html}
+<header class="exercise-hero">
+  <div class="exercise-hero-copy">
+    <span class="exercise-eyebrow"><i class="bi bi-journal-code"></i> ISSS626 · Learning Portfolio</span>
+    <h1>In-class Exercises</h1>
+    <p>Follow my classroom practice in geospatial analytics. These exercises connect course concepts with R workflows, from preparing spatial data to exploring local patterns and presenting results through maps.</p>
+  </div>
+  <div class="exercise-summary" aria-label="Portfolio summary">
+    <span class="summary-value">01</span>
+    <span class="summary-label">Exercise available</span>
+  </div>
+</header>
+
+<section class="exercise-intro">
+  <div>
+    <span class="exercise-eyebrow">Classroom practice</span>
+    <h2>Choose an exercise</h2>
+  </div>
+  <p>Open an exercise to follow the data preparation, methods and mapping code used during class.</p>
+</section>
+
+<div class="exercise-grid">
+  <article class="exercise-card accent-blue">
+    <div class="exercise-card-top">
+      <span class="exercise-number">04</span>
+      <span class="exercise-icon"><i class="bi bi-geo-alt-fill"></i></span>
+    </div>
+    <span class="exercise-category">Local spatial summaries</span>
+    <h3>Geographically Weighted Summary Statistics</h3>
+    <p>Explore GDP per capita across 88 county-level areas in Hunan using 2012 indicators. Examine fixed and adaptive bandwidth selection, calculate geographically weighted summaries, and map the local mean.</p>
+    <div class="exercise-tags">
+      <span>GWmodel</span><span>Bandwidth selection</span><span>tmap</span>
+    </div>
+    <a class="exercise-link" href="In_Class_Ex/In-class-ex04/In_class_ex04.html">
+      Open Exercise 4 <i class="bi bi-arrow-up-right"></i>
+    </a>
+  </article>
+</div>
+
+<div class="exercise-footer-note">
+  <i class="bi bi-plus-circle"></i>
+  <div>
+    <strong>This portfolio is still growing.</strong>
+    <span>New in-class exercises will be added here as the course progresses.</span>
+  </div>
+</div>
+```
+
+:::

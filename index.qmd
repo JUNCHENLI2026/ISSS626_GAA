@@ -57,12 +57,20 @@ editor: source
     <p>Follow my progress from guided practice to independent geospatial analysis.</p>
   </div>
 
-  <div class="portfolio-grid">
+  <div class="portfolio-grid coursework-grid">
     <a class="portfolio-card featured-card" href="hands-on.html">
       <span class="card-icon"><i class="bi bi-compass-fill"></i></span>
       <span class="card-meta">Step-by-step practice</span>
       <h3>Hands-on Exercises</h3>
       <p>Practical work using R and R packages to build geospatial analysis skills through step-by-step, real-world use cases.</p>
+      <span class="card-link">Start exploring <i class="bi bi-arrow-up-right"></i></span>
+    </a>
+
+    <a class="portfolio-card" href="in-class.html">
+      <span class="card-icon"><i class="bi bi-journal-code"></i></span>
+      <span class="card-meta">Classroom practice</span>
+      <h3>In-class Exercises</h3>
+      <p>My classroom work connecting geospatial concepts with R, including local summary statistics, bandwidth selection, and thematic mapping.</p>
       <span class="card-link">Start exploring <i class="bi bi-arrow-up-right"></i></span>
     </a>
 

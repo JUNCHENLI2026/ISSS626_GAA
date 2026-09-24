@@ -1,0 +1,16 @@
+Hunan county boundaries and 2012 indicators
+Repository commit: 966eea6df498b38f10bc209d07a922f4d87b95d9 
+Retrieval date: 2026-09-24 
+Indicator year: 2012. Download date is not the indicator year.
+https://raw.githubusercontent.com/tskam/ISSS626-AY2026-27Aug/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data/aspatial/Hunan_2012.csv
+https://raw.githubusercontent.com/tskam/ISSS626-AY2026-27Aug/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data/geospatial/Hunan.dbf
+https://raw.githubusercontent.com/tskam/ISSS626-AY2026-27Aug/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data/geospatial/Hunan.prj
+https://raw.githubusercontent.com/tskam/ISSS626-AY2026-27Aug/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data/geospatial/Hunan.qpj
+https://raw.githubusercontent.com/tskam/ISSS626-AY2026-27Aug/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data/geospatial/Hunan.shp
+https://raw.githubusercontent.com/tskam/ISSS626-AY2026-27Aug/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data/geospatial/Hunan.shx 
+      data/aspatial/Hunan_2012.csv          data/geospatial/Hunan.dbf 
+"fc36868157f3a485479cc8e5eee56720" "2e558caeb923cc6fbf0f6218a47ef4cf" 
+         data/geospatial/Hunan.prj          data/geospatial/Hunan.qpj 
+"e729936bf5360b37a15365fc295a1901" "f34dee5ac9bad1bc567ccb2246dc228e" 
+         data/geospatial/Hunan.shp          data/geospatial/Hunan.shx 
+"c3c77d36475e0f1f23ada5c7257d315b" "2041970bbf57638952e7943fa4a65a37" 

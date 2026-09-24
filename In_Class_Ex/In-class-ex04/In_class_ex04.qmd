@@ -18,6 +18,27 @@ execute:
   freeze: auto
 ---
 
+## Introduction
+
+In this in-class exercise, I explore how geographically weighted summary statistics (GWSS) describe variation across space. A single overall average can conceal differences between places. Local summaries offer a complementary perspective by weighting observations according to their distance from each location.
+
+The exercise uses the supplied boundaries for 88 county-level areas in Hunan, China, together with socioeconomic indicators from `Hunan_2012.csv`. My main variable is GDP per capita (`GDPPC`). I join the two datasets through `County`, map the original values, and prepare the spatial objects required by `GWmodel`. The indicators refer to 2012, not the year in which I completed this exercise.
+
+The workflow explores fixed and adaptive bandwidths, using cross-validation (CV) and corrected Akaike Information Criterion (AICc) for the intercept-only model `GDPPC ~ 1`. I then use the adaptive AICc-selected bandwidth and a bisquare kernel to calculate local summaries and map the geographically weighted mean. This provides a practical way to examine how the definition of a local neighbourhood influences the summary.
+
+### Learning objectives
+
+- Join spatial boundaries and attribute data while retaining the geometry.
+- Distinguish a fixed-distance bandwidth from an adaptive nearest-neighbour bandwidth.
+- Explore CV and AICc bandwidth selection in `GWmodel`.
+- Calculate and visualise the geographically weighted mean of GDP per capita with `tmap`.
+
+These maps are exploratory descriptions rather than significance tests or explanations of economic causes. Local means depend on the kernel, bandwidth and spatial representation; they should not be interpreted as independently observed county values. Method details are available in the [GWSS documentation](https://search.r-project.org/CRAN/refmans/GWmodel/html/gwss.html) and [bandwidth-selection documentation](https://search.r-project.org/CRAN/refmans/GWmodel/html/bw.gwr.html).
+
+[Back to In-class Exercises](../../in-class.qmd)
+
+## Practical workflow
+
 ### Package Loading
 
 ::: {style="front-size: 1.50em"}

@@ -1,0 +1,286 @@
+---
+title: "Hands-on Exercise 5(2): Local Spatial Autocorrelation"
+author: "JUNCHEN LI"
+date: "September 24, 2026"
+date-modified: "last-modified"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+editor: source
+execute:
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+---
+
+# Overview
+
+This exercise accompanies [Chapter 10](https://r4gdsa.netlify.app/chap10.html). It examines local GDPPC associations using the same Hunan 2012 inputs as [Exercise 5(1)](Hands-on_Ex0501.qmd). Local Moran statistics distinguish similar-value neighbourhoods from spatial outliers. Gi* provides a complementary view of high- and low-value neighbourhood sums. All results are recomputed, rather than copied from textbook screenshots.
+
+# 1 Data preparation
+
+The shared `data` directory contains county polygons and `Hunan_2012.csv`, plus a download script and provenance manifest. The [pinned instructor repository](https://github.com/tskam/ISSS626-AY2026-27Aug/tree/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data) supplies the raw files. The statistical reference year remains **2012**.
+
+```{r}
+#| label: setup
+library(sf)
+library(sfdep)
+library(dplyr)
+library(readr)
+library(tmap)
+library(ggplot2)
+library(knitr)
+tmap_mode("plot")
+theme_set(theme_minimal(base_size = 12))
+boundary <- st_read("data/geospatial/Hunan.shp", quiet = TRUE)
+attributes <- read_csv("data/aspatial/Hunan_2012.csv", show_col_types = FALSE)
+stopifnot(nrow(boundary) == 88L, nrow(attributes) == 88L,
+          !anyDuplicated(boundary$County), !anyDuplicated(attributes$County),
+          setequal(boundary$County, attributes$County),
+          all(st_is_valid(boundary)), !any(st_is_empty(boundary)))
+hunan <- left_join(boundary, select(attributes, County, GDPPC),
+                   by = "County", relationship = "one-to-one")
+stopifnot(identical(hunan$County, boundary$County), all(is.finite(hunan$GDPPC)))
+```
+
+## Indicator map
+
+```{r}
+#| label: fig-indicator
+#| fig-height: 6
+#| fig-cap: "GDPPC in 2012, shown before local statistical testing."
+tm_shape(hunan) +
+  tm_polygons(fill = "GDPPC",
+    fill.scale = tm_scale_intervals(style = "quantile", n = 5, values = "brewer.blues"),
+    fill.legend = tm_legend(title = "GDPPC (2012)"), col = "white", lwd = 0.4) +
+  tm_layout(frame = FALSE, legend.outside = TRUE)
+```
+
+This map ranks the supplied indicator using quantile classes. A high GDPPC county is not automatically a statistically supported hot spot: neighbouring values and the reference distribution also matter.
+
+# 2 Queen-weight local Moran analysis
+
+## Neighbours and conditional permutations
+
+```{r}
+#| label: local-moran
+nb <- st_contiguity(st_geometry(hunan), queen = TRUE)
+wt <- st_weights(nb, style = "W")
+stopifnot(all(spdep::card(nb) > 0),
+          max(abs(vapply(wt, sum, numeric(1)) - 1)) < 1e-12)
+set.seed(1234)
+local_stats <- local_moran(hunan$GDPPC, nb, wt, nsim = 9999,
+                           alternative = "two.sided", iseed = 1234)
+stopifnot(nrow(local_stats) == nrow(hunan),
+          all(c("ii", "p_ii", "p_ii_sim") %in% names(local_stats)))
+lisa <- bind_cols(hunan, local_stats)
+lisa$p_holm <- p.adjust(lisa$p_ii_sim, method = "holm")
+head(st_drop_geometry(lisa)[, c("County", "GDPPC", "ii", "p_ii", "p_ii_sim", "p_holm")]) |>
+  kable(digits = 4)
+```
+
+The exercise uses **9,999** conditional permutations rather than the chapter's shorter demonstration. Each focal value is held fixed while reference neighbour values are sampled. `p_ii` is a normal-approximation p-value based on the permutation moments; `p_ii_sim` is the two-sided rank-based permutation p-value used below. The folded field is not silently substituted for it. Holm correction covers the **88 local Moran tests** and can reduce the number of displayed discoveries.
+
+## Local statistic and p-value maps
+
+```{r}
+#| label: fig-local-statistics
+#| fig-width: 12
+#| fig-height: 7
+#| fig-cap: "Local Moran statistics and unadjusted two-sided permutation p-values."
+stat_map <- tm_shape(lisa) +
+  tm_polygons(fill = "ii",
+    fill.scale = tm_scale_intervals(style = "pretty", n = 6, values = "brewer.rd_bu"),
+    fill.legend = tm_legend(title = "Local I"), col = "white", lwd = 0.4) +
+  tm_title("Local Moran's I", size = 1) + tm_layout(legend.outside = TRUE, frame = FALSE)
+p_map <- tm_shape(lisa) +
+  tm_polygons(fill = "p_ii_sim",
+    fill.scale = tm_scale_intervals(breaks = c(0, .001, .01, .05, .1, 1),
+                                    values = "-brewer.reds"),
+    fill.legend = tm_legend(title = "Permutation p"), col = "white", lwd = 0.4) +
+  tm_title("Unadjusted p-values", size = 1) + tm_layout(legend.outside = TRUE, frame = FALSE)
+tmap_arrange(stat_map, p_map, ncol = 2)
+```
+
+Positive local I represents similar-value association, whereas negative I can indicate a local contrast. A large magnitude alone does not establish significance. These unadjusted p-values are shown for learning, alongside the corrected maps below.
+
+## Standardised Moran scatterplot
+
+```{r}
+#| label: fig-local-scatter
+#| fig-cap: "Quadrants based on centred GDPPC and the lag of that same centred variable."
+lisa$z <- as.numeric(scale(lisa$GDPPC))
+lisa$lag_z <- st_lag(lisa$z, nb, wt)
+lisa$quadrant <- case_when(
+  lisa$z > 0 & lisa$lag_z > 0 ~ "High-High",
+  lisa$z < 0 & lisa$lag_z < 0 ~ "Low-Low",
+  lisa$z > 0 & lisa$lag_z < 0 ~ "High-Low",
+  lisa$z < 0 & lisa$lag_z > 0 ~ "Low-High",
+  TRUE ~ "On mean")
+quadrant_colours <- c("High-High" = "#b2182b", "Low-Low" = "#2166ac",
+                      "High-Low" = "#ef8a62", "Low-High" = "#67a9cf", "On mean" = "grey60")
+ggplot(st_drop_geometry(lisa), aes(z, lag_z, colour = quadrant)) +
+  geom_hline(yintercept = 0, linetype = "dashed", colour = "grey60") +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "grey60") +
+  geom_point(size = 2) + scale_colour_manual(values = quadrant_colours) +
+  labs(x = "Standardised GDPPC", y = "Spatial lag of standardised GDPPC", colour = "Quadrant")
+```
+
+High-High and Low-Low describe matching signs; High-Low and Low-High describe contrasts. The spatial lag is not independently re-standardised. Classification uses these explicit zero-centred quadrants rather than switching between mean-, median- and package-specific categories. Every point receives a descriptive quadrant before any significance filter.
+
+## LISA cluster maps
+
+```{r}
+#| label: fig-lisa-clusters
+#| fig-width: 12
+#| fig-height: 7
+#| fig-cap: "Unadjusted and Holm-adjusted LISA classifications, alpha = 0.05."
+cluster_levels <- c("Not significant", "Low-Low", "Low-High", "High-Low", "High-High", "On mean")
+cluster_colours <- c("#d9d9d9", "#2166ac", "#67a9cf", "#ef8a62", "#b2182b", "#969696")
+lisa$raw_class <- factor(ifelse(lisa$p_ii_sim < .05, lisa$quadrant, "Not significant"),
+                          levels = cluster_levels)
+lisa$holm_class <- factor(ifelse(lisa$p_holm < .05, lisa$quadrant, "Not significant"),
+                           levels = cluster_levels)
+class_map <- function(object, field, title, colours) {
+  tm_shape(object) + tm_polygons(fill = field,
+    fill.scale = tm_scale_categorical(values = colours),
+    fill.legend = tm_legend(title = "Classification"), col = "white", lwd = 0.4) +
+    tm_title(title, size = 1) + tm_layout(frame = FALSE, legend.outside = TRUE)
+}
+tmap_arrange(class_map(lisa, "raw_class", "Unadjusted", cluster_colours),
+             class_map(lisa, "holm_class", "Holm: 88 tests", cluster_colours), ncol = 2)
+```
+
+There are **`r sum(lisa$p_ii_sim < .05)`** unadjusted detections and **`r sum(lisa$p_holm < .05)`** after Holm adjustment. A grey county lacks evidence at this threshold; it is not proven spatially random. Corrected discoveries remain conditional on the selected weights and null model.
+
+```{r}
+#| label: lisa-counties
+lisa |> st_drop_geometry() |>
+  filter(p_ii_sim < .05) |> arrange(p_ii_sim) |>
+  select(County, GDPPC, quadrant, ii, p_ii_sim, p_holm) |> kable(digits = 4)
+```
+
+# 3 Distance-based Gi* analysis
+
+## Projection, representative points and neighbourhoods
+
+Distance is computed in metres after transformation to **WGS 84 / UTM zone 49N (EPSG:32649)**, whose central meridian is near Hunan. Points on polygon surfaces represent counties, not population centres. This makes explicit the representative-point approach used by the installed sfdep polygon helpers. The western edge extends slightly beyond the zone's nominal extent, so the construction is an approximation rather than an exact travel-distance model. The threshold is recalculated from these coordinates instead of copying a distance from another projection.
+
+```{r}
+#| label: distance-weights
+projected <- st_transform(hunan, 32649)
+centres <- st_point_on_surface(st_geometry(projected))
+threshold <- critical_threshold(centres)
+band_nb <- st_dist_band(centres, upper = threshold + 0.01)
+knn_nb <- st_knn(centres, k = 6, symmetric = FALSE)
+stopifnot(all(spdep::card(band_nb) > 0), all(spdep::card(knn_nb) == 6))
+band_self <- include_self(band_nb)
+knn_self <- include_self(knn_nb)
+band_wt <- st_weights(band_self, style = "W")
+knn_wt <- st_weights(knn_self, style = "W")
+stopifnot(all(vapply(seq_along(band_self), function(i) i %in% band_self[[i]], logical(1))),
+          all(vapply(seq_along(knn_self), function(i) i %in% knn_self[[i]], logical(1))))
+data.frame(Method = c("Fixed band", "Six nearest neighbours"),
+           Min_other_neighbours = c(min(spdep::card(band_nb)), 6),
+           Max_other_neighbours = c(max(spdep::card(band_nb)), 6),
+           Threshold_km = c((threshold + .01)/1000, NA)) |> kable(digits = 3)
+```
+
+The fixed band is **`r round(threshold/1000, 2)` km**, with a 1 cm tolerance to include the boundary pair. Each county has at least one other neighbour. The six-neighbour graph is directed: selecting another county does not require a reciprocal selection. Both Gi* graphs **include the focal county**, unlike the local Moran graph.
+
+## Permutation statistics
+
+```{r}
+#| label: gi-tests
+set.seed(1234)
+gi_band <- local_gstar_perm(hunan$GDPPC, band_self, band_wt,
+                           nsim = 9999, alternative = "two.sided", iseed = 1234)
+set.seed(1234)
+gi_knn <- local_gstar_perm(hunan$GDPPC, knn_self, knn_wt,
+                          nsim = 9999, alternative = "two.sided", iseed = 1234)
+stopifnot(all(c("gi_star", "p_sim") %in% names(gi_band)))
+# Treat both distance models as one 176-test Gi* sensitivity family.
+adjusted <- p.adjust(c(gi_band$p_sim, gi_knn$p_sim), method = "holm")
+g_band <- bind_cols(hunan, gi_band)
+g_knn <- bind_cols(hunan, gi_knn)
+g_band$p_holm <- adjusted[seq_len(88)]
+g_knn$p_holm <- adjusted[88 + seq_len(88)]
+gi_class <- function(score, p) {
+  factor(ifelse(p >= .05, "Not significant", ifelse(score > 0, "Hot spot", "Cold spot")),
+         levels = c("Not significant", "Hot spot", "Cold spot"))
+}
+g_band$raw_class <- gi_class(g_band$gi_star, g_band$p_sim)
+g_band$holm_class <- gi_class(g_band$gi_star, g_band$p_holm)
+g_knn$raw_class <- gi_class(g_knn$gi_star, g_knn$p_sim)
+g_knn$holm_class <- gi_class(g_knn$gi_star, g_knn$p_holm)
+```
+
+`gi_star` is the standardised Gi* score. `p_sim` supplies the two-sided permutation probability; a positive or negative score determines the hot/cold label only after the significance filter. The Gi* family contains both distance models (176 tests). It is separate from the 88-test local Moran family, so these corrections do not claim an overall 5% error bound across every analysis in both exercises.
+
+## Scores and permutation probabilities
+
+```{r}
+#| label: fig-gi-statistics
+#| fig-width: 12
+#| fig-height: 7
+#| fig-cap: "Fixed-band Gi* scores and their unadjusted permutation p-values."
+gi_map <- tm_shape(g_band) + tm_polygons(fill = "gi_star",
+  fill.scale = tm_scale_intervals(style = "pretty", n = 6, values = "-brewer.rd_bu"),
+  fill.legend = tm_legend(title = "Gi* score"), col = "white", lwd = 0.4) +
+  tm_title("Fixed-band Gi*", size = 1) + tm_layout(frame = FALSE, legend.outside = TRUE)
+gi_p <- tm_shape(g_band) + tm_polygons(fill = "p_sim",
+  fill.scale = tm_scale_intervals(breaks = c(0, .001, .01, .05, .1, 1), values = "-brewer.reds"),
+  fill.legend = tm_legend(title = "Permutation p"), col = "white", lwd = 0.4) +
+  tm_title("Unadjusted p-values", size = 1) + tm_layout(frame = FALSE, legend.outside = TRUE)
+tmap_arrange(gi_map, gi_p, ncol = 2)
+```
+
+The score measures the neighbourhood sum relative to its reference, not the number of counties or the density of point events. GDPPC is an attribute on fixed administrative areas. Maps therefore describe relative economic values, not concentrations of fires or people.
+
+## Hot/cold classifications and weight sensitivity
+
+```{r}
+#| label: fig-gi-clusters
+#| fig-width: 12
+#| fig-height: 11
+#| fig-cap: "Gi* classifications under two neighbourhood definitions, before and after the 176-test Holm adjustment."
+gi_colours <- c("#d9d9d9", "#b2182b", "#2166ac")
+tmap_arrange(
+  class_map(g_band, "raw_class", "Fixed band: unadjusted", gi_colours),
+  class_map(g_knn, "raw_class", "Six neighbours: unadjusted", gi_colours),
+  class_map(g_band, "holm_class", "Fixed band: Holm", gi_colours),
+  class_map(g_knn, "holm_class", "Six neighbours: Holm", gi_colours), ncol = 2)
+```
+
+```{r}
+#| label: gi-summary
+data.frame(Model = c("Fixed band", "Six neighbours"),
+  Raw_hot = c(sum(g_band$raw_class == "Hot spot"), sum(g_knn$raw_class == "Hot spot")),
+  Raw_cold = c(sum(g_band$raw_class == "Cold spot"), sum(g_knn$raw_class == "Cold spot")),
+  Holm_hot = c(sum(g_band$holm_class == "Hot spot"), sum(g_knn$holm_class == "Hot spot")),
+  Holm_cold = c(sum(g_band$holm_class == "Cold spot"), sum(g_knn$holm_class == "Cold spot"))) |> kable()
+g_band |> st_drop_geometry() |> filter(p_sim < .05) |> arrange(p_sim) |>
+  select(County, GDPPC, gi_star, p_sim, p_holm, raw_class, holm_class) |> kable(digits = 4)
+```
+
+The fixed-band model retains **`r sum(g_band$p_holm < .05)`** counties after correction; the six-neighbour model retains **`r sum(g_knn$p_holm < .05)`**. Differences reflect changes in neighbourhood support and are not evidence that one method is universally correct. These sensitivity models share the same observations and should not be counted as independent replications.
+
+# 4 Interpretation and limits
+
+Global association motivates local exploration but does not guarantee a significant result for every county. LISA can distinguish a spatial outlier from a similar-value neighbourhood; Gi* instead evaluates a neighbourhood sum including the focal county. Raw maps help reproduce the teaching workflow, while corrected maps communicate the cost of testing many locations. No result demonstrates that a neighbouring county causes another county's GDPPC. Aggregation, provincial edge effects, representative points and the single 2012 snapshot limit interpretation.
+
+# References and session information
+
+- [Chapter 10: Local Measures of Spatial Autocorrelation](https://r4gdsa.netlify.app/chap10.html).
+- [sfdep documentation](https://sfdep.josiahparry.com/).
+- [spdep: local Moran permutations](https://r-spatial.github.io/spdep/reference/localmoran.html) and [local Getis-Ord statistics](https://r-spatial.github.io/spdep/reference/localG.html).
+
+```{r}
+#| label: session-info
+sessionInfo()
+```
