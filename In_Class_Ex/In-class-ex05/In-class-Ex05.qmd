@@ -1,0 +1,111 @@
+---
+title: "In-class-Ex05"
+author: "JUNCHEN LI"
+date: "September 26, 2026"
+date-modified: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: false
+    code-tools: true
+editor: visual
+execute:
+  eval: true
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+---
+
+### Package Loading
+
+::: {style="front-size: 1.50em"}
+```{r}
+pacman::p_load(
+  sf,
+  sfdep,
+  tidyverse,
+  tmap
+)
+```
+:::
+
+### Import data
+
+```{r}
+hunan <- st_read(dsn = "data/geospatial", layer = "Hunan")
+
+```
+
+```{r}
+hunan2012 <- read_csv(
+  "data/aspatial/Hunan_2012.csv",
+  show_col_types = FALSE
+)
+
+hunan_GDPPC <- hunan %>%
+  left_join(
+    hunan2012 %>% select(County, GDPPC),
+    by = "County",
+    relationship = "one-to-one"
+  )
+```
+
+### Global Measures of Spatial Association
+
+```{r}
+wm_q <- hunan_GDPPC %>%
+  mutate(nb = st_contiguity(geometry),
+         wt = st_weights(nb,
+                         style = "W"),
+         .before = 1)
+```
+
+#### Computing Global Moran'I
+
+```{r}
+moranI <- global_moran(wm_q$GDPPC,
+                       wm_q$nb,
+                       wm_q$wt)
+glimpse(moranI)
+```
+
+### Performing Global MOran'I permutation test
+
+```{r}
+set.seed(1234)
+
+global_moran_perm(wm_q$GDPPC,
+                      wm_q$nb,
+                      wm_q$wt,
+                  nsim = 99)
+```
+
+### Computing local Moran's I
+
+```{r}
+lisa <- wm_q %>%
+  mutate(local_moran = local_moran(
+    GDPPC, nb, wt, nsim = 99),
+    .before = 1) %>%
+  unnest(local_moran)
+```
+
+### Plotting LISA map
+
+```{r}
+lisa_sig <- lisa %>%
+  filter(p_ii_sim < 0.05)
+tmap_mode("plot")
+tm_shape(lisa) + 
+  tm_polygons() +
+  tm_borders(fill_alpha = 0.5) +
+tm_shape(lisa_sig) +
+  tm_polygons(fill = "mean",
+            fill.legend = tm_legend(
+              text.size = 1.15,
+              width = 6)) +
+  tm_borders(fill_alpha = 0.4) +
+  tm_layout(legend.title.size = 1.25)
+```

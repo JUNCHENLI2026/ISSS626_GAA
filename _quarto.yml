@@ -59,10 +59,18 @@ website:
 
           - text: "In-class Exercise 4"
             href: "In_Class_Ex/In-class-ex04/In_class_ex04.qmd"
+            
+          - text: "In-class Exercise 5"
+            href: "In_Class_Ex/In-class-ex05/In-class-Ex05.qmd"
 
       - text: "Take-Home Exercise"
         menu:
-          - text: "Take-Home Exercise 1" 
+          - text: "Take-Home Exercise 1: Submission Links"
+            href: "Take-Home_Ex/Take-Home_Ex01/index.qmd"
+          - text: "Take-Home Exercise 1: Technical Report"
+            href: "Take-Home_Ex/Take-Home_Ex01/Take-Home_Ex01.qmd"
+          - text: "Take-Home Exercise 1: Executive Summary"
+            href: "Take-Home_Ex/Take-Home_Ex01/executive_summary.qmd"
           - text: "Take-Home Exercise 2" 
     right: 
       - href: index.qmd

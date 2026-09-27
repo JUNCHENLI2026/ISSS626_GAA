@@ -324,6 +324,36 @@ html {
   font-weight: 700;
 }
 
+.submission-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .65rem;
+  margin-top: 1.3rem;
+}
+
+.submission-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .6rem .8rem;
+  border: 1px solid rgba(155, 138, 251, .4);
+  border-radius: 9px;
+  background: rgba(155, 138, 251, .08);
+  color: var(--home-ink);
+  font-size: .82rem;
+  font-weight: 650;
+}
+
+.submission-actions a:hover {
+  background: rgba(155, 138, 251, .2);
+  border-color: var(--home-violet);
+}
+
+.take-home-card a:focus-visible {
+  outline: 2px solid var(--home-cyan);
+  outline-offset: 4px;
+}
+
 .status-pill {
   padding: .45rem .7rem;
   border-radius: 999px;

@@ -1,0 +1,17 @@
+{
+  "hash": "6dce1c9f43792c55ea6842a9abd4aa1b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"In-class-Ex05\"\nauthor: \"JUNCHEN LI\"\ndate: \"September 26, 2026\"\ndate-modified: today\nformat:\n  html:\n    toc: true\n    toc-depth: 3\n    code-fold: false\n    code-tools: true\neditor: visual\nexecute:\n  eval: true\n  echo: true\n  warning: false\n  message: false\n  freeze: auto\n---\n\n### Package Loading\n\n::: {style=\"front-size: 1.50em\"}\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(\n  sf,\n  sfdep,\n  tidyverse,\n  tmap\n)\n```\n:::\n\n:::\n\n### Import data\n\n\n::: {.cell}\n\n```{.r .cell-code}\nhunan <- st_read(dsn = \"data/geospatial\", layer = \"Hunan\")\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\nReading layer `Hunan' from data source \n  `E:\\JUNCHENLI\\ISSS626_GAA\\In_Class_Ex\\In-class-ex05\\data\\geospatial' \n  using driver `ESRI Shapefile'\nSimple feature collection with 88 features and 7 fields\nGeometry type: POLYGON\nDimension:     XY\nBounding box:  xmin: 108.7831 ymin: 24.6342 xmax: 114.2544 ymax: 30.12812\nGeodetic CRS:  WGS 84\n```\n\n\n:::\n:::\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nhunan2012 <- read_csv(\n  \"data/aspatial/Hunan_2012.csv\",\n  show_col_types = FALSE\n)\n\nhunan_GDPPC <- hunan %>%\n  left_join(\n    hunan2012 %>% select(County, GDPPC),\n    by = \"County\",\n    relationship = \"one-to-one\"\n  )\n```\n:::\n\n\n### Global Measures of Spatial Association\n\n\n::: {.cell}\n\n```{.r .cell-code}\nwm_q <- hunan_GDPPC %>%\n  mutate(nb = st_contiguity(geometry),\n         wt = st_weights(nb,\n                         style = \"W\"),\n         .before = 1)\n```\n:::\n\n\n#### Computing Global Moran'I\n\n\n::: {.cell}\n\n```{.r .cell-code}\nmoranI <- global_moran(wm_q$GDPPC,\n                       wm_q$nb,\n                       wm_q$wt)\nglimpse(moranI)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\nList of 2\n $ I: num 0.301\n $ K: num 7.64\n```\n\n\n:::\n:::\n\n\n### Performing Global MOran'I permutation test\n\n\n::: {.cell}\n\n```{.r .cell-code}\nset.seed(1234)\n\nglobal_moran_perm(wm_q$GDPPC,\n                      wm_q$nb,\n                      wm_q$wt,\n                  nsim = 99)\n```\n\n::: {.cell-output .cell-output-stdout}\n\n```\n\n\tMonte-Carlo simulation of Moran I\n\ndata:  x \nweights: listw  \nnumber of simulations + 1: 100 \n\nstatistic = 0.30075, observed rank = 100, p-value < 2.2e-16\nalternative hypothesis: two.sided\n```\n\n\n:::\n:::\n\n\n### Computing local Moran's I\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlisa <- wm_q %>%\n  mutate(local_moran = local_moran(\n    GDPPC, nb, wt, nsim = 99),\n    .before = 1) %>%\n  unnest(local_moran)\n```\n:::\n\n\n### Plotting LISA map\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlisa_sig <- lisa %>%\n  filter(p_ii_sim < 0.05)\ntmap_mode(\"plot\")\ntm_shape(lisa) + \n  tm_polygons() +\n  tm_borders(fill_alpha = 0.5) +\ntm_shape(lisa_sig) +\n  tm_polygons(fill = \"mean\",\n            fill.legend = tm_legend(\n              text.size = 1.15,\n              width = 6)) +\n  tm_borders(fill_alpha = 0.4) +\n  tm_layout(legend.title.size = 1.25)\n```\n\n::: {.cell-output-display}\n![](In-class-Ex05_files/figure-html/unnamed-chunk-8-1.png){width=672}\n:::\n:::\n\n",
+    "supporting": [
+      "In-class-Ex05_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
