@@ -1,0 +1,217 @@
+---
+title: "Fire detections in Ketapang"
+author: "JUNCHEN LI"
+subtitle: "Spatial patterns and recorded recurrence, January-August 2026"
+date: 2026-09-23
+lang: en
+format:
+  revealjs:
+    theme: simple
+    css: summary.css
+    width: 1280
+    height: 720
+    margin: 0.06
+    center: false
+    transition: none
+    slide-number: c/t
+    controls: true
+    progress: true
+    embed-resources: true
+    navigation-mode: linear
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| include: false
+root <- "data/Ketapang"
+test <- readRDS(file.path(root, "permutation_tests/conditional_permutation_results.rds"))
+primary <- subset(test$summary, distance_km == 1 & max_gap_hours == 24)
+main <- subset(primary, subset == "Confidence >=30" & period == "January-August")
+monthly <- main[main$scheme == "Monthly strata", ]
+weekly <- main[main$scheme == "Within-month weekly strata", ]
+fmt <- function(x, digits = 0) formatC(x, format = "f", digits = digits, big.mark = ",")
+stopifnot(nrow(test$summary) == 72L)
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(sf))
+temporal <- readRDS(file.path(root, "temporal_checks/temporal_diagnostics.rds"))
+day_test <- readRDS(file.path(root, "day_block_tests/day_block_results.rds"))
+recurrence <- readRDS(file.path(root, "spatial_recurrence/spatial_recurrence.rds"))
+audit <- readRDS(file.path(root, "robustness_extension/robustness_results.rds"))
+day_main <- subset(day_test$summary, subset == "Confidence >=30" & period == "January-August" & distance_km == 1 & max_gap_hours == 24)
+day_strict <- subset(day_main, scheme == "Whole days within month blocks")
+```
+
+## Study scope and questions
+
+**Questions:** Where and when do recorded detections concentrate? Does time-location association persist when daily patterns remain intact?
+
+| Study component | Definition |
+|---|---|
+| Geography | Ketapang Regency; union of 262 supplied village polygons |
+| Time window | 1 January-31 August 2026, UTC |
+| Main subset | 4,472 records with confidence ≥30 |
+| Sensitivity subset | 1,726 records with confidence ≥80 |
+| Analytical unit | One satellite thermal-anomaly detection record |
+
+::: {.note}
+NASA FIRMS request 803220: confirmation and download availability on 10 September 2026. Standard data cover January-April and NRT data cover May-August. The supplied boundary's effective vintage is uncertain.
+:::
+
+## August dominates the observed time series
+
+```{r}
+#| fig-width: 12
+#| fig-height: 4.6
+#| fig-class: wide-figure
+#| fig-alt: "Daily main-subset detections are concentrated in August; the maximum is 674 on 29 August."
+daily <- subset(temporal$daily, subset == "Confidence >=30")
+stopifnot(sum(daily$detections) == 4472)
+ggplot(daily, aes(date, detections, fill = satellite)) +
+  geom_col(width = 1) +
+  geom_vline(xintercept = as.Date("2026-05-01"), linetype = "dashed", colour = "#64748B") +
+  scale_fill_manual(values = c(Aqua = "#0072B2", Terra = "#D55E00")) +
+  scale_x_date(breaks = as.Date(paste0("2026-", sprintf("%02d", 1:8), "-01")), labels = month.abb[1:8], expand = expansion(add = 1)) +
+  labs(x = "Acquisition date (UTC)", y = "Detections per day", fill = "Satellite") +
+  theme_minimal(base_size = 19) +
+  theme(legend.position = "top", panel.grid.minor = element_blank())
+```
+
+::: {.interpretation}
+Main subset shown; dashed line = standard/NRT transition. August contains **90.25%** of main-subset records and **95.19%** of high-confidence records. Both peak on 29 August. Counts are not exposure-adjusted fire incidence; observation opportunity is unknown.
+:::
+
+## Spatial concentration is descriptive evidence
+
+```{r}
+#| fig-width: 9
+#| fig-height: 5.2
+#| fig-class: wide-figure
+#| fig-alt: "Two maps show unevenly distributed MODIS detection locations in Ketapang, using nested confidence thresholds of 30 and 80."
+boundary <- st_read(file.path(root, "ketapang_boundary.gpkg"), layer = "study_window", quiet = TRUE)
+map_main <- read.csv(file.path(root, "ketapang_modis_2026_conf30.csv"), colClasses = c(acq_time = "character"))
+map_high <- read.csv(file.path(root, "ketapang_modis_2026_conf80.csv"), colClasses = c(acq_time = "character"))
+map_main$label <- "Confidence >=30\nn = 4,472"
+map_high$label <- "Confidence >=80\nn = 1,726"
+map_points <- st_as_sf(rbind(map_main, map_high), coords = c("longitude", "latitude"), crs = 4326)
+stopifnot(nrow(map_points) == 6198)
+ggplot() +
+  geom_sf(data = boundary, fill = "#E8EEE9", colour = "#52665B", linewidth = 0.35) +
+  geom_sf(data = map_points, colour = "#B83E32", size = 0.5, alpha = 0.45, stroke = 0) +
+  facet_wrap(~label, nrow = 1) +
+  coord_sf(crs = 4326, datum = st_crs(4326)) +
+  scale_x_continuous(breaks = c(110, 111)) +
+  scale_y_continuous(breaks = c(-0.5, -1.5, -2.5)) +
+  labs(x = "Longitude", y = "Latitude") +
+  theme_minimal(base_size = 17) +
+  theme(strip.text = element_text(size = 14), panel.grid.minor = element_blank())
+```
+
+::: {.interpretation}
+Records are unevenly distributed within Ketapang. The confidence subsets overlap and are not independent replications. Visible concentrations do not, by themselves, demonstrate statistically significant interaction or identify a fire-spread mechanism.
+:::
+
+## Spatial summaries depend on analytical choices
+
+- Kernel maps compare **5, 10 and 20 km** bandwidths.
+- Intensity-reweighted L curves compare time windows and confidence filters.
+- The early high-confidence subset has only **83 records**, making its weighted summary sensitive to bandwidth.
+
+::: {.takeaway}
+Spatial summaries describe concentration. The formal test examines close pairs against a conditional time-reassignment model.
+:::
+
+::: {.note}
+Distances use UTM zone 49S. KDE uses Jones-Diggle edge correction. L summaries use border correction and have no simulation envelope. The technical report documents the sensitivity diagnostics.
+:::
+
+## Conditional pair tests preserve observed structure
+
+**Question:** Are records within 1 km and 1–24 hours more frequent than expected under the declared time-reassignment models?
+
+| Model | Preserved structure |
+|---|---|
+| Individual timestamps | Locations and time distributions within strata |
+| Complete days | Every within-date location, satellite and clock time |
+| Three-day blocks | Internal sequence of consecutive three-day patterns |
+
+::: {.interpretation}
+Each case uses 9,999 permutations. The final Holm correction includes all 192 comparisons. The null assumes exchangeability within the declared strata. Changing clouds, persistent fires and block boundaries can still affect that assumption.
+:::
+
+## Association persists under the tested models
+
+Main subset, January–August. All three models retain **3,597 observed pairs**.
+
+```{r}
+s <- subset(audit$summary, subset == "Confidence >=30" & period == "January-August" & lower_hours == 1)
+tab <- data.frame(Model = c("Daily", "Three-day, start day 1", "Three-day, start day 2"),
+  `Fixed pairs` = fmt(s$guaranteed_fixed), `Variable pairs` = fmt(s$variable_observed),
+  `Variable null mean` = fmt(s$variable_null_mean, 2), check.names = FALSE)
+knitr::kable(tab, row.names = FALSE)
+```
+
+::: {.takeaway}
+All displayed tests have final Holm p = **0.0192**. The 48 final lag/block checks retain the same significance decision.
+:::
+
+::: {.interpretation}
+Longer blocks leave fewer pairs free to vary. The result supports conditional time-location association. It does not isolate independent fires, causal spread or local hotspot significance.
+:::
+
+## Record volume and recurrence locate different cells
+
+```{r}
+#| fig-width: 11
+#| fig-height: 6.5
+#| fig-class: wide-figure
+#| fig-alt: "Map of Ketapang shows cell A with 152 records on 22 dates and cell B with 70 records on 26 dates, with subdistrict context."
+source("recurrence_map.R")
+recurrence_location_map(recurrence, presentation = TRUE) + labs(title = NULL, subtitle = NULL, caption = NULL)
+```
+
+::: {.interpretation}
+A has the most records. B has the most recorded dates. Grey areas have no retained records and unknown observation availability. District labels describe the modal assignment of each cell's records.
+:::
+
+## Geographic screening remains sensitive to grid choice
+
+| Reference location | Records | Dates | Nominal top-decile settings |
+|---|---:|---:|---:|
+| A: Matan Hilir Utara context | 152 | 22 | 7/8 |
+| B: Matan Hilir Selatan context | 70 | 26 | 7/8 |
+
+Across **621 reference centres**, 11 qualify in all eight nominal settings. **None passes all 32 directional/grid checks.**
+
+::: {.takeaway}
+The extension separates high record volume from repeated recording and tests the stability of the geographic screen. Each candidate needs a spatial-support sensitivity flag.
+:::
+
+::: {.note}
+Settings combine 5/10 km grids, two origins and two confidence filters. Four 1 m directional offsets test cell-edge assignment conventions. Agreement applies to reference centres and has no local significance or validated risk interpretation.
+:::
+
+## Public-safety use and limits
+
+| Evidence | Proportionate next step |
+|---|---|
+| Late-August concentration | Check source imagery and incident records, including 29 August |
+| Different volume and recurrence maxima | Review A/B sequences and the nominal screening list |
+| Grid-sensitive candidate locations | Record sensitivity flags and both corroborated and inconclusive cases |
+
+::: {.interpretation}
+Missing or cloudy imagery remains inconclusive. Before allocating resources, agencies need observation coverage, confirmed incidents, land cover, assets at risk and operational capacity. This eight-month record does not establish future fire probability or intervention effectiveness.
+:::
+
+## Sources and reproducibility
+
+- [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/descriptions/FIRMS_MODIS_Firehotspots.html) and supplied Indonesian administrative boundaries.
+- [Knox-type test](https://search.r-project.org/CRAN/refmans/surveillance/html/knox.html), [permutation p-values](https://arxiv.org/abs/1603.05766) and [Holm adjustment](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html).
+- [Technical report](Take-Home_Ex01.html): full methods, code, geographic tables and all comparisons.
+- [Coursework repository](https://github.com/JUNCHENLI2026/ISSS626_GAA): submission destination for the complete project.
+
+::: {.note}
+The report renders saved analytical results. The separate rebuild entry point starts from raw inputs and records step logs. Standard and NRT data differ, boundary vintage is uncertain, and detection opportunity is unavailable.
+:::

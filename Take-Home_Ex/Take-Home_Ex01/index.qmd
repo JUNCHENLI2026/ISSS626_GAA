@@ -1,0 +1,21 @@
+---
+title: "Take-Home Exercise 1"
+author: "JUNCHEN LI"
+toc: false
+format:
+  html:
+    embed-resources: true
+    css: report.css
+---
+
+## Spatial and spatio-temporal patterns of MODIS fire detections in Ketapang
+
+January–August 2026 · ISSS626 Geospatial Analytics and Applications
+
+| Deliverable | Link | Contents |
+|---|---|---|
+| Executive Summary | [Open the slides](executive_summary.html) | Quarto revealjs, 10 content slides plus a cover |
+| Technical Report | [Read the report](Take-Home_Ex01.html) | Data preparation, spatial and space-time analyses, interpretation, code and references |
+| GitHub Repository | [Open the coursework repository](https://github.com/JUNCHENLI2026/ISSS626_GAA) | Repository for the Quarto project and reproducible files |
+
+The report examines the distribution and recurrence of recorded thermal-anomaly detections. It distinguishes descriptive geographic screening from conditional statistical evidence and documents the limits of both.

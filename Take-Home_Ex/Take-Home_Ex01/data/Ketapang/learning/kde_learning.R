@@ -78,11 +78,11 @@ draw <- function(d,title,subtitle,caption) {
       plot.caption=element_text(hjust=0,size=9,colour="#475569"),
       plot.caption.position="plot",plot.margin=margin(16,16,16,16),legend.position="right")
 }
-p1 <- draw(bw_grid,"Learning example: effect of KDE bandwidth",
+p1 <- draw(bw_grid,"Recorded detection intensity across KDE bandwidths",
   "Ketapang MODIS | Confidence >=30 | 1 January-31 August 2026 | Common colour scale",
   paste("Illustrative bandwidths, not an optimised or final choice. Gaussian kernel; Jones-Diggle edge correction; 0.5 km computational grid.",
         "Intensity refers to recorded detections, not independent fires or risk. Sources: NASA FIRMS and the supplied Indonesia Geospatial boundary.",sep="\n"))
-p2 <- draw(conf_grid,"Learning example: confidence thresholds at the same bandwidth",
+p2 <- draw(conf_grid,"Recorded detection intensity across confidence thresholds",
   "Ketapang MODIS | sigma = 10 km in both panels | 1 January-31 August 2026 | Common colour scale",
   paste("Absolute intensity is not normalised by record count; fewer retained records can reduce intensity. The >=80 subset is nested within >=30.",
         "These are descriptive maps, not tests of clustering. Sources: NASA FIRMS and the supplied Indonesia Geospatial boundary.",sep="\n"))

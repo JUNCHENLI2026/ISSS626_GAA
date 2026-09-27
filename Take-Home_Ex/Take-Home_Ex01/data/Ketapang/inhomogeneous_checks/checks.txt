@@ -1,0 +1,107 @@
+EXPLORATORY SENSITIVITY CHECKS: no final null model or significance test.
+Window area (km2): 29997.02 
+Projection: EPSG:32749. Coordinates: km.
+Intensity: Gaussian, sigma 5/10/20 km, unit-weight detections, at points, leave-one-out.
+Density edge correction: Jones-Diggle; computational edge grid eps = 0.5 km.
+Kinhom: supplied positive intensity vector; border; renormalise TRUE; normpower 2.
+Distance grid matches previous 0-10 km diagnostic. K transformed as sqrt(K/pi).
+All original points retained, finite positive intensity estimates; K nonnegative to 1e-8 km2 tolerance.
+Raw K preserved; only negative round-off within tolerance is set to zero for the square-root plot.
+No intensity flooring, clipping, thinning or event merging applied.
+
+                      subset sigma_km records minimum_intensity
+ Confidence >=30 | n = 4,472        5    4472       4.84199e-05
+ Confidence >=30 | n = 4,472       10    4472       2.13115e-03
+ Confidence >=30 | n = 4,472       20    4472       3.88198e-03
+ Confidence >=80 | n = 1,726        5    1726       6.11805e-05
+ Confidence >=80 | n = 1,726       10    1726       1.19790e-03
+ Confidence >=80 | n = 1,726       20    1726       3.79553e-03
+ median_intensity maximum_intensity maximum_reciprocal_share
+         0.409264          2.312835                0.4507023
+         0.353342          1.214185                0.0191179
+         0.365818          0.716756                0.0104773
+         0.372286          1.305475                0.4271144
+         0.335959          0.642621                0.0362448
+         0.236527          0.348515                0.0115358
+ reciprocal_effective_count normalization_c correction_multiplier_c_squared
+                    4.82502        0.654624                        0.428533
+                  678.48077        1.222168                        1.493695
+                 1576.75651        1.220053                        1.488529
+                    5.42936        0.783854                        0.614427
+                  295.15968        1.302399                        1.696244
+                  569.41992        1.313402                        1.725024
+ minimum_raw_K negative_roundoff_values
+   5.71720e-13                        0
+  -5.20498e-12                        1
+   2.79214e-12                        0
+   3.47004e-14                        0
+   1.65395e-12                        0
+  -9.83611e-13                        1
+
+Reciprocal effective count = 1/sum(normalised inverse-intensity weights squared).
+This is a weight-concentration diagnostic, NOT the number of independent observations.
+Small estimated intensities can cause high leverage; finite values alone do not establish reliability.
+Leave-one-out removes only the focal contribution; it is not independent validation.
+Intensity and summaries use the same observations. Bandwidth can absorb or retain spatial structure.
+Interpretation additionally requires an appropriate intensity-reweighted second-order model.
+Fitted intensity does not separately identify ecological causes and observation effects.
+Nested subsets are not independent. Full-period spatial summaries do not model time.
+No envelopes, p-values, significant-cluster claims or final parameter choices.
+A future fitted-null simulation must account for intensity estimation, not hold it fixed without justification.
+
+Input MD5 unchanged:
+        E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_boundary.gpkg 
+                                                                     "14bbc09bebf57c6df47a7100dba3925f" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf30.csv 
+                                                                     "5983d12b76a3613d1a0383e4a6b79e9c" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf80.csv 
+                                                                     "e771bd6556dbcd59ffa98ddd393d8e8a" 
+
+Previous summary MD5 unchanged:
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/second_order/observed_summaries.rds 
+                                                                          "c46cd742ddc704f8b74a3b03d9a9736a" 
+
+References:
+https://search.r-project.org/CRAN/refmans/spatstat.explore/html/Kinhom.html
+https://search.r-project.org/CRAN/refmans/spatstat.explore/html/density.ppp.html
+R version 4.5.3 (2026-03-11 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: Asia/Singapore
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_4.0.3          spatstat.explore_3.8-2 nlme_3.1-168          
+[4] spatstat.random_3.5-1  spatstat.geom_3.8-2    spatstat.univar_3.2-0 
+[7] spatstat.data_3.1-9    sf_1.1-0              
+
+loaded via a namespace (and not attached):
+ [1] Matrix_1.7-4          gtable_0.3.6          dplyr_1.2.1          
+ [4] compiler_4.5.3        spatstat.utils_3.2-4  tidyselect_1.2.1     
+ [7] Rcpp_1.1.1-1.1        spatstat.sparse_3.2-0 textshaping_1.0.5    
+[10] systemfonts_1.3.2     scales_1.4.0          lattice_0.22-9       
+[13] deldir_2.0-4          tensor_1.5.1          R6_2.6.1             
+[16] labeling_0.4.3        generics_0.1.4        classInt_0.4-11      
+[19] polyclip_1.10-7       tibble_3.3.1          units_1.0-1          
+[22] DBI_1.3.0             pillar_1.11.1         RColorBrewer_1.1-3   
+[25] rlang_1.2.0           S7_0.2.2              otel_0.2.0           
+[28] cli_3.6.6             withr_3.0.2           magrittr_2.0.5       
+[31] class_7.3-23          grid_4.5.3            lifecycle_1.0.5      
+[34] vctrs_0.7.3           KernSmooth_2.23-26    proxy_0.4-29         
+[37] glue_1.8.1            farver_2.1.2          ragg_1.5.2           
+[40] goftest_1.2-3         abind_1.4-8           e1071_1.7-17         
+[43] pkgconfig_2.0.3       tools_4.5.3          

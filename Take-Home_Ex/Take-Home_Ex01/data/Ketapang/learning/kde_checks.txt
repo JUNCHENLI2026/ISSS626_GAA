@@ -7,12 +7,12 @@ All records inside polygon window; no dropped points.
  confidence_ge30       20    4472     4472                   0
  confidence_ge80       10    1726     1726                   0
 Original inputs unchanged; MD5:
-        E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_boundary.gpkg 
-                                                                     "14bbc09bebf57c6df47a7100dba3925f" 
-E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf30.csv 
-                                                                     "5983d12b76a3613d1a0383e4a6b79e9c" 
-E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf80.csv 
-                                                                     "e771bd6556dbcd59ffa98ddd393d8e8a" 
+        data/Ketapang/ketapang_boundary.gpkg 
+          "14bbc09bebf57c6df47a7100dba3925f" 
+data/Ketapang/ketapang_modis_2026_conf30.csv 
+          "5983d12b76a3613d1a0383e4a6b79e9c" 
+data/Ketapang/ketapang_modis_2026_conf80.csv 
+          "e771bd6556dbcd59ffa98ddd393d8e8a" 
 
 Runtime versions:
 R version 4.5.3 (2026-03-11 ucrt)
@@ -23,11 +23,8 @@ Matrix products: default
   LAPACK version 3.12.1
 
 locale:
-[1] LC_COLLATE=English_United States.utf8 
-[2] LC_CTYPE=English_United States.utf8   
-[3] LC_MONETARY=English_United States.utf8
-[4] LC_NUMERIC=C                          
-[5] LC_TIME=English_United States.utf8    
+[1] C
+system code page: 65001
 
 time zone: Asia/Singapore
 tzcode source: internal

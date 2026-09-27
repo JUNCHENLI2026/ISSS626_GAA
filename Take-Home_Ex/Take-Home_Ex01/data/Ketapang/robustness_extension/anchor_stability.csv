@@ -1,0 +1,17 @@
+"reference_cell","setting","subset","cell_km","shift_fraction","containing_cell","dates","upper_rank_percent","top_decile"
+"80_1969","Confidence >=30 | 5 | 0","Confidence >=30",5,0,"80_1969",22,0.966183574879227,TRUE
+"81_1957","Confidence >=30 | 5 | 0","Confidence >=30",5,0,"81_1957",26,0.161030595813205,TRUE
+"80_1969","Confidence >=30 | 10 | 0","Confidence >=30",10,0,"40_984",25,2.84552845528455,TRUE
+"81_1957","Confidence >=30 | 10 | 0","Confidence >=30",10,0,"40_978",26,2.03252032520325,TRUE
+"80_1969","Confidence >=30 | 5 | 0.5","Confidence >=30",5,0.5,"80_1969",8,8.48,TRUE
+"81_1957","Confidence >=30 | 5 | 0.5","Confidence >=30",5,0.5,"81_1957",14,3.04,TRUE
+"80_1969","Confidence >=30 | 10 | 0.5","Confidence >=30",10,0.5,"39_984",22,3.2,TRUE
+"81_1957","Confidence >=30 | 10 | 0.5","Confidence >=30",10,0.5,"40_978",30,1.2,TRUE
+"80_1969","Confidence >=80 | 5 | 0","Confidence >=80",5,0,"80_1969",17,0.290697674418605,TRUE
+"81_1957","Confidence >=80 | 5 | 0","Confidence >=80",5,0,"81_1957",13,2.03488372093023,TRUE
+"80_1969","Confidence >=80 | 10 | 0","Confidence >=80",10,0,"40_984",21,1.65745856353591,TRUE
+"81_1957","Confidence >=80 | 10 | 0","Confidence >=80",10,0,"40_978",18,2.76243093922652,TRUE
+"80_1969","Confidence >=80 | 5 | 0.5","Confidence >=80",5,0.5,"80_1969",3,24.2603550295858,FALSE
+"81_1957","Confidence >=80 | 5 | 0.5","Confidence >=80",5,0.5,"81_1957",4,13.3136094674556,FALSE
+"80_1969","Confidence >=80 | 10 | 0.5","Confidence >=80",10,0.5,"39_984",17,2.17391304347826,TRUE
+"81_1957","Confidence >=80 | 10 | 0.5","Confidence >=80",10,0.5,"40_978",21,1.08695652173913,TRUE

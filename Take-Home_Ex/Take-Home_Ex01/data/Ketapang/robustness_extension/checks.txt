@@ -1,0 +1,1073 @@
+                                                                        subset
+Confidence >=30 | January-August | Daily within week.1         Confidence >=30
+Confidence >=30 | January-August | Daily within week.2         Confidence >=30
+Confidence >=30 | January-August | Daily within week.3         Confidence >=30
+Confidence >=30 | January-August | Daily within week.4         Confidence >=30
+Confidence >=30 | January-August | Three-day blocks offset 0.1 Confidence >=30
+Confidence >=30 | January-August | Three-day blocks offset 0.2 Confidence >=30
+Confidence >=30 | January-August | Three-day blocks offset 0.3 Confidence >=30
+Confidence >=30 | January-August | Three-day blocks offset 0.4 Confidence >=30
+Confidence >=30 | January-August | Three-day blocks offset 1.1 Confidence >=30
+Confidence >=30 | January-August | Three-day blocks offset 1.2 Confidence >=30
+Confidence >=30 | January-August | Three-day blocks offset 1.3 Confidence >=30
+Confidence >=30 | January-August | Three-day blocks offset 1.4 Confidence >=30
+Confidence >=30 | August | Daily within week.1                 Confidence >=30
+Confidence >=30 | August | Daily within week.2                 Confidence >=30
+Confidence >=30 | August | Daily within week.3                 Confidence >=30
+Confidence >=30 | August | Daily within week.4                 Confidence >=30
+Confidence >=30 | August | Three-day blocks offset 0.1         Confidence >=30
+Confidence >=30 | August | Three-day blocks offset 0.2         Confidence >=30
+Confidence >=30 | August | Three-day blocks offset 0.3         Confidence >=30
+Confidence >=30 | August | Three-day blocks offset 0.4         Confidence >=30
+Confidence >=30 | August | Three-day blocks offset 1.1         Confidence >=30
+Confidence >=30 | August | Three-day blocks offset 1.2         Confidence >=30
+Confidence >=30 | August | Three-day blocks offset 1.3         Confidence >=30
+Confidence >=30 | August | Three-day blocks offset 1.4         Confidence >=30
+Confidence >=80 | January-August | Daily within week.1         Confidence >=80
+Confidence >=80 | January-August | Daily within week.2         Confidence >=80
+Confidence >=80 | January-August | Daily within week.3         Confidence >=80
+Confidence >=80 | January-August | Daily within week.4         Confidence >=80
+Confidence >=80 | January-August | Three-day blocks offset 0.1 Confidence >=80
+Confidence >=80 | January-August | Three-day blocks offset 0.2 Confidence >=80
+Confidence >=80 | January-August | Three-day blocks offset 0.3 Confidence >=80
+Confidence >=80 | January-August | Three-day blocks offset 0.4 Confidence >=80
+Confidence >=80 | January-August | Three-day blocks offset 1.1 Confidence >=80
+Confidence >=80 | January-August | Three-day blocks offset 1.2 Confidence >=80
+Confidence >=80 | January-August | Three-day blocks offset 1.3 Confidence >=80
+Confidence >=80 | January-August | Three-day blocks offset 1.4 Confidence >=80
+Confidence >=80 | August | Daily within week.1                 Confidence >=80
+Confidence >=80 | August | Daily within week.2                 Confidence >=80
+Confidence >=80 | August | Daily within week.3                 Confidence >=80
+Confidence >=80 | August | Daily within week.4                 Confidence >=80
+Confidence >=80 | August | Three-day blocks offset 0.1         Confidence >=80
+Confidence >=80 | August | Three-day blocks offset 0.2         Confidence >=80
+Confidence >=80 | August | Three-day blocks offset 0.3         Confidence >=80
+Confidence >=80 | August | Three-day blocks offset 0.4         Confidence >=80
+Confidence >=80 | August | Three-day blocks offset 1.1         Confidence >=80
+Confidence >=80 | August | Three-day blocks offset 1.2         Confidence >=80
+Confidence >=80 | August | Three-day blocks offset 1.3         Confidence >=80
+Confidence >=80 | August | Three-day blocks offset 1.4         Confidence >=80
+                                                                       period
+Confidence >=30 | January-August | Daily within week.1         January-August
+Confidence >=30 | January-August | Daily within week.2         January-August
+Confidence >=30 | January-August | Daily within week.3         January-August
+Confidence >=30 | January-August | Daily within week.4         January-August
+Confidence >=30 | January-August | Three-day blocks offset 0.1 January-August
+Confidence >=30 | January-August | Three-day blocks offset 0.2 January-August
+Confidence >=30 | January-August | Three-day blocks offset 0.3 January-August
+Confidence >=30 | January-August | Three-day blocks offset 0.4 January-August
+Confidence >=30 | January-August | Three-day blocks offset 1.1 January-August
+Confidence >=30 | January-August | Three-day blocks offset 1.2 January-August
+Confidence >=30 | January-August | Three-day blocks offset 1.3 January-August
+Confidence >=30 | January-August | Three-day blocks offset 1.4 January-August
+Confidence >=30 | August | Daily within week.1                         August
+Confidence >=30 | August | Daily within week.2                         August
+Confidence >=30 | August | Daily within week.3                         August
+Confidence >=30 | August | Daily within week.4                         August
+Confidence >=30 | August | Three-day blocks offset 0.1                 August
+Confidence >=30 | August | Three-day blocks offset 0.2                 August
+Confidence >=30 | August | Three-day blocks offset 0.3                 August
+Confidence >=30 | August | Three-day blocks offset 0.4                 August
+Confidence >=30 | August | Three-day blocks offset 1.1                 August
+Confidence >=30 | August | Three-day blocks offset 1.2                 August
+Confidence >=30 | August | Three-day blocks offset 1.3                 August
+Confidence >=30 | August | Three-day blocks offset 1.4                 August
+Confidence >=80 | January-August | Daily within week.1         January-August
+Confidence >=80 | January-August | Daily within week.2         January-August
+Confidence >=80 | January-August | Daily within week.3         January-August
+Confidence >=80 | January-August | Daily within week.4         January-August
+Confidence >=80 | January-August | Three-day blocks offset 0.1 January-August
+Confidence >=80 | January-August | Three-day blocks offset 0.2 January-August
+Confidence >=80 | January-August | Three-day blocks offset 0.3 January-August
+Confidence >=80 | January-August | Three-day blocks offset 0.4 January-August
+Confidence >=80 | January-August | Three-day blocks offset 1.1 January-August
+Confidence >=80 | January-August | Three-day blocks offset 1.2 January-August
+Confidence >=80 | January-August | Three-day blocks offset 1.3 January-August
+Confidence >=80 | January-August | Three-day blocks offset 1.4 January-August
+Confidence >=80 | August | Daily within week.1                         August
+Confidence >=80 | August | Daily within week.2                         August
+Confidence >=80 | August | Daily within week.3                         August
+Confidence >=80 | August | Daily within week.4                         August
+Confidence >=80 | August | Three-day blocks offset 0.1                 August
+Confidence >=80 | August | Three-day blocks offset 0.2                 August
+Confidence >=80 | August | Three-day blocks offset 0.3                 August
+Confidence >=80 | August | Three-day blocks offset 0.4                 August
+Confidence >=80 | August | Three-day blocks offset 1.1                 August
+Confidence >=80 | August | Three-day blocks offset 1.2                 August
+Confidence >=80 | August | Three-day blocks offset 1.3                 August
+Confidence >=80 | August | Three-day blocks offset 1.4                 August
+                                                                                  scheme
+Confidence >=30 | January-August | Daily within week.1                 Daily within week
+Confidence >=30 | January-August | Daily within week.2                 Daily within week
+Confidence >=30 | January-August | Daily within week.3                 Daily within week
+Confidence >=30 | January-August | Daily within week.4                 Daily within week
+Confidence >=30 | January-August | Three-day blocks offset 0.1 Three-day blocks offset 0
+Confidence >=30 | January-August | Three-day blocks offset 0.2 Three-day blocks offset 0
+Confidence >=30 | January-August | Three-day blocks offset 0.3 Three-day blocks offset 0
+Confidence >=30 | January-August | Three-day blocks offset 0.4 Three-day blocks offset 0
+Confidence >=30 | January-August | Three-day blocks offset 1.1 Three-day blocks offset 1
+Confidence >=30 | January-August | Three-day blocks offset 1.2 Three-day blocks offset 1
+Confidence >=30 | January-August | Three-day blocks offset 1.3 Three-day blocks offset 1
+Confidence >=30 | January-August | Three-day blocks offset 1.4 Three-day blocks offset 1
+Confidence >=30 | August | Daily within week.1                         Daily within week
+Confidence >=30 | August | Daily within week.2                         Daily within week
+Confidence >=30 | August | Daily within week.3                         Daily within week
+Confidence >=30 | August | Daily within week.4                         Daily within week
+Confidence >=30 | August | Three-day blocks offset 0.1         Three-day blocks offset 0
+Confidence >=30 | August | Three-day blocks offset 0.2         Three-day blocks offset 0
+Confidence >=30 | August | Three-day blocks offset 0.3         Three-day blocks offset 0
+Confidence >=30 | August | Three-day blocks offset 0.4         Three-day blocks offset 0
+Confidence >=30 | August | Three-day blocks offset 1.1         Three-day blocks offset 1
+Confidence >=30 | August | Three-day blocks offset 1.2         Three-day blocks offset 1
+Confidence >=30 | August | Three-day blocks offset 1.3         Three-day blocks offset 1
+Confidence >=30 | August | Three-day blocks offset 1.4         Three-day blocks offset 1
+Confidence >=80 | January-August | Daily within week.1                 Daily within week
+Confidence >=80 | January-August | Daily within week.2                 Daily within week
+Confidence >=80 | January-August | Daily within week.3                 Daily within week
+Confidence >=80 | January-August | Daily within week.4                 Daily within week
+Confidence >=80 | January-August | Three-day blocks offset 0.1 Three-day blocks offset 0
+Confidence >=80 | January-August | Three-day blocks offset 0.2 Three-day blocks offset 0
+Confidence >=80 | January-August | Three-day blocks offset 0.3 Three-day blocks offset 0
+Confidence >=80 | January-August | Three-day blocks offset 0.4 Three-day blocks offset 0
+Confidence >=80 | January-August | Three-day blocks offset 1.1 Three-day blocks offset 1
+Confidence >=80 | January-August | Three-day blocks offset 1.2 Three-day blocks offset 1
+Confidence >=80 | January-August | Three-day blocks offset 1.3 Three-day blocks offset 1
+Confidence >=80 | January-August | Three-day blocks offset 1.4 Three-day blocks offset 1
+Confidence >=80 | August | Daily within week.1                         Daily within week
+Confidence >=80 | August | Daily within week.2                         Daily within week
+Confidence >=80 | August | Daily within week.3                         Daily within week
+Confidence >=80 | August | Daily within week.4                         Daily within week
+Confidence >=80 | August | Three-day blocks offset 0.1         Three-day blocks offset 0
+Confidence >=80 | August | Three-day blocks offset 0.2         Three-day blocks offset 0
+Confidence >=80 | August | Three-day blocks offset 0.3         Three-day blocks offset 0
+Confidence >=80 | August | Three-day blocks offset 0.4         Three-day blocks offset 0
+Confidence >=80 | August | Three-day blocks offset 1.1         Three-day blocks offset 1
+Confidence >=80 | August | Three-day blocks offset 1.2         Three-day blocks offset 1
+Confidence >=80 | August | Three-day blocks offset 1.3         Three-day blocks offset 1
+Confidence >=80 | August | Three-day blocks offset 1.4         Three-day blocks offset 1
+                                                               lower_hours
+Confidence >=30 | January-August | Daily within week.1                   0
+Confidence >=30 | January-August | Daily within week.2                   1
+Confidence >=30 | January-August | Daily within week.3                   3
+Confidence >=30 | January-August | Daily within week.4                   6
+Confidence >=30 | January-August | Three-day blocks offset 0.1           0
+Confidence >=30 | January-August | Three-day blocks offset 0.2           1
+Confidence >=30 | January-August | Three-day blocks offset 0.3           3
+Confidence >=30 | January-August | Three-day blocks offset 0.4           6
+Confidence >=30 | January-August | Three-day blocks offset 1.1           0
+Confidence >=30 | January-August | Three-day blocks offset 1.2           1
+Confidence >=30 | January-August | Three-day blocks offset 1.3           3
+Confidence >=30 | January-August | Three-day blocks offset 1.4           6
+Confidence >=30 | August | Daily within week.1                           0
+Confidence >=30 | August | Daily within week.2                           1
+Confidence >=30 | August | Daily within week.3                           3
+Confidence >=30 | August | Daily within week.4                           6
+Confidence >=30 | August | Three-day blocks offset 0.1                   0
+Confidence >=30 | August | Three-day blocks offset 0.2                   1
+Confidence >=30 | August | Three-day blocks offset 0.3                   3
+Confidence >=30 | August | Three-day blocks offset 0.4                   6
+Confidence >=30 | August | Three-day blocks offset 1.1                   0
+Confidence >=30 | August | Three-day blocks offset 1.2                   1
+Confidence >=30 | August | Three-day blocks offset 1.3                   3
+Confidence >=30 | August | Three-day blocks offset 1.4                   6
+Confidence >=80 | January-August | Daily within week.1                   0
+Confidence >=80 | January-August | Daily within week.2                   1
+Confidence >=80 | January-August | Daily within week.3                   3
+Confidence >=80 | January-August | Daily within week.4                   6
+Confidence >=80 | January-August | Three-day blocks offset 0.1           0
+Confidence >=80 | January-August | Three-day blocks offset 0.2           1
+Confidence >=80 | January-August | Three-day blocks offset 0.3           3
+Confidence >=80 | January-August | Three-day blocks offset 0.4           6
+Confidence >=80 | January-August | Three-day blocks offset 1.1           0
+Confidence >=80 | January-August | Three-day blocks offset 1.2           1
+Confidence >=80 | January-August | Three-day blocks offset 1.3           3
+Confidence >=80 | January-August | Three-day blocks offset 1.4           6
+Confidence >=80 | August | Daily within week.1                           0
+Confidence >=80 | August | Daily within week.2                           1
+Confidence >=80 | August | Daily within week.3                           3
+Confidence >=80 | August | Daily within week.4                           6
+Confidence >=80 | August | Three-day blocks offset 0.1                   0
+Confidence >=80 | August | Three-day blocks offset 0.2                   1
+Confidence >=80 | August | Three-day blocks offset 0.3                   3
+Confidence >=80 | August | Three-day blocks offset 0.4                   6
+Confidence >=80 | August | Three-day blocks offset 1.1                   0
+Confidence >=80 | August | Three-day blocks offset 1.2                   1
+Confidence >=80 | August | Three-day blocks offset 1.3                   3
+Confidence >=80 | August | Three-day blocks offset 1.4                   6
+                                                               observed
+Confidence >=30 | January-August | Daily within week.1             4619
+Confidence >=30 | January-August | Daily within week.2             3597
+Confidence >=30 | January-August | Daily within week.3             3597
+Confidence >=30 | January-August | Daily within week.4             2579
+Confidence >=30 | January-August | Three-day blocks offset 0.1     4619
+Confidence >=30 | January-August | Three-day blocks offset 0.2     3597
+Confidence >=30 | January-August | Three-day blocks offset 0.3     3597
+Confidence >=30 | January-August | Three-day blocks offset 0.4     2579
+Confidence >=30 | January-August | Three-day blocks offset 1.1     4619
+Confidence >=30 | January-August | Three-day blocks offset 1.2     3597
+Confidence >=30 | January-August | Three-day blocks offset 1.3     3597
+Confidence >=30 | January-August | Three-day blocks offset 1.4     2579
+Confidence >=30 | August | Daily within week.1                     4546
+Confidence >=30 | August | Daily within week.2                     3563
+Confidence >=30 | August | Daily within week.3                     3563
+Confidence >=30 | August | Daily within week.4                     2555
+Confidence >=30 | August | Three-day blocks offset 0.1             4546
+Confidence >=30 | August | Three-day blocks offset 0.2             3563
+Confidence >=30 | August | Three-day blocks offset 0.3             3563
+Confidence >=30 | August | Three-day blocks offset 0.4             2555
+Confidence >=30 | August | Three-day blocks offset 1.1             4546
+Confidence >=30 | August | Three-day blocks offset 1.2             3563
+Confidence >=30 | August | Three-day blocks offset 1.3             3563
+Confidence >=30 | August | Three-day blocks offset 1.4             2555
+Confidence >=80 | January-August | Daily within week.1             1871
+Confidence >=80 | January-August | Daily within week.2             1415
+Confidence >=80 | January-August | Daily within week.3             1415
+Confidence >=80 | January-August | Daily within week.4             1013
+Confidence >=80 | January-August | Three-day blocks offset 0.1     1871
+Confidence >=80 | January-August | Three-day blocks offset 0.2     1415
+Confidence >=80 | January-August | Three-day blocks offset 0.3     1415
+Confidence >=80 | January-August | Three-day blocks offset 0.4     1013
+Confidence >=80 | January-August | Three-day blocks offset 1.1     1871
+Confidence >=80 | January-August | Three-day blocks offset 1.2     1415
+Confidence >=80 | January-August | Three-day blocks offset 1.3     1415
+Confidence >=80 | January-August | Three-day blocks offset 1.4     1013
+Confidence >=80 | August | Daily within week.1                     1863
+Confidence >=80 | August | Daily within week.2                     1415
+Confidence >=80 | August | Daily within week.3                     1415
+Confidence >=80 | August | Daily within week.4                     1013
+Confidence >=80 | August | Three-day blocks offset 0.1             1863
+Confidence >=80 | August | Three-day blocks offset 0.2             1415
+Confidence >=80 | August | Three-day blocks offset 0.3             1415
+Confidence >=80 | August | Three-day blocks offset 0.4             1013
+Confidence >=80 | August | Three-day blocks offset 1.1             1863
+Confidence >=80 | August | Three-day blocks offset 1.2             1415
+Confidence >=80 | August | Three-day blocks offset 1.3             1415
+Confidence >=80 | August | Three-day blocks offset 1.4             1013
+                                                               guaranteed_fixed
+Confidence >=30 | January-August | Daily within week.1                     2968
+Confidence >=30 | January-August | Daily within week.2                     1946
+Confidence >=30 | January-August | Daily within week.3                     1946
+Confidence >=30 | January-August | Daily within week.4                     1193
+Confidence >=30 | January-August | Three-day blocks offset 0.1             4059
+Confidence >=30 | January-August | Three-day blocks offset 0.2             3037
+Confidence >=30 | January-August | Three-day blocks offset 0.3             3037
+Confidence >=30 | January-August | Three-day blocks offset 0.4             2115
+Confidence >=30 | January-August | Three-day blocks offset 1.1             4151
+Confidence >=30 | January-August | Three-day blocks offset 1.2             3129
+Confidence >=30 | January-August | Three-day blocks offset 1.3             3129
+Confidence >=30 | January-August | Three-day blocks offset 1.4             2172
+Confidence >=30 | August | Daily within week.1                             2910
+Confidence >=30 | August | Daily within week.2                             1927
+Confidence >=30 | August | Daily within week.3                             1927
+Confidence >=30 | August | Daily within week.4                             1184
+Confidence >=30 | August | Three-day blocks offset 0.1                     3993
+Confidence >=30 | August | Three-day blocks offset 0.2                     3010
+Confidence >=30 | August | Three-day blocks offset 0.3                     3010
+Confidence >=30 | August | Three-day blocks offset 0.4                     2098
+Confidence >=30 | August | Three-day blocks offset 1.1                     4086
+Confidence >=30 | August | Three-day blocks offset 1.2                     3103
+Confidence >=30 | August | Three-day blocks offset 1.3                     3103
+Confidence >=30 | August | Three-day blocks offset 1.4                     2156
+Confidence >=80 | January-August | Daily within week.1                     1243
+Confidence >=80 | January-August | Daily within week.2                      787
+Confidence >=80 | January-August | Daily within week.3                      787
+Confidence >=80 | January-August | Daily within week.4                      486
+Confidence >=80 | January-August | Three-day blocks offset 0.1             1622
+Confidence >=80 | January-August | Three-day blocks offset 0.2             1166
+Confidence >=80 | January-August | Three-day blocks offset 0.3             1166
+Confidence >=80 | January-August | Three-day blocks offset 0.4              807
+Confidence >=80 | January-August | Three-day blocks offset 1.1             1710
+Confidence >=80 | January-August | Three-day blocks offset 1.2             1254
+Confidence >=80 | January-August | Three-day blocks offset 1.3             1254
+Confidence >=80 | January-August | Three-day blocks offset 1.4              873
+Confidence >=80 | August | Daily within week.1                             1235
+Confidence >=80 | August | Daily within week.2                              787
+Confidence >=80 | August | Daily within week.3                              787
+Confidence >=80 | August | Daily within week.4                              486
+Confidence >=80 | August | Three-day blocks offset 0.1                     1614
+Confidence >=80 | August | Three-day blocks offset 0.2                     1166
+Confidence >=80 | August | Three-day blocks offset 0.3                     1166
+Confidence >=80 | August | Three-day blocks offset 0.4                      807
+Confidence >=80 | August | Three-day blocks offset 1.1                     1702
+Confidence >=80 | August | Three-day blocks offset 1.2                     1254
+Confidence >=80 | August | Three-day blocks offset 1.3                     1254
+Confidence >=80 | August | Three-day blocks offset 1.4                      873
+                                                               variable_observed
+Confidence >=30 | January-August | Daily within week.1                      1651
+Confidence >=30 | January-August | Daily within week.2                      1651
+Confidence >=30 | January-August | Daily within week.3                      1651
+Confidence >=30 | January-August | Daily within week.4                      1386
+Confidence >=30 | January-August | Three-day blocks offset 0.1               560
+Confidence >=30 | January-August | Three-day blocks offset 0.2               560
+Confidence >=30 | January-August | Three-day blocks offset 0.3               560
+Confidence >=30 | January-August | Three-day blocks offset 0.4               464
+Confidence >=30 | January-August | Three-day blocks offset 1.1               468
+Confidence >=30 | January-August | Three-day blocks offset 1.2               468
+Confidence >=30 | January-August | Three-day blocks offset 1.3               468
+Confidence >=30 | January-August | Three-day blocks offset 1.4               407
+Confidence >=30 | August | Daily within week.1                              1636
+Confidence >=30 | August | Daily within week.2                              1636
+Confidence >=30 | August | Daily within week.3                              1636
+Confidence >=30 | August | Daily within week.4                              1371
+Confidence >=30 | August | Three-day blocks offset 0.1                       553
+Confidence >=30 | August | Three-day blocks offset 0.2                       553
+Confidence >=30 | August | Three-day blocks offset 0.3                       553
+Confidence >=30 | August | Three-day blocks offset 0.4                       457
+Confidence >=30 | August | Three-day blocks offset 1.1                       460
+Confidence >=30 | August | Three-day blocks offset 1.2                       460
+Confidence >=30 | August | Three-day blocks offset 1.3                       460
+Confidence >=30 | August | Three-day blocks offset 1.4                       399
+Confidence >=80 | January-August | Daily within week.1                       628
+Confidence >=80 | January-August | Daily within week.2                       628
+Confidence >=80 | January-August | Daily within week.3                       628
+Confidence >=80 | January-August | Daily within week.4                       527
+Confidence >=80 | January-August | Three-day blocks offset 0.1               249
+Confidence >=80 | January-August | Three-day blocks offset 0.2               249
+Confidence >=80 | January-August | Three-day blocks offset 0.3               249
+Confidence >=80 | January-August | Three-day blocks offset 0.4               206
+Confidence >=80 | January-August | Three-day blocks offset 1.1               161
+Confidence >=80 | January-August | Three-day blocks offset 1.2               161
+Confidence >=80 | January-August | Three-day blocks offset 1.3               161
+Confidence >=80 | January-August | Three-day blocks offset 1.4               140
+Confidence >=80 | August | Daily within week.1                               628
+Confidence >=80 | August | Daily within week.2                               628
+Confidence >=80 | August | Daily within week.3                               628
+Confidence >=80 | August | Daily within week.4                               527
+Confidence >=80 | August | Three-day blocks offset 0.1                       249
+Confidence >=80 | August | Three-day blocks offset 0.2                       249
+Confidence >=80 | August | Three-day blocks offset 0.3                       249
+Confidence >=80 | August | Three-day blocks offset 0.4                       206
+Confidence >=80 | August | Three-day blocks offset 1.1                       161
+Confidence >=80 | August | Three-day blocks offset 1.2                       161
+Confidence >=80 | August | Three-day blocks offset 1.3                       161
+Confidence >=80 | August | Three-day blocks offset 1.4                       140
+                                                               null_mean
+Confidence >=30 | January-August | Daily within week.1         3961.4771
+Confidence >=30 | January-August | Daily within week.2         2939.4771
+Confidence >=30 | January-August | Daily within week.3         2939.4771
+Confidence >=30 | January-August | Daily within week.4         2101.9201
+Confidence >=30 | January-August | Three-day blocks offset 0.1 4183.7311
+Confidence >=30 | January-August | Three-day blocks offset 0.2 3161.7311
+Confidence >=30 | January-August | Three-day blocks offset 0.3 3161.7311
+Confidence >=30 | January-August | Three-day blocks offset 0.4 2228.1791
+Confidence >=30 | January-August | Three-day blocks offset 1.1 4289.1981
+Confidence >=30 | January-August | Three-day blocks offset 1.2 3267.1981
+Confidence >=30 | January-August | Three-day blocks offset 1.3 3267.1981
+Confidence >=30 | January-August | Three-day blocks offset 1.4 2300.3984
+Confidence >=30 | August | Daily within week.1                 3893.8473
+Confidence >=30 | August | Daily within week.2                 2910.8473
+Confidence >=30 | August | Daily within week.3                 2910.8473
+Confidence >=30 | August | Daily within week.4                 2083.7990
+Confidence >=30 | August | Three-day blocks offset 0.1         4115.4539
+Confidence >=30 | August | Three-day blocks offset 0.2         3132.4539
+Confidence >=30 | August | Three-day blocks offset 0.3         3132.4539
+Confidence >=30 | August | Three-day blocks offset 0.4         2209.1854
+Confidence >=30 | August | Three-day blocks offset 1.1         4221.4825
+Confidence >=30 | August | Three-day blocks offset 1.2         3238.4825
+Confidence >=30 | August | Three-day blocks offset 1.3         3238.4825
+Confidence >=30 | August | Three-day blocks offset 1.4         2281.9141
+Confidence >=80 | January-August | Daily within week.1         1586.0766
+Confidence >=80 | January-August | Daily within week.2         1130.0766
+Confidence >=80 | January-August | Daily within week.3         1130.0766
+Confidence >=80 | January-August | Daily within week.4          801.8336
+Confidence >=80 | January-August | Three-day blocks offset 0.1 1660.2583
+Confidence >=80 | January-August | Three-day blocks offset 0.2 1204.2583
+Confidence >=80 | January-August | Three-day blocks offset 0.3 1204.2583
+Confidence >=80 | January-August | Three-day blocks offset 0.4  840.7051
+Confidence >=80 | January-August | Three-day blocks offset 1.1 1749.9840
+Confidence >=80 | January-August | Three-day blocks offset 1.2 1293.9840
+Confidence >=80 | January-August | Three-day blocks offset 1.3 1293.9840
+Confidence >=80 | January-August | Three-day blocks offset 1.4  910.3058
+Confidence >=80 | August | Daily within week.1                 1578.9015
+Confidence >=80 | August | Daily within week.2                 1130.9015
+Confidence >=80 | August | Daily within week.3                 1130.9015
+Confidence >=80 | August | Daily within week.4                  802.4938
+Confidence >=80 | August | Three-day blocks offset 0.1         1651.9641
+Confidence >=80 | August | Three-day blocks offset 0.2         1203.9641
+Confidence >=80 | August | Three-day blocks offset 0.3         1203.9641
+Confidence >=80 | August | Three-day blocks offset 0.4          840.3840
+Confidence >=80 | August | Three-day blocks offset 1.1         1741.7589
+Confidence >=80 | August | Three-day blocks offset 1.2         1293.7589
+Confidence >=80 | August | Three-day blocks offset 1.3         1293.7589
+Confidence >=80 | August | Three-day blocks offset 1.4          910.0200
+                                                               variable_null_mean
+Confidence >=30 | January-August | Daily within week.1                  993.47715
+Confidence >=30 | January-August | Daily within week.2                  993.47715
+Confidence >=30 | January-August | Daily within week.3                  993.47715
+Confidence >=30 | January-August | Daily within week.4                  908.92009
+Confidence >=30 | January-August | Three-day blocks offset 0.1          124.73107
+Confidence >=30 | January-August | Three-day blocks offset 0.2          124.73107
+Confidence >=30 | January-August | Three-day blocks offset 0.3          124.73107
+Confidence >=30 | January-August | Three-day blocks offset 0.4          113.17912
+Confidence >=30 | January-August | Three-day blocks offset 1.1          138.19812
+Confidence >=30 | January-August | Three-day blocks offset 1.2          138.19812
+Confidence >=30 | January-August | Three-day blocks offset 1.3          138.19812
+Confidence >=30 | January-August | Three-day blocks offset 1.4          128.39844
+Confidence >=30 | August | Daily within week.1                          983.84728
+Confidence >=30 | August | Daily within week.2                          983.84728
+Confidence >=30 | August | Daily within week.3                          983.84728
+Confidence >=30 | August | Daily within week.4                          899.79898
+Confidence >=30 | August | Three-day blocks offset 0.1                  122.45395
+Confidence >=30 | August | Three-day blocks offset 0.2                  122.45395
+Confidence >=30 | August | Three-day blocks offset 0.3                  122.45395
+Confidence >=30 | August | Three-day blocks offset 0.4                  111.18542
+Confidence >=30 | August | Three-day blocks offset 1.1                  135.48255
+Confidence >=30 | August | Three-day blocks offset 1.2                  135.48255
+Confidence >=30 | August | Three-day blocks offset 1.3                  135.48255
+Confidence >=30 | August | Three-day blocks offset 1.4                  125.91409
+Confidence >=80 | January-August | Daily within week.1                  343.07661
+Confidence >=80 | January-August | Daily within week.2                  343.07661
+Confidence >=80 | January-August | Daily within week.3                  343.07661
+Confidence >=80 | January-August | Daily within week.4                  315.83358
+Confidence >=80 | January-August | Three-day blocks offset 0.1           38.25833
+Confidence >=80 | January-August | Three-day blocks offset 0.2           38.25833
+Confidence >=80 | January-August | Three-day blocks offset 0.3           38.25833
+Confidence >=80 | January-August | Three-day blocks offset 0.4           33.70507
+Confidence >=80 | January-August | Three-day blocks offset 1.1           39.98400
+Confidence >=80 | January-August | Three-day blocks offset 1.2           39.98400
+Confidence >=80 | January-August | Three-day blocks offset 1.3           39.98400
+Confidence >=80 | January-August | Three-day blocks offset 1.4           37.30583
+Confidence >=80 | August | Daily within week.1                          343.90149
+Confidence >=80 | August | Daily within week.2                          343.90149
+Confidence >=80 | August | Daily within week.3                          343.90149
+Confidence >=80 | August | Daily within week.4                          316.49385
+Confidence >=80 | August | Three-day blocks offset 0.1                   37.96410
+Confidence >=80 | August | Three-day blocks offset 0.2                   37.96410
+Confidence >=80 | August | Three-day blocks offset 0.3                   37.96410
+Confidence >=80 | August | Three-day blocks offset 0.4                   33.38404
+Confidence >=80 | August | Three-day blocks offset 1.1                   39.75888
+Confidence >=80 | August | Three-day blocks offset 1.2                   39.75888
+Confidence >=80 | August | Three-day blocks offset 1.3                   39.75888
+Confidence >=80 | August | Three-day blocks offset 1.4                   37.02000
+                                                               total_ratio
+Confidence >=30 | January-August | Daily within week.1            1.165979
+Confidence >=30 | January-August | Daily within week.2            1.223687
+Confidence >=30 | January-August | Daily within week.3            1.223687
+Confidence >=30 | January-August | Daily within week.4            1.226973
+Confidence >=30 | January-August | Three-day blocks offset 0.1    1.104038
+Confidence >=30 | January-August | Three-day blocks offset 0.2    1.137668
+Confidence >=30 | January-August | Three-day blocks offset 0.3    1.137668
+Confidence >=30 | January-August | Three-day blocks offset 0.4    1.157447
+Confidence >=30 | January-August | Three-day blocks offset 1.1    1.076891
+Confidence >=30 | January-August | Three-day blocks offset 1.2    1.100943
+Confidence >=30 | January-August | Three-day blocks offset 1.3    1.100943
+Confidence >=30 | January-August | Three-day blocks offset 1.4    1.121110
+Confidence >=30 | August | Daily within week.1                    1.167483
+Confidence >=30 | August | Daily within week.2                    1.224042
+Confidence >=30 | August | Daily within week.3                    1.224042
+Confidence >=30 | August | Daily within week.4                    1.226126
+Confidence >=30 | August | Three-day blocks offset 0.1            1.104617
+Confidence >=30 | August | Three-day blocks offset 0.2            1.137447
+Confidence >=30 | August | Three-day blocks offset 0.3            1.137447
+Confidence >=30 | August | Three-day blocks offset 0.4            1.156535
+Confidence >=30 | August | Three-day blocks offset 1.1            1.076873
+Confidence >=30 | August | Three-day blocks offset 1.2            1.100207
+Confidence >=30 | August | Three-day blocks offset 1.3            1.100207
+Confidence >=30 | August | Three-day blocks offset 1.4            1.119674
+Confidence >=80 | January-August | Daily within week.1            1.179640
+Confidence >=80 | January-August | Daily within week.2            1.252128
+Confidence >=80 | January-August | Daily within week.3            1.252128
+Confidence >=80 | January-August | Daily within week.4            1.263354
+Confidence >=80 | January-August | Three-day blocks offset 0.1    1.126933
+Confidence >=80 | January-August | Three-day blocks offset 0.2    1.174997
+Confidence >=80 | January-August | Three-day blocks offset 0.3    1.174997
+Confidence >=80 | January-August | Three-day blocks offset 0.4    1.204941
+Confidence >=80 | January-August | Three-day blocks offset 1.1    1.069153
+Confidence >=80 | January-August | Three-day blocks offset 1.2    1.093522
+Confidence >=80 | January-August | Three-day blocks offset 1.3    1.093522
+Confidence >=80 | January-August | Three-day blocks offset 1.4    1.112813
+Confidence >=80 | August | Daily within week.1                    1.179934
+Confidence >=80 | August | Daily within week.2                    1.251214
+Confidence >=80 | August | Daily within week.3                    1.251214
+Confidence >=80 | August | Daily within week.4                    1.262315
+Confidence >=80 | August | Three-day blocks offset 0.1            1.127748
+Confidence >=80 | August | Three-day blocks offset 0.2            1.175284
+Confidence >=80 | August | Three-day blocks offset 0.3            1.175284
+Confidence >=80 | August | Three-day blocks offset 0.4            1.205401
+Confidence >=80 | August | Three-day blocks offset 1.1            1.069608
+Confidence >=80 | August | Three-day blocks offset 1.2            1.093712
+Confidence >=80 | August | Three-day blocks offset 1.3            1.093712
+Confidence >=80 | August | Three-day blocks offset 1.4            1.113162
+                                                               variable_ratio
+Confidence >=30 | January-August | Daily within week.1               1.661840
+Confidence >=30 | January-August | Daily within week.2               1.661840
+Confidence >=30 | January-August | Daily within week.3               1.661840
+Confidence >=30 | January-August | Daily within week.4               1.524887
+Confidence >=30 | January-August | Three-day blocks offset 0.1       4.489659
+Confidence >=30 | January-August | Three-day blocks offset 0.2       4.489659
+Confidence >=30 | January-August | Three-day blocks offset 0.3       4.489659
+Confidence >=30 | January-August | Three-day blocks offset 0.4       4.099696
+Confidence >=30 | January-August | Three-day blocks offset 1.1       3.386443
+Confidence >=30 | January-August | Three-day blocks offset 1.2       3.386443
+Confidence >=30 | January-August | Three-day blocks offset 1.3       3.386443
+Confidence >=30 | January-August | Three-day blocks offset 1.4       3.169820
+Confidence >=30 | August | Daily within week.1                       1.662860
+Confidence >=30 | August | Daily within week.2                       1.662860
+Confidence >=30 | August | Daily within week.3                       1.662860
+Confidence >=30 | August | Daily within week.4                       1.523674
+Confidence >=30 | August | Three-day blocks offset 0.1               4.515984
+Confidence >=30 | August | Three-day blocks offset 0.2               4.515984
+Confidence >=30 | August | Three-day blocks offset 0.3               4.515984
+Confidence >=30 | August | Three-day blocks offset 0.4               4.110251
+Confidence >=30 | August | Three-day blocks offset 1.1               3.395271
+Confidence >=30 | August | Three-day blocks offset 1.2               3.395271
+Confidence >=30 | August | Three-day blocks offset 1.3               3.395271
+Confidence >=30 | August | Three-day blocks offset 1.4               3.168827
+Confidence >=80 | January-August | Daily within week.1               1.830495
+Confidence >=80 | January-August | Daily within week.2               1.830495
+Confidence >=80 | January-August | Daily within week.3               1.830495
+Confidence >=80 | January-August | Daily within week.4               1.668600
+Confidence >=80 | January-August | Three-day blocks offset 0.1       6.508387
+Confidence >=80 | January-August | Three-day blocks offset 0.2       6.508387
+Confidence >=80 | January-August | Three-day blocks offset 0.3       6.508387
+Confidence >=80 | January-August | Three-day blocks offset 0.4       6.111840
+Confidence >=80 | January-August | Three-day blocks offset 1.1       4.026611
+Confidence >=80 | January-August | Three-day blocks offset 1.2       4.026611
+Confidence >=80 | January-August | Three-day blocks offset 1.3       4.026611
+Confidence >=80 | January-August | Three-day blocks offset 1.4       3.752765
+Confidence >=80 | August | Daily within week.1                       1.826104
+Confidence >=80 | August | Daily within week.2                       1.826104
+Confidence >=80 | August | Daily within week.3                       1.826104
+Confidence >=80 | August | Daily within week.4                       1.665119
+Confidence >=80 | August | Three-day blocks offset 0.1               6.558829
+Confidence >=80 | August | Three-day blocks offset 0.2               6.558829
+Confidence >=80 | August | Three-day blocks offset 0.3               6.558829
+Confidence >=80 | August | Three-day blocks offset 0.4               6.170614
+Confidence >=80 | August | Three-day blocks offset 1.1               4.049410
+Confidence >=80 | August | Three-day blocks offset 1.2               4.049410
+Confidence >=80 | August | Three-day blocks offset 1.3               4.049410
+Confidence >=80 | August | Three-day blocks offset 1.4               3.781739
+                                                               fixed_percent
+Confidence >=30 | January-August | Daily within week.1              64.25633
+Confidence >=30 | January-August | Daily within week.2              54.10064
+Confidence >=30 | January-August | Daily within week.3              54.10064
+Confidence >=30 | January-August | Daily within week.4              46.25824
+Confidence >=30 | January-August | Three-day blocks offset 0.1      87.87616
+Confidence >=30 | January-August | Three-day blocks offset 0.2      84.43147
+Confidence >=30 | January-August | Three-day blocks offset 0.3      84.43147
+Confidence >=30 | January-August | Three-day blocks offset 0.4      82.00853
+Confidence >=30 | January-August | Three-day blocks offset 1.1      89.86794
+Confidence >=30 | January-August | Three-day blocks offset 1.2      86.98916
+Confidence >=30 | January-August | Three-day blocks offset 1.3      86.98916
+Confidence >=30 | January-August | Three-day blocks offset 1.4      84.21869
+Confidence >=30 | August | Daily within week.1                      64.01232
+Confidence >=30 | August | Daily within week.2                      54.08364
+Confidence >=30 | August | Daily within week.3                      54.08364
+Confidence >=30 | August | Daily within week.4                      46.34051
+Confidence >=30 | August | Three-day blocks offset 0.1              87.83546
+Confidence >=30 | August | Three-day blocks offset 0.2              84.47937
+Confidence >=30 | August | Three-day blocks offset 0.3              84.47937
+Confidence >=30 | August | Three-day blocks offset 0.4              82.11350
+Confidence >=30 | August | Three-day blocks offset 1.1              89.88121
+Confidence >=30 | August | Three-day blocks offset 1.2              87.08953
+Confidence >=30 | August | Three-day blocks offset 1.3              87.08953
+Confidence >=30 | August | Three-day blocks offset 1.4              84.38356
+Confidence >=80 | January-August | Daily within week.1              66.43506
+Confidence >=80 | January-August | Daily within week.2              55.61837
+Confidence >=80 | January-August | Daily within week.3              55.61837
+Confidence >=80 | January-August | Daily within week.4              47.97631
+Confidence >=80 | January-August | Three-day blocks offset 0.1      86.69161
+Confidence >=80 | January-August | Three-day blocks offset 0.2      82.40283
+Confidence >=80 | January-August | Three-day blocks offset 0.3      82.40283
+Confidence >=80 | January-August | Three-day blocks offset 0.4      79.66436
+Confidence >=80 | January-August | Three-day blocks offset 1.1      91.39498
+Confidence >=80 | January-August | Three-day blocks offset 1.2      88.62191
+Confidence >=80 | January-August | Three-day blocks offset 1.3      88.62191
+Confidence >=80 | January-August | Three-day blocks offset 1.4      86.17966
+Confidence >=80 | August | Daily within week.1                      66.29093
+Confidence >=80 | August | Daily within week.2                      55.61837
+Confidence >=80 | August | Daily within week.3                      55.61837
+Confidence >=80 | August | Daily within week.4                      47.97631
+Confidence >=80 | August | Three-day blocks offset 0.1              86.63446
+Confidence >=80 | August | Three-day blocks offset 0.2              82.40283
+Confidence >=80 | August | Three-day blocks offset 0.3              82.40283
+Confidence >=80 | August | Three-day blocks offset 0.4              79.66436
+Confidence >=80 | August | Three-day blocks offset 1.1              91.35802
+Confidence >=80 | August | Three-day blocks offset 1.2              88.62191
+Confidence >=80 | August | Three-day blocks offset 1.3              88.62191
+Confidence >=80 | August | Three-day blocks offset 1.4              86.17966
+                                                                p_mc
+Confidence >=30 | January-August | Daily within week.1         1e-04
+Confidence >=30 | January-August | Daily within week.2         1e-04
+Confidence >=30 | January-August | Daily within week.3         1e-04
+Confidence >=30 | January-August | Daily within week.4         2e-04
+Confidence >=30 | January-August | Three-day blocks offset 0.1 1e-04
+Confidence >=30 | January-August | Three-day blocks offset 0.2 1e-04
+Confidence >=30 | January-August | Three-day blocks offset 0.3 1e-04
+Confidence >=30 | January-August | Three-day blocks offset 0.4 1e-04
+Confidence >=30 | January-August | Three-day blocks offset 1.1 2e-04
+Confidence >=30 | January-August | Three-day blocks offset 1.2 2e-04
+Confidence >=30 | January-August | Three-day blocks offset 1.3 2e-04
+Confidence >=30 | January-August | Three-day blocks offset 1.4 4e-04
+Confidence >=30 | August | Daily within week.1                 1e-04
+Confidence >=30 | August | Daily within week.2                 1e-04
+Confidence >=30 | August | Daily within week.3                 1e-04
+Confidence >=30 | August | Daily within week.4                 2e-04
+Confidence >=30 | August | Three-day blocks offset 0.1         1e-04
+Confidence >=30 | August | Three-day blocks offset 0.2         1e-04
+Confidence >=30 | August | Three-day blocks offset 0.3         1e-04
+Confidence >=30 | August | Three-day blocks offset 0.4         1e-04
+Confidence >=30 | August | Three-day blocks offset 1.1         1e-04
+Confidence >=30 | August | Three-day blocks offset 1.2         1e-04
+Confidence >=30 | August | Three-day blocks offset 1.3         1e-04
+Confidence >=30 | August | Three-day blocks offset 1.4         1e-04
+Confidence >=80 | January-August | Daily within week.1         1e-04
+Confidence >=80 | January-August | Daily within week.2         1e-04
+Confidence >=80 | January-August | Daily within week.3         1e-04
+Confidence >=80 | January-August | Daily within week.4         1e-04
+Confidence >=80 | January-August | Three-day blocks offset 0.1 1e-04
+Confidence >=80 | January-August | Three-day blocks offset 0.2 1e-04
+Confidence >=80 | January-August | Three-day blocks offset 0.3 1e-04
+Confidence >=80 | January-August | Three-day blocks offset 0.4 1e-04
+Confidence >=80 | January-August | Three-day blocks offset 1.1 2e-04
+Confidence >=80 | January-August | Three-day blocks offset 1.2 2e-04
+Confidence >=80 | January-August | Three-day blocks offset 1.3 2e-04
+Confidence >=80 | January-August | Three-day blocks offset 1.4 2e-04
+Confidence >=80 | August | Daily within week.1                 1e-04
+Confidence >=80 | August | Daily within week.2                 1e-04
+Confidence >=80 | August | Daily within week.3                 1e-04
+Confidence >=80 | August | Daily within week.4                 1e-04
+Confidence >=80 | August | Three-day blocks offset 0.1         1e-04
+Confidence >=80 | August | Three-day blocks offset 0.2         1e-04
+Confidence >=80 | August | Three-day blocks offset 0.3         1e-04
+Confidence >=80 | August | Three-day blocks offset 0.4         1e-04
+Confidence >=80 | August | Three-day blocks offset 1.1         2e-04
+Confidence >=80 | August | Three-day blocks offset 1.2         2e-04
+Confidence >=80 | August | Three-day blocks offset 1.3         2e-04
+Confidence >=80 | August | Three-day blocks offset 1.4         2e-04
+                                                               exceedances
+Confidence >=30 | January-August | Daily within week.1                   0
+Confidence >=30 | January-August | Daily within week.2                   0
+Confidence >=30 | January-August | Daily within week.3                   0
+Confidence >=30 | January-August | Daily within week.4                   1
+Confidence >=30 | January-August | Three-day blocks offset 0.1           0
+Confidence >=30 | January-August | Three-day blocks offset 0.2           0
+Confidence >=30 | January-August | Three-day blocks offset 0.3           0
+Confidence >=30 | January-August | Three-day blocks offset 0.4           0
+Confidence >=30 | January-August | Three-day blocks offset 1.1           1
+Confidence >=30 | January-August | Three-day blocks offset 1.2           1
+Confidence >=30 | January-August | Three-day blocks offset 1.3           1
+Confidence >=30 | January-August | Three-day blocks offset 1.4           3
+Confidence >=30 | August | Daily within week.1                           0
+Confidence >=30 | August | Daily within week.2                           0
+Confidence >=30 | August | Daily within week.3                           0
+Confidence >=30 | August | Daily within week.4                           1
+Confidence >=30 | August | Three-day blocks offset 0.1                   0
+Confidence >=30 | August | Three-day blocks offset 0.2                   0
+Confidence >=30 | August | Three-day blocks offset 0.3                   0
+Confidence >=30 | August | Three-day blocks offset 0.4                   0
+Confidence >=30 | August | Three-day blocks offset 1.1                   0
+Confidence >=30 | August | Three-day blocks offset 1.2                   0
+Confidence >=30 | August | Three-day blocks offset 1.3                   0
+Confidence >=30 | August | Three-day blocks offset 1.4                   0
+Confidence >=80 | January-August | Daily within week.1                   0
+Confidence >=80 | January-August | Daily within week.2                   0
+Confidence >=80 | January-August | Daily within week.3                   0
+Confidence >=80 | January-August | Daily within week.4                   0
+Confidence >=80 | January-August | Three-day blocks offset 0.1           0
+Confidence >=80 | January-August | Three-day blocks offset 0.2           0
+Confidence >=80 | January-August | Three-day blocks offset 0.3           0
+Confidence >=80 | January-August | Three-day blocks offset 0.4           0
+Confidence >=80 | January-August | Three-day blocks offset 1.1           1
+Confidence >=80 | January-August | Three-day blocks offset 1.2           1
+Confidence >=80 | January-August | Three-day blocks offset 1.3           1
+Confidence >=80 | January-August | Three-day blocks offset 1.4           1
+Confidence >=80 | August | Daily within week.1                           0
+Confidence >=80 | August | Daily within week.2                           0
+Confidence >=80 | August | Daily within week.3                           0
+Confidence >=80 | August | Daily within week.4                           0
+Confidence >=80 | August | Three-day blocks offset 0.1                   0
+Confidence >=80 | August | Three-day blocks offset 0.2                   0
+Confidence >=80 | August | Three-day blocks offset 0.3                   0
+Confidence >=80 | August | Three-day blocks offset 0.4                   0
+Confidence >=80 | August | Three-day blocks offset 1.1                   1
+Confidence >=80 | August | Three-day blocks offset 1.2                   1
+Confidence >=80 | August | Three-day blocks offset 1.3                   1
+Confidence >=80 | August | Three-day blocks offset 1.4                   1
+                                                                tail_ci_low
+Confidence >=30 | January-August | Daily within week.1         0.000000e+00
+Confidence >=30 | January-August | Daily within week.2         0.000000e+00
+Confidence >=30 | January-August | Daily within week.3         0.000000e+00
+Confidence >=30 | January-August | Daily within week.4         2.532031e-06
+Confidence >=30 | January-August | Three-day blocks offset 0.1 0.000000e+00
+Confidence >=30 | January-August | Three-day blocks offset 0.2 0.000000e+00
+Confidence >=30 | January-August | Three-day blocks offset 0.3 0.000000e+00
+Confidence >=30 | January-August | Three-day blocks offset 0.4 0.000000e+00
+Confidence >=30 | January-August | Three-day blocks offset 1.1 2.532031e-06
+Confidence >=30 | January-August | Three-day blocks offset 1.2 2.532031e-06
+Confidence >=30 | January-August | Three-day blocks offset 1.3 2.532031e-06
+Confidence >=30 | January-August | Three-day blocks offset 1.4 6.187767e-05
+Confidence >=30 | August | Daily within week.1                 0.000000e+00
+Confidence >=30 | August | Daily within week.2                 0.000000e+00
+Confidence >=30 | August | Daily within week.3                 0.000000e+00
+Confidence >=30 | August | Daily within week.4                 2.532031e-06
+Confidence >=30 | August | Three-day blocks offset 0.1         0.000000e+00
+Confidence >=30 | August | Three-day blocks offset 0.2         0.000000e+00
+Confidence >=30 | August | Three-day blocks offset 0.3         0.000000e+00
+Confidence >=30 | August | Three-day blocks offset 0.4         0.000000e+00
+Confidence >=30 | August | Three-day blocks offset 1.1         0.000000e+00
+Confidence >=30 | August | Three-day blocks offset 1.2         0.000000e+00
+Confidence >=30 | August | Three-day blocks offset 1.3         0.000000e+00
+Confidence >=30 | August | Three-day blocks offset 1.4         0.000000e+00
+Confidence >=80 | January-August | Daily within week.1         0.000000e+00
+Confidence >=80 | January-August | Daily within week.2         0.000000e+00
+Confidence >=80 | January-August | Daily within week.3         0.000000e+00
+Confidence >=80 | January-August | Daily within week.4         0.000000e+00
+Confidence >=80 | January-August | Three-day blocks offset 0.1 0.000000e+00
+Confidence >=80 | January-August | Three-day blocks offset 0.2 0.000000e+00
+Confidence >=80 | January-August | Three-day blocks offset 0.3 0.000000e+00
+Confidence >=80 | January-August | Three-day blocks offset 0.4 0.000000e+00
+Confidence >=80 | January-August | Three-day blocks offset 1.1 2.532031e-06
+Confidence >=80 | January-August | Three-day blocks offset 1.2 2.532031e-06
+Confidence >=80 | January-August | Three-day blocks offset 1.3 2.532031e-06
+Confidence >=80 | January-August | Three-day blocks offset 1.4 2.532031e-06
+Confidence >=80 | August | Daily within week.1                 0.000000e+00
+Confidence >=80 | August | Daily within week.2                 0.000000e+00
+Confidence >=80 | August | Daily within week.3                 0.000000e+00
+Confidence >=80 | August | Daily within week.4                 0.000000e+00
+Confidence >=80 | August | Three-day blocks offset 0.1         0.000000e+00
+Confidence >=80 | August | Three-day blocks offset 0.2         0.000000e+00
+Confidence >=80 | August | Three-day blocks offset 0.3         0.000000e+00
+Confidence >=80 | August | Three-day blocks offset 0.4         0.000000e+00
+Confidence >=80 | August | Three-day blocks offset 1.1         2.532031e-06
+Confidence >=80 | August | Three-day blocks offset 1.2         2.532031e-06
+Confidence >=80 | August | Three-day blocks offset 1.3         2.532031e-06
+Confidence >=80 | August | Three-day blocks offset 1.4         2.532031e-06
+                                                               tail_ci_high
+Confidence >=30 | January-August | Daily within week.1         0.0003688568
+Confidence >=30 | January-August | Daily within week.2         0.0003688568
+Confidence >=30 | January-August | Daily within week.3         0.0003688568
+Confidence >=30 | January-August | Daily within week.4         0.0005570927
+Confidence >=30 | January-August | Three-day blocks offset 0.1 0.0003688568
+Confidence >=30 | January-August | Three-day blocks offset 0.2 0.0003688568
+Confidence >=30 | January-August | Three-day blocks offset 0.3 0.0003688568
+Confidence >=30 | January-August | Three-day blocks offset 0.4 0.0003688568
+Confidence >=30 | January-August | Three-day blocks offset 1.1 0.0005570927
+Confidence >=30 | January-August | Three-day blocks offset 1.2 0.0005570927
+Confidence >=30 | January-August | Three-day blocks offset 1.3 0.0005570927
+Confidence >=30 | January-August | Three-day blocks offset 1.4 0.0008765622
+Confidence >=30 | August | Daily within week.1                 0.0003688568
+Confidence >=30 | August | Daily within week.2                 0.0003688568
+Confidence >=30 | August | Daily within week.3                 0.0003688568
+Confidence >=30 | August | Daily within week.4                 0.0005570927
+Confidence >=30 | August | Three-day blocks offset 0.1         0.0003688568
+Confidence >=30 | August | Three-day blocks offset 0.2         0.0003688568
+Confidence >=30 | August | Three-day blocks offset 0.3         0.0003688568
+Confidence >=30 | August | Three-day blocks offset 0.4         0.0003688568
+Confidence >=30 | August | Three-day blocks offset 1.1         0.0003688568
+Confidence >=30 | August | Three-day blocks offset 1.2         0.0003688568
+Confidence >=30 | August | Three-day blocks offset 1.3         0.0003688568
+Confidence >=30 | August | Three-day blocks offset 1.4         0.0003688568
+Confidence >=80 | January-August | Daily within week.1         0.0003688568
+Confidence >=80 | January-August | Daily within week.2         0.0003688568
+Confidence >=80 | January-August | Daily within week.3         0.0003688568
+Confidence >=80 | January-August | Daily within week.4         0.0003688568
+Confidence >=80 | January-August | Three-day blocks offset 0.1 0.0003688568
+Confidence >=80 | January-August | Three-day blocks offset 0.2 0.0003688568
+Confidence >=80 | January-August | Three-day blocks offset 0.3 0.0003688568
+Confidence >=80 | January-August | Three-day blocks offset 0.4 0.0003688568
+Confidence >=80 | January-August | Three-day blocks offset 1.1 0.0005570927
+Confidence >=80 | January-August | Three-day blocks offset 1.2 0.0005570927
+Confidence >=80 | January-August | Three-day blocks offset 1.3 0.0005570927
+Confidence >=80 | January-August | Three-day blocks offset 1.4 0.0005570927
+Confidence >=80 | August | Daily within week.1                 0.0003688568
+Confidence >=80 | August | Daily within week.2                 0.0003688568
+Confidence >=80 | August | Daily within week.3                 0.0003688568
+Confidence >=80 | August | Daily within week.4                 0.0003688568
+Confidence >=80 | August | Three-day blocks offset 0.1         0.0003688568
+Confidence >=80 | August | Three-day blocks offset 0.2         0.0003688568
+Confidence >=80 | August | Three-day blocks offset 0.3         0.0003688568
+Confidence >=80 | August | Three-day blocks offset 0.4         0.0003688568
+Confidence >=80 | August | Three-day blocks offset 1.1         0.0005570927
+Confidence >=80 | August | Three-day blocks offset 1.2         0.0005570927
+Confidence >=80 | August | Three-day blocks offset 1.3         0.0005570927
+Confidence >=80 | August | Three-day blocks offset 1.4         0.0005570927
+                                                               null_q025
+Confidence >=30 | January-August | Daily within week.1           3708.00
+Confidence >=30 | January-August | Daily within week.2           2686.00
+Confidence >=30 | January-August | Daily within week.3           2686.00
+Confidence >=30 | January-August | Daily within week.4           1877.00
+Confidence >=30 | January-August | Three-day blocks offset 0.1   4097.00
+Confidence >=30 | January-August | Three-day blocks offset 0.2   3075.00
+Confidence >=30 | January-August | Three-day blocks offset 0.3   3075.00
+Confidence >=30 | January-August | Three-day blocks offset 0.4   2152.00
+Confidence >=30 | January-August | Three-day blocks offset 1.1   4203.00
+Confidence >=30 | January-August | Three-day blocks offset 1.2   3181.00
+Confidence >=30 | January-August | Three-day blocks offset 1.3   3181.00
+Confidence >=30 | January-August | Three-day blocks offset 1.4   2221.00
+Confidence >=30 | August | Daily within week.1                   3637.00
+Confidence >=30 | August | Daily within week.2                   2654.00
+Confidence >=30 | August | Daily within week.3                   2654.00
+Confidence >=30 | August | Daily within week.4                   1856.00
+Confidence >=30 | August | Three-day blocks offset 0.1           4029.00
+Confidence >=30 | August | Three-day blocks offset 0.2           3046.00
+Confidence >=30 | August | Three-day blocks offset 0.3           3046.00
+Confidence >=30 | August | Three-day blocks offset 0.4           2133.00
+Confidence >=30 | August | Three-day blocks offset 1.1           4135.00
+Confidence >=30 | August | Three-day blocks offset 1.2           3152.00
+Confidence >=30 | August | Three-day blocks offset 1.3           3152.00
+Confidence >=30 | August | Three-day blocks offset 1.4           2202.00
+Confidence >=80 | January-August | Daily within week.1           1483.00
+Confidence >=80 | January-August | Daily within week.2           1027.00
+Confidence >=80 | January-August | Daily within week.3           1027.00
+Confidence >=80 | January-August | Daily within week.4            709.00
+Confidence >=80 | January-August | Three-day blocks offset 0.1   1627.00
+Confidence >=80 | January-August | Three-day blocks offset 0.2   1171.00
+Confidence >=80 | January-August | Three-day blocks offset 0.3   1171.00
+Confidence >=80 | January-August | Three-day blocks offset 0.4    812.00
+Confidence >=80 | January-August | Three-day blocks offset 1.1   1718.00
+Confidence >=80 | January-August | Three-day blocks offset 1.2   1262.00
+Confidence >=80 | January-August | Three-day blocks offset 1.3   1262.00
+Confidence >=80 | January-August | Three-day blocks offset 1.4    880.00
+Confidence >=80 | August | Daily within week.1                   1473.95
+Confidence >=80 | August | Daily within week.2                   1025.95
+Confidence >=80 | August | Daily within week.3                   1025.95
+Confidence >=80 | August | Daily within week.4                    710.95
+Confidence >=80 | August | Three-day blocks offset 0.1           1618.00
+Confidence >=80 | August | Three-day blocks offset 0.2           1170.00
+Confidence >=80 | August | Three-day blocks offset 0.3           1170.00
+Confidence >=80 | August | Three-day blocks offset 0.4            811.00
+Confidence >=80 | August | Three-day blocks offset 1.1           1710.00
+Confidence >=80 | August | Three-day blocks offset 1.2           1262.00
+Confidence >=80 | August | Three-day blocks offset 1.3           1262.00
+Confidence >=80 | August | Three-day blocks offset 1.4            880.00
+                                                               null_q975
+Confidence >=30 | January-August | Daily within week.1           4246.05
+Confidence >=30 | January-August | Daily within week.2           3224.05
+Confidence >=30 | January-August | Daily within week.3           3224.05
+Confidence >=30 | January-August | Daily within week.4           2355.05
+Confidence >=30 | January-August | Three-day blocks offset 0.1   4364.00
+Confidence >=30 | January-August | Three-day blocks offset 0.2   3342.00
+Confidence >=30 | January-August | Three-day blocks offset 0.3   3342.00
+Confidence >=30 | January-August | Three-day blocks offset 0.4   2366.00
+Confidence >=30 | January-August | Three-day blocks offset 1.1   4478.00
+Confidence >=30 | January-August | Three-day blocks offset 1.2   3456.00
+Confidence >=30 | January-August | Three-day blocks offset 1.3   3456.00
+Confidence >=30 | January-August | Three-day blocks offset 1.4   2458.00
+Confidence >=30 | August | Daily within week.1                   4186.00
+Confidence >=30 | August | Daily within week.2                   3203.00
+Confidence >=30 | August | Daily within week.3                   3203.00
+Confidence >=30 | August | Daily within week.4                   2342.05
+Confidence >=30 | August | Three-day blocks offset 0.1           4297.00
+Confidence >=30 | August | Three-day blocks offset 0.2           3314.00
+Confidence >=30 | August | Three-day blocks offset 0.3           3314.00
+Confidence >=30 | August | Three-day blocks offset 0.4           2348.00
+Confidence >=30 | August | Three-day blocks offset 1.1           4409.00
+Confidence >=30 | August | Three-day blocks offset 1.2           3426.00
+Confidence >=30 | August | Three-day blocks offset 1.3           3426.00
+Confidence >=30 | August | Three-day blocks offset 1.4           2437.00
+Confidence >=80 | January-August | Daily within week.1           1701.00
+Confidence >=80 | January-August | Daily within week.2           1245.00
+Confidence >=80 | January-August | Daily within week.3           1245.00
+Confidence >=80 | January-August | Daily within week.4            904.00
+Confidence >=80 | January-August | Three-day blocks offset 0.1   1742.00
+Confidence >=80 | January-August | Three-day blocks offset 0.2   1286.00
+Confidence >=80 | January-August | Three-day blocks offset 0.3   1286.00
+Confidence >=80 | January-August | Three-day blocks offset 0.4    902.00
+Confidence >=80 | January-August | Three-day blocks offset 1.1   1808.00
+Confidence >=80 | January-August | Three-day blocks offset 1.2   1352.00
+Confidence >=80 | January-August | Three-day blocks offset 1.3   1352.00
+Confidence >=80 | January-August | Three-day blocks offset 1.4    960.00
+Confidence >=80 | August | Daily within week.1                   1695.00
+Confidence >=80 | August | Daily within week.2                   1247.00
+Confidence >=80 | August | Daily within week.3                   1247.00
+Confidence >=80 | August | Daily within week.4                    907.00
+Confidence >=80 | August | Three-day blocks offset 0.1           1736.00
+Confidence >=80 | August | Three-day blocks offset 0.2           1288.00
+Confidence >=80 | August | Three-day blocks offset 0.3           1288.00
+Confidence >=80 | August | Three-day blocks offset 0.4            903.00
+Confidence >=80 | August | Three-day blocks offset 1.1           1802.00
+Confidence >=80 | August | Three-day blocks offset 1.2           1354.00
+Confidence >=80 | August | Three-day blocks offset 1.3           1354.00
+Confidence >=80 | August | Three-day blocks offset 1.4            962.00
+                                                                     seed
+Confidence >=30 | January-August | Daily within week.1         2026092301
+Confidence >=30 | January-August | Daily within week.2         2026092301
+Confidence >=30 | January-August | Daily within week.3         2026092301
+Confidence >=30 | January-August | Daily within week.4         2026092301
+Confidence >=30 | January-August | Three-day blocks offset 0.1 2026092302
+Confidence >=30 | January-August | Three-day blocks offset 0.2 2026092302
+Confidence >=30 | January-August | Three-day blocks offset 0.3 2026092302
+Confidence >=30 | January-August | Three-day blocks offset 0.4 2026092302
+Confidence >=30 | January-August | Three-day blocks offset 1.1 2026092303
+Confidence >=30 | January-August | Three-day blocks offset 1.2 2026092303
+Confidence >=30 | January-August | Three-day blocks offset 1.3 2026092303
+Confidence >=30 | January-August | Three-day blocks offset 1.4 2026092303
+Confidence >=30 | August | Daily within week.1                 2026092304
+Confidence >=30 | August | Daily within week.2                 2026092304
+Confidence >=30 | August | Daily within week.3                 2026092304
+Confidence >=30 | August | Daily within week.4                 2026092304
+Confidence >=30 | August | Three-day blocks offset 0.1         2026092305
+Confidence >=30 | August | Three-day blocks offset 0.2         2026092305
+Confidence >=30 | August | Three-day blocks offset 0.3         2026092305
+Confidence >=30 | August | Three-day blocks offset 0.4         2026092305
+Confidence >=30 | August | Three-day blocks offset 1.1         2026092306
+Confidence >=30 | August | Three-day blocks offset 1.2         2026092306
+Confidence >=30 | August | Three-day blocks offset 1.3         2026092306
+Confidence >=30 | August | Three-day blocks offset 1.4         2026092306
+Confidence >=80 | January-August | Daily within week.1         2026092307
+Confidence >=80 | January-August | Daily within week.2         2026092307
+Confidence >=80 | January-August | Daily within week.3         2026092307
+Confidence >=80 | January-August | Daily within week.4         2026092307
+Confidence >=80 | January-August | Three-day blocks offset 0.1 2026092308
+Confidence >=80 | January-August | Three-day blocks offset 0.2 2026092308
+Confidence >=80 | January-August | Three-day blocks offset 0.3 2026092308
+Confidence >=80 | January-August | Three-day blocks offset 0.4 2026092308
+Confidence >=80 | January-August | Three-day blocks offset 1.1 2026092309
+Confidence >=80 | January-August | Three-day blocks offset 1.2 2026092309
+Confidence >=80 | January-August | Three-day blocks offset 1.3 2026092309
+Confidence >=80 | January-August | Three-day blocks offset 1.4 2026092309
+Confidence >=80 | August | Daily within week.1                 2026092310
+Confidence >=80 | August | Daily within week.2                 2026092310
+Confidence >=80 | August | Daily within week.3                 2026092310
+Confidence >=80 | August | Daily within week.4                 2026092310
+Confidence >=80 | August | Three-day blocks offset 0.1         2026092311
+Confidence >=80 | August | Three-day blocks offset 0.2         2026092311
+Confidence >=80 | August | Three-day blocks offset 0.3         2026092311
+Confidence >=80 | August | Three-day blocks offset 0.4         2026092311
+Confidence >=80 | August | Three-day blocks offset 1.1         2026092312
+Confidence >=80 | August | Three-day blocks offset 1.2         2026092312
+Confidence >=80 | August | Three-day blocks offset 1.3         2026092312
+Confidence >=80 | August | Three-day blocks offset 1.4         2026092312
+                                                               p_holm_192
+Confidence >=30 | January-August | Daily within week.1             0.0192
+Confidence >=30 | January-August | Daily within week.2             0.0192
+Confidence >=30 | January-August | Daily within week.3             0.0192
+Confidence >=30 | January-August | Daily within week.4             0.0192
+Confidence >=30 | January-August | Three-day blocks offset 0.1     0.0192
+Confidence >=30 | January-August | Three-day blocks offset 0.2     0.0192
+Confidence >=30 | January-August | Three-day blocks offset 0.3     0.0192
+Confidence >=30 | January-August | Three-day blocks offset 0.4     0.0192
+Confidence >=30 | January-August | Three-day blocks offset 1.1     0.0192
+Confidence >=30 | January-August | Three-day blocks offset 1.2     0.0192
+Confidence >=30 | January-August | Three-day blocks offset 1.3     0.0192
+Confidence >=30 | January-August | Three-day blocks offset 1.4     0.0192
+Confidence >=30 | August | Daily within week.1                     0.0192
+Confidence >=30 | August | Daily within week.2                     0.0192
+Confidence >=30 | August | Daily within week.3                     0.0192
+Confidence >=30 | August | Daily within week.4                     0.0192
+Confidence >=30 | August | Three-day blocks offset 0.1             0.0192
+Confidence >=30 | August | Three-day blocks offset 0.2             0.0192
+Confidence >=30 | August | Three-day blocks offset 0.3             0.0192
+Confidence >=30 | August | Three-day blocks offset 0.4             0.0192
+Confidence >=30 | August | Three-day blocks offset 1.1             0.0192
+Confidence >=30 | August | Three-day blocks offset 1.2             0.0192
+Confidence >=30 | August | Three-day blocks offset 1.3             0.0192
+Confidence >=30 | August | Three-day blocks offset 1.4             0.0192
+Confidence >=80 | January-August | Daily within week.1             0.0192
+Confidence >=80 | January-August | Daily within week.2             0.0192
+Confidence >=80 | January-August | Daily within week.3             0.0192
+Confidence >=80 | January-August | Daily within week.4             0.0192
+Confidence >=80 | January-August | Three-day blocks offset 0.1     0.0192
+Confidence >=80 | January-August | Three-day blocks offset 0.2     0.0192
+Confidence >=80 | January-August | Three-day blocks offset 0.3     0.0192
+Confidence >=80 | January-August | Three-day blocks offset 0.4     0.0192
+Confidence >=80 | January-August | Three-day blocks offset 1.1     0.0192
+Confidence >=80 | January-August | Three-day blocks offset 1.2     0.0192
+Confidence >=80 | January-August | Three-day blocks offset 1.3     0.0192
+Confidence >=80 | January-August | Three-day blocks offset 1.4     0.0192
+Confidence >=80 | August | Daily within week.1                     0.0192
+Confidence >=80 | August | Daily within week.2                     0.0192
+Confidence >=80 | August | Daily within week.3                     0.0192
+Confidence >=80 | August | Daily within week.4                     0.0192
+Confidence >=80 | August | Three-day blocks offset 0.1             0.0192
+Confidence >=80 | August | Three-day blocks offset 0.2             0.0192
+Confidence >=80 | August | Three-day blocks offset 0.3             0.0192
+Confidence >=80 | August | Three-day blocks offset 0.4             0.0192
+Confidence >=80 | August | Three-day blocks offset 1.1             0.0192
+Confidence >=80 | August | Three-day blocks offset 1.2             0.0192
+Confidence >=80 | August | Three-day blocks offset 1.3             0.0192
+Confidence >=80 | August | Three-day blocks offset 1.4             0.0192
+                              reference_cell                    setting
+Confidence >=30 | 5 | 0.82           80_1969    Confidence >=30 | 5 | 0
+Confidence >=30 | 5 | 0.99           81_1957    Confidence >=30 | 5 | 0
+Confidence >=30 | 10 | 0.82          80_1969   Confidence >=30 | 10 | 0
+Confidence >=30 | 10 | 0.99          81_1957   Confidence >=30 | 10 | 0
+Confidence >=30 | 5 | 0.5.82         80_1969  Confidence >=30 | 5 | 0.5
+Confidence >=30 | 5 | 0.5.99         81_1957  Confidence >=30 | 5 | 0.5
+Confidence >=30 | 10 | 0.5.82        80_1969 Confidence >=30 | 10 | 0.5
+Confidence >=30 | 10 | 0.5.99        81_1957 Confidence >=30 | 10 | 0.5
+Confidence >=80 | 5 | 0.82           80_1969    Confidence >=80 | 5 | 0
+Confidence >=80 | 5 | 0.99           81_1957    Confidence >=80 | 5 | 0
+Confidence >=80 | 10 | 0.82          80_1969   Confidence >=80 | 10 | 0
+Confidence >=80 | 10 | 0.99          81_1957   Confidence >=80 | 10 | 0
+Confidence >=80 | 5 | 0.5.82         80_1969  Confidence >=80 | 5 | 0.5
+Confidence >=80 | 5 | 0.5.99         81_1957  Confidence >=80 | 5 | 0.5
+Confidence >=80 | 10 | 0.5.82        80_1969 Confidence >=80 | 10 | 0.5
+Confidence >=80 | 10 | 0.5.99        81_1957 Confidence >=80 | 10 | 0.5
+                                       subset cell_km shift_fraction
+Confidence >=30 | 5 | 0.82    Confidence >=30       5            0.0
+Confidence >=30 | 5 | 0.99    Confidence >=30       5            0.0
+Confidence >=30 | 10 | 0.82   Confidence >=30      10            0.0
+Confidence >=30 | 10 | 0.99   Confidence >=30      10            0.0
+Confidence >=30 | 5 | 0.5.82  Confidence >=30       5            0.5
+Confidence >=30 | 5 | 0.5.99  Confidence >=30       5            0.5
+Confidence >=30 | 10 | 0.5.82 Confidence >=30      10            0.5
+Confidence >=30 | 10 | 0.5.99 Confidence >=30      10            0.5
+Confidence >=80 | 5 | 0.82    Confidence >=80       5            0.0
+Confidence >=80 | 5 | 0.99    Confidence >=80       5            0.0
+Confidence >=80 | 10 | 0.82   Confidence >=80      10            0.0
+Confidence >=80 | 10 | 0.99   Confidence >=80      10            0.0
+Confidence >=80 | 5 | 0.5.82  Confidence >=80       5            0.5
+Confidence >=80 | 5 | 0.5.99  Confidence >=80       5            0.5
+Confidence >=80 | 10 | 0.5.82 Confidence >=80      10            0.5
+Confidence >=80 | 10 | 0.5.99 Confidence >=80      10            0.5
+                              containing_cell dates upper_rank_percent
+Confidence >=30 | 5 | 0.82            80_1969    22          0.9661836
+Confidence >=30 | 5 | 0.99            81_1957    26          0.1610306
+Confidence >=30 | 10 | 0.82            40_984    25          2.8455285
+Confidence >=30 | 10 | 0.99            40_978    26          2.0325203
+Confidence >=30 | 5 | 0.5.82          80_1969     8          8.4800000
+Confidence >=30 | 5 | 0.5.99          81_1957    14          3.0400000
+Confidence >=30 | 10 | 0.5.82          39_984    22          3.2000000
+Confidence >=30 | 10 | 0.5.99          40_978    30          1.2000000
+Confidence >=80 | 5 | 0.82            80_1969    17          0.2906977
+Confidence >=80 | 5 | 0.99            81_1957    13          2.0348837
+Confidence >=80 | 10 | 0.82            40_984    21          1.6574586
+Confidence >=80 | 10 | 0.99            40_978    18          2.7624309
+Confidence >=80 | 5 | 0.5.82          80_1969     3         24.2603550
+Confidence >=80 | 5 | 0.5.99          81_1957     4         13.3136095
+Confidence >=80 | 10 | 0.5.82          39_984    17          2.1739130
+Confidence >=80 | 10 | 0.5.99          40_978    21          1.0869565
+                              top_decile
+Confidence >=30 | 5 | 0.82          TRUE
+Confidence >=30 | 5 | 0.99          TRUE
+Confidence >=30 | 10 | 0.82         TRUE
+Confidence >=30 | 10 | 0.99         TRUE
+Confidence >=30 | 5 | 0.5.82        TRUE
+Confidence >=30 | 5 | 0.5.99        TRUE
+Confidence >=30 | 10 | 0.5.82       TRUE
+Confidence >=30 | 10 | 0.5.99       TRUE
+Confidence >=80 | 5 | 0.82          TRUE
+Confidence >=80 | 5 | 0.99          TRUE
+Confidence >=80 | 10 | 0.82         TRUE
+Confidence >=80 | 10 | 0.99         TRUE
+Confidence >=80 | 5 | 0.5.82       FALSE
+Confidence >=80 | 5 | 0.5.99       FALSE
+Confidence >=80 | 10 | 0.5.82       TRUE
+Confidence >=80 | 10 | 0.5.99       TRUE
+
+  0   1   2   3   4   5   6   7   8 
+479  39  34  20  11   8   8  11  11 
+R version 4.5.3 (2026-03-11 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: Asia/Singapore
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+loaded via a namespace (and not attached):
+[1] compiler_4.5.3 tools_4.5.3   

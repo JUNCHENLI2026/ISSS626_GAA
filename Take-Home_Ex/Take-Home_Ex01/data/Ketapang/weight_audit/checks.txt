@@ -1,0 +1,296 @@
+RECIPROCAL-WEIGHT AUDIT | 2026-09-17
+All source columns of both confidence subsets match their original NASA source rows.
+All retained points are inside the supplied study window. No records were removed or changed.
+Source rows are one-based data rows, excluding the CSV header. Times retain HHMM formatting.
+Distances use EPSG:32749 in kilometres; full-period spatial nearest neighbours, not time-constrained neighbours.
+All-confidence nearest neighbours are searched only within the existing Ketapang geographic subset.
+These checks cannot independently establish fire type, coordinate accuracy or boundary currency.
+
+
+Confidence >=30 | sigma = 5 km
+ rank               source_file source_row   acq_date acq_time latitude
+    1 fire_nrt_M-C61_803220.csv      39148 2026-08-29     1318 -1.39496
+    2 fire_nrt_M-C61_803220.csv      10244 2026-08-06     0809 -1.75434
+    3 fire_nrt_M-C61_803220.csv      40272 2026-08-29     2019 -0.97656
+    4 fire_nrt_M-C61_803220.csv      38484 2026-08-29     0801 -0.61102
+    5 fire_nrt_M-C61_803220.csv      37860 2026-08-29     0758 -1.28318
+ longitude confidence satellite data_status supplied_type
+  111.0282         59     Terra         NRT              
+  110.8895         45      Aqua         NRT              
+  110.8976         58      Aqua         NRT              
+  110.9716         65      Aqua         NRT              
+  111.1508         62      Aqua         NRT              
+ rank   intensity reciprocal_share_percent distance_to_boundary_km
+    1 4.84199e-05                45.070230               12.082874
+    2 3.66380e-04                 5.956379                7.362169
+    3 1.18173e-03                 1.846703               24.241124
+    4 3.39635e-03                 0.642542                0.898847
+    5 6.14519e-03                 0.355123               12.204418
+ nearest_retained_km retained_neighbours_within_10km nearest_retained_date
+            17.27473                               0            2026-08-29
+            14.71842                               0            2026-08-03
+            12.39519                               0            2026-08-29
+            10.11596                               0            2026-08-24
+             1.37661                               1            2026-08-29
+ nearest_retained_day_gap nearest_all_confidence_km
+                        0                  17.27473
+                        3                  14.71842
+                        0                  12.39519
+                        5                  10.11596
+                        0                   1.37661
+ nearest_all_confidence_value
+                           52
+                           71
+                           68
+                           89
+                           52
+
+Confidence >=30 | sigma = 10 km
+ rank               source_file source_row   acq_date acq_time latitude
+    1 fire_nrt_M-C61_803220.csv      37860 2026-08-29     0758 -1.28318
+    2 fire_nrt_M-C61_803220.csv      37861 2026-08-29     0758 -1.28501
+    3 fire_nrt_M-C61_803220.csv      39148 2026-08-29     1318 -1.39496
+    4 fire_nrt_M-C61_803220.csv      40272 2026-08-29     2019 -0.97656
+    5 fire_nrt_M-C61_803220.csv       7892 2026-08-01     0816 -1.29165
+ longitude confidence satellite data_status supplied_type
+  111.1508         62      Aqua         NRT              
+  111.1386         52      Aqua         NRT              
+  111.0282         59     Terra         NRT              
+  110.8976         58      Aqua         NRT              
+  110.9106         77      Aqua         NRT              
+ rank  intensity reciprocal_share_percent distance_to_boundary_km
+    1 0.00213115                 1.911786                 12.2044
+    2 0.00228148                 1.785810                 13.5652
+    3 0.00252494                 1.613623                 12.0829
+    4 0.00698360                 0.583409                 24.2411
+    5 0.01031691                 0.394915                 25.7335
+ nearest_retained_km retained_neighbours_within_10km nearest_retained_date
+             1.37661                               1            2026-08-29
+             1.37661                               1            2026-08-29
+            17.27473                               0            2026-08-29
+            12.39519                               0            2026-08-29
+             1.01416                               3            2026-08-01
+ nearest_retained_day_gap nearest_all_confidence_km
+                        0                   1.37661
+                        0                   1.37661
+                        0                  17.27473
+                        0                  12.39519
+                        0                   1.01416
+ nearest_all_confidence_value
+                           52
+                           62
+                           52
+                           68
+                           65
+
+Confidence >=30 | sigma = 20 km
+ rank               source_file source_row   acq_date acq_time latitude
+    1 fire_nrt_M-C61_803220.csv      37860 2026-08-29     0758 -1.28318
+    2 fire_nrt_M-C61_803220.csv      37861 2026-08-29     0758 -1.28501
+    3 fire_nrt_M-C61_803220.csv      38484 2026-08-29     0801 -0.61102
+    4 fire_nrt_M-C61_803220.csv      39148 2026-08-29     1318 -1.39496
+    5 fire_nrt_M-C61_803220.csv      40272 2026-08-29     2019 -0.97656
+ longitude confidence satellite data_status supplied_type
+  111.1508         62      Aqua         NRT              
+  111.1386         52      Aqua         NRT              
+  110.9716         65      Aqua         NRT              
+  111.0282         59     Terra         NRT              
+  110.8976         58      Aqua         NRT              
+ rank  intensity reciprocal_share_percent distance_to_boundary_km
+    1 0.00388198                 1.047725               12.204418
+    2 0.00437018                 0.930683               13.565153
+    3 0.01205639                 0.337352                0.898847
+    4 0.01459879                 0.278602               12.082874
+    5 0.01774707                 0.229179               24.241124
+ nearest_retained_km retained_neighbours_within_10km nearest_retained_date
+             1.37661                               1            2026-08-29
+             1.37661                               1            2026-08-29
+            10.11596                               0            2026-08-24
+            17.27473                               0            2026-08-29
+            12.39519                               0            2026-08-29
+ nearest_retained_day_gap nearest_all_confidence_km
+                        0                   1.37661
+                        0                   1.37661
+                        5                  10.11596
+                        0                  17.27473
+                        0                  12.39519
+ nearest_all_confidence_value
+                           52
+                           62
+                           89
+                           52
+                           68
+
+Confidence >=80 | sigma = 5 km
+ rank               source_file source_row   acq_date acq_time latitude
+    1 fire_nrt_M-C61_803220.csv      38442 2026-08-29     0801 -0.82483
+    2 fire_nrt_M-C61_803220.csv      16334 2026-08-14     0820 -2.57599
+    3 fire_nrt_M-C61_803220.csv      29717 2026-08-24     0807 -0.68245
+    4 fire_nrt_M-C61_803220.csv      39240 2026-08-29     1318 -1.04650
+    5 fire_nrt_M-C61_803220.csv      39902 2026-08-29     1318 -1.64225
+ longitude confidence satellite data_status supplied_type
+  110.9145         86      Aqua         NRT              
+  110.2104         83      Aqua         NRT              
+  110.9147         89      Aqua         NRT              
+  110.6648         89     Terra         NRT              
+  110.7010         83     Terra         NRT              
+ rank   intensity reciprocal_share_percent distance_to_boundary_km
+    1 6.11805e-05                42.711436                16.06972
+    2 1.16997e-03                 2.233485                 2.32061
+    3 2.08321e-03                 1.254364                 1.03006
+    4 2.70885e-03                 0.964657                34.24614
+    5 2.74993e-03                 0.950247                18.09346
+ nearest_retained_km retained_neighbours_within_10km nearest_retained_date
+            15.73734                               0            2026-08-24
+             9.48409                               1            2026-02-09
+            10.03365                               0            2026-08-17
+            10.79134                               0            2026-08-26
+            11.76191                               0            2026-08-06
+ nearest_retained_day_gap nearest_all_confidence_km
+                        5                  1.414554
+                      186                  0.720040
+                        7                  1.026820
+                        3                  0.576936
+                       23                  4.065183
+ nearest_all_confidence_value
+                           73
+                           49
+                           68
+                           61
+                           73
+
+Confidence >=80 | sigma = 10 km
+ rank               source_file source_row   acq_date acq_time latitude
+    1 fire_nrt_M-C61_803220.csv      38442 2026-08-29     0801 -0.82483
+    2 fire_nrt_M-C61_803220.csv      29717 2026-08-24     0807 -0.68245
+    3 fire_nrt_M-C61_803220.csv      39288 2026-08-29     1318 -0.88452
+    4 fire_nrt_M-C61_803220.csv      18810 2026-08-16     1301 -1.26276
+    5 fire_nrt_M-C61_803220.csv      11788 2026-08-08     0746 -0.95528
+ longitude confidence satellite data_status supplied_type
+  110.9145         86      Aqua         NRT              
+  110.9147         89      Aqua         NRT              
+  110.7161         93     Terra         NRT              
+  110.8266         95     Terra         NRT              
+  110.7332         94      Aqua         NRT              
+ rank  intensity reciprocal_share_percent distance_to_boundary_km
+    1 0.00119790                 3.624476                16.06972
+    2 0.00367574                 1.181196                 1.03006
+    3 0.00488458                 0.888871                28.95497
+    4 0.00520424                 0.834275                33.29446
+    5 0.00527165                 0.823607                34.75437
+ nearest_retained_km retained_neighbours_within_10km nearest_retained_date
+           15.737342                               0            2026-08-24
+           10.033648                               0            2026-08-17
+            7.858281                               2            2026-08-08
+            5.137286                               2            2026-08-29
+            0.771258                               2            2026-08-08
+ nearest_retained_day_gap nearest_all_confidence_km
+                        5                  1.414554
+                        7                  1.026820
+                       21                  0.213580
+                       13                  0.297571
+                        0                  0.771258
+ nearest_all_confidence_value
+                           73
+                           68
+                           69
+                           61
+                           92
+
+Confidence >=80 | sigma = 20 km
+ rank               source_file source_row   acq_date acq_time latitude
+    1 fire_nrt_M-C61_803220.csv      29717 2026-08-24     0807 -0.68245
+    2 fire_nrt_M-C61_803220.csv      38442 2026-08-29     0801 -0.82483
+    3 fire_nrt_M-C61_803220.csv      19401 2026-08-17     0835 -0.62080
+    4 fire_nrt_M-C61_803220.csv      18176 2026-08-16     0756 -0.63339
+    5 fire_nrt_M-C61_803220.csv      21642 2026-08-19     0811 -0.62536
+ longitude confidence satellite data_status supplied_type
+  110.9147         89      Aqua         NRT              
+  110.9145         86      Aqua         NRT              
+  110.8485         81      Aqua         NRT              
+  110.7746        100      Aqua         NRT              
+  110.7637         81      Aqua         NRT              
+ rank  intensity reciprocal_share_percent distance_to_boundary_km
+    1 0.00379553                 1.153577                1.030057
+    2 0.00381554                 1.147528               16.069721
+    3 0.00521227                 0.840026                0.437784
+    4 0.00844543                 0.518439                1.804023
+    5 0.00882135                 0.496346                0.452782
+ nearest_retained_km retained_neighbours_within_10km nearest_retained_date
+             10.0336                               0            2026-08-17
+             15.7373                               0            2026-08-24
+              8.3397                               2            2026-08-16
+              1.5074                               2            2026-08-19
+              1.5074                               2            2026-08-16
+ nearest_retained_day_gap nearest_all_confidence_km
+                        7                  1.026820
+                        5                  1.414554
+                        1                  1.037154
+                        3                  1.188110
+                        3                  0.976125
+ nearest_all_confidence_value
+                           68
+                           73
+                           35
+                           71
+                           66
+
+A large reciprocal share alone is not the same as measured influence on the entire K curve.
+For border correction, centre eligibility also depends on distance to the boundary at each r.
+Records can affect intensity normalization even if they have no nearby pairs in the evaluated range.
+No evidence-based exclusion rule or final bandwidth was selected by this audit.
+
+Unchanged input MD5:
+                                 E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_boundary.gpkg 
+                                                                                              "14bbc09bebf57c6df47a7100dba3925f" 
+                         E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf30.csv 
+                                                                                              "5983d12b76a3613d1a0383e4a6b79e9c" 
+                         E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf80.csv 
+                                                                                              "e771bd6556dbcd59ffa98ddd393d8e8a" 
+                        E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_jan_aug.csv 
+                                                                                              "fca2c60d4f30e77033ee733761637e45" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/inhomogeneous_checks/intensity_reweighted_summaries.rds 
+                                                                                              "81466e4a2ce3641a724d3546f711eb83" 
+                              E:/JUNCHENLI/ISSS626_GAA/Take-Home_Ex/Take-Home_Ex01/data/NASA FIRMS/fire_archive_M-C61_803220.csv 
+                                                                                              "aff8ed6e2b60fad8c90dce2ed7324fee" 
+                                  E:/JUNCHENLI/ISSS626_GAA/Take-Home_Ex/Take-Home_Ex01/data/NASA FIRMS/fire_nrt_M-C61_803220.csv 
+                                                                                              "5871edcdba2438a1445d6ce59cfac56a" 
+R version 4.5.3 (2026-03-11 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: Asia/Singapore
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_4.0.3         spatstat.geom_3.8-2   spatstat.univar_3.2-0
+[4] spatstat.data_3.1-9   sf_1.1-0             
+
+loaded via a namespace (and not attached):
+ [1] Matrix_1.7-4         gtable_0.3.6         dplyr_1.2.1         
+ [4] compiler_4.5.3       spatstat.utils_3.2-4 tidyselect_1.2.1    
+ [7] Rcpp_1.1.1-1.1       textshaping_1.0.5    systemfonts_1.3.2   
+[10] scales_1.4.0         lattice_0.22-9       deldir_2.0-4        
+[13] R6_2.6.1             labeling_0.4.3       generics_0.1.4      
+[16] classInt_0.4-11      polyclip_1.10-7      tibble_3.3.1        
+[19] units_1.0-1          DBI_1.3.0            pillar_1.11.1       
+[22] RColorBrewer_1.1-3   rlang_1.2.0          S7_0.2.2            
+[25] otel_0.2.0           cli_3.6.6            withr_3.0.2         
+[28] magrittr_2.0.5       class_7.3-23         grid_4.5.3          
+[31] lifecycle_1.0.5      vctrs_0.7.3          KernSmooth_2.23-26  
+[34] proxy_0.4-29         glue_1.8.1           farver_2.1.2        
+[37] ragg_1.5.2           e1071_1.7-17         tools_4.5.3         
+[40] pkgconfig_2.0.3     

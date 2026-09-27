@@ -1,0 +1,5 @@
+/.quarto/
+/.render-tmp/
+/*_files/
+/*.knit.md
+/data/Indonesia-geospasial/

@@ -4,7 +4,7 @@ suppressPackageStartupMessages(library(sf))
 suppressPackageStartupMessages(library(dplyr))
 args <- commandArgs(trailingOnly = TRUE)
 root <- if (length(args)) args[1] else "E:/JUNCHENLI/ISSS626_GAA/Take-Home_Ex/Take-Home_Ex01/data"
-out <- file.path(root, "Ketapang")
+out <- if (length(args) >= 2L) args[2] else file.path(root, "Ketapang")
 if (dir.exists(out)) stop("Output folder already exists; inspect it before rerunning.")
 shp <- list.files(file.path(root, "Indonesia-geospasial"), pattern="[.]shp$", recursive=TRUE, full.names=TRUE)
 stopifnot(length(shp) == 1)

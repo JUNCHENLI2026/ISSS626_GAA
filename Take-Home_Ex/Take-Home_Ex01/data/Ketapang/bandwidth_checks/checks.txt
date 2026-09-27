@@ -1,0 +1,237 @@
+EXPLORATORY BANDWIDTH CRITERIA: no final bandwidth, null model or test.
+EPSG:32749; kilometres; window area: 29997.02 km2. All observations retained.
+Initial search: 20 log-spaced values on 1-40 km. Expand an endpoint by factor 4, at most three coarse searches.
+Interior optimum: 17-point log-grid refinement between its adjacent coarse candidates.
+Search bounds and +/-20% audit are exploratory computational choices, not confidence intervals.
+Likelihood CV: sum(log(leave-one-out intensity)) minus integrated full-data intensity.
+Explicit Gaussian, Jones-Diggle edge correction, eps 0.5 km, shortcut FALSE.
+CvL: squared difference between sum(1/intensity) and window area.
+Installed CvL uses inclusive intensity at points with edge FALSE; extra arguments are ignored.
+Common downstream audit: Gaussian leave-one-out, Jones-Diggle, eps 0.5 km.
+Transferring CvL bandwidth to this different estimator is a sensitivity diagnostic, not an equivalent optimisation.
+
+          subset              method  sigma_km   objective search_min_km
+ Confidence >=30       Likelihood CV  1.214280 -5795.04192             1
+ Confidence >=30 Cronie-van Lieshout 13.098635  1495.04732             1
+ Confidence >=80       Likelihood CV  1.664705 -3239.42991             1
+ Confidence >=80 Cronie-van Lieshout 17.106635    74.80502             1
+ search_max_km evaluated_candidates endpoint lower_neighbour_km
+            40                   34    FALSE           1.185166
+            40                   34    FALSE          12.784572
+            40                   34    FALSE           1.624790
+            40                   34    FALSE          16.696473
+ upper_neighbour_km
+            1.24411
+           13.42041
+            1.70560
+           17.52687
+
+COMMON-ESTIMATOR WEIGHT AUDIT
+          subset              method bandwidth_factor   sigma_km
+ Confidence >=30       Likelihood CV              0.8  0.9714242
+ Confidence >=30       Likelihood CV              1.0  1.2142803
+ Confidence >=30       Likelihood CV              1.2  1.4571364
+ Confidence >=30 Cronie-van Lieshout              0.8 10.4789081
+ Confidence >=30 Cronie-van Lieshout              1.0 13.0986352
+ Confidence >=30 Cronie-van Lieshout              1.2 15.7183622
+ Confidence >=80       Likelihood CV              0.8  1.3317639
+ Confidence >=80       Likelihood CV              1.0  1.6647048
+ Confidence >=80       Likelihood CV              1.2  1.9976458
+ Confidence >=80 Cronie-van Lieshout              0.8 13.6853083
+ Confidence >=80 Cronie-van Lieshout              1.0 17.1066354
+ Confidence >=80 Cronie-van Lieshout              1.2 20.5279625
+ all_finite_positive minimum_intensity maximum_reciprocal_share_percent
+                TRUE      4.307338e-70                       100.000000
+                TRUE      1.638703e-45                       100.000000
+                TRUE      3.356898e-32                       100.000000
+                TRUE      2.054657e-03                         1.977799
+                TRUE      1.916728e-03                         2.097320
+                TRUE      2.244911e-03                         1.789533
+                TRUE      5.002245e-32                       100.000000
+                TRUE      2.805907e-21                       100.000000
+                TRUE      1.726198e-15                        99.999884
+                TRUE      2.101611e-03                         2.069894
+                TRUE      2.926623e-03                         1.484639
+                TRUE      3.899219e-03                         1.125443
+ reciprocal_effective_count normalization_c
+                   1.000000    1.292073e-65
+                   1.000000    4.915619e-41
+                   1.000000    1.006969e-27
+                 700.479105    1.218988e+00
+                 761.195658    1.205878e+00
+                 961.280813    1.205082e+00
+                   1.000000    1.500524e-27
+                   1.000000    8.416884e-17
+                   1.000002    5.178074e-11
+                 445.027373    1.304904e+00
+                 515.802108    1.303364e+00
+                 579.229529    1.316373e+00
+
+Effective count = 1/sum(normalised reciprocal weights squared), NOT independent events.
+No floors, caps, deletions, temporal thinning, K-function refits, simulation envelopes or p-values.
+Criteria can respond to repeated detections and small-scale structure; they do not identify first-order causes.
+An interior grid optimum does not establish scientific suitability, numerical-grid convergence or a unique continuous optimum.
+Intensity estimation, bandwidth choice and observation effects still require consideration in any fitted-null test.
+
+Input MD5 checksums unchanged:
+        E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_boundary.gpkg 
+                                                                     "14bbc09bebf57c6df47a7100dba3925f" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf30.csv 
+                                                                     "5983d12b76a3613d1a0383e4a6b79e9c" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf80.csv 
+                                                                     "e771bd6556dbcd59ffa98ddd393d8e8a" 
+
+Previous result unchanged:
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/inhomogeneous_checks/intensity_reweighted_summaries.rds 
+                                                                                              "81466e4a2ce3641a724d3546f711eb83" 
+
+Installed selector implementations (for reproducibility):
+function (X, ..., srange = NULL, ns = 16, sigma = NULL, varcov1 = NULL, 
+    weights = NULL, shortcut = TRUE, warn = TRUE) 
+{
+    stopifnot(is.ppp(X))
+    if (!is.null(varcov1)) 
+        check.nmatrix(varcov1, 2, things = "spatial dimensions", 
+            mname = "varcov1")
+    if (!is.null(sigma)) {
+        stopifnot(is.numeric(sigma) && is.vector(sigma))
+        ns <- length(sigma)
+    }
+    else {
+        if (!is.null(srange)) {
+            check.range(srange)
+        }
+        else {
+            nnd <- nndist(X)
+            srange <- c(min(nnd[nnd > 0]), diameter(as.owin(X))/2)
+            if (!is.null(varcov1)) {
+                dref <- det(varcov1)^(1/4)
+                srange <- srange/dref
+            }
+        }
+        sigma <- geomseq(from = srange[1L], to = srange[2L], 
+            length.out = ns)
+    }
+    cv <- numeric(ns)
+    if (shortcut) {
+        for (i in 1:ns) {
+            if (is.null(varcov1)) {
+                si <- sigma[i]
+                vi <- NULL
+            }
+            else {
+                si <- NULL
+                vi <- (sigma[i]^2) * varcov1
+            }
+            lamx <- density(X, sigma = si, varcov = vi, at = "points", 
+                leaveoneout = TRUE, weights = weights, ...)
+            cv[i] <- sum(log(lamx))
+        }
+    }
+    else {
+        IntLam <- numeric(ns)
+        for (i in 1:ns) {
+            if (is.null(varcov1)) {
+                si <- sigma[i]
+                vi <- NULL
+            }
+            else {
+                si <- NULL
+                vi <- (sigma[i]^2) * varcov1
+            }
+            lamx <- density(X, sigma = si, varcov = vi, at = "points", 
+                leaveoneout = TRUE, weights = weights, ...)
+            lam <- density(X, sigma = si, varcov = vi, weights = weights, 
+                ...)
+            mu <- integral.im(lam)
+            cv[i] <- sum(log(lamx)) - mu
+            IntLam[i] <- mu
+        }
+    }
+    result <- bw.optim(cv, sigma, iopt = which.max(cv), optimum = "max", 
+        creator = "bw.ppl", criterion = "Likelihood Cross-Validation", 
+        warnextreme = warn, hargnames = "srange", unitname = if (is.null(varcov1)) 
+            unitname(X)
+        else NULL, template = varcov1, exponent = 2)
+    if (!shortcut) 
+        attr(result, "info") <- list(IntegralLambda = IntLam)
+    return(result)
+}
+<bytecode: 0x0000026d91e65510>
+<environment: namespace:spatstat.explore>
+function (X, ..., srange = NULL, ns = 16, sigma = NULL, warn = TRUE) 
+{
+    stopifnot(is.ppp(X))
+    W <- Window(X)
+    areaW <- area.owin(W)
+    if (!is.null(sigma)) {
+        stopifnot(is.numeric(sigma) && is.vector(sigma))
+        ns <- length(sigma)
+    }
+    else {
+        if (!is.null(srange)) 
+            check.range(srange)
+        else {
+            nnd <- nndist(X)
+            srange <- c(min(nnd[nnd > 0]), diameter(W)/2)
+        }
+        sigma <- geomseq(from = srange[1L], to = srange[2L], 
+            length.out = ns)
+    }
+    cv <- numeric(ns)
+    for (i in 1:ns) {
+        si <- sigma[i]
+        lamx <- density(X, sigma = si, at = "points", leaveoneout = FALSE, 
+            edge = FALSE)
+        cv[i] <- (sum(1/lamx) - areaW)^2
+    }
+    result <- bw.optim(cv, sigma, iopt = which.min(cv), optimum = "min", 
+        creator = "bw.CvL", criterion = "Cronie and van Lieshout", 
+        warnextreme = warn, hargnames = "srange", unitname = unitname(X))
+    return(result)
+}
+<bytecode: 0x0000026d9167a0e0>
+<environment: namespace:spatstat.explore>
+
+Runtime:
+R version 4.5.3 (2026-03-11 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: Asia/Singapore
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_4.0.3          spatstat.explore_3.8-2 nlme_3.1-168          
+[4] spatstat.random_3.5-1  spatstat.geom_3.8-2    spatstat.univar_3.2-0 
+[7] spatstat.data_3.1-9    sf_1.1-0              
+
+loaded via a namespace (and not attached):
+ [1] Matrix_1.7-4          gtable_0.3.6          dplyr_1.2.1          
+ [4] compiler_4.5.3        spatstat.utils_3.2-4  tidyselect_1.2.1     
+ [7] Rcpp_1.1.1-1.1        spatstat.sparse_3.2-0 textshaping_1.0.5    
+[10] systemfonts_1.3.2     scales_1.4.0          lattice_0.22-9       
+[13] deldir_2.0-4          tensor_1.5.1          R6_2.6.1             
+[16] labeling_0.4.3        generics_0.1.4        classInt_0.4-11      
+[19] polyclip_1.10-7       tibble_3.3.1          units_1.0-1          
+[22] DBI_1.3.0             pillar_1.11.1         RColorBrewer_1.1-3   
+[25] rlang_1.2.0           S7_0.2.2              otel_0.2.0           
+[28] cli_3.6.6             withr_3.0.2           magrittr_2.0.5       
+[31] class_7.3-23          grid_4.5.3            lifecycle_1.0.5      
+[34] vctrs_0.7.3           KernSmooth_2.23-26    proxy_0.4-29         
+[37] glue_1.8.1            farver_2.1.2          ragg_1.5.2           
+[40] goftest_1.2-3         abind_1.4-8           e1071_1.7-17         
+[43] pkgconfig_2.0.3       tools_4.5.3          

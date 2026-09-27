@@ -1,0 +1,149 @@
+EXPLORATORY TIME-WINDOW SPATIAL SUMMARIES, NOT INFERENCE.
+
+          subset         period sigma_km records minimum_intensity
+ Confidence >=30 January-August       10    4472      0.0021311474
+ Confidence >=30 January-August       20    4472      0.0038819788
+ Confidence >=30   January-July       10     436      0.0006639119
+ Confidence >=30   January-July       20     436      0.0020260375
+ Confidence >=30         August       10    4036      0.0021310568
+ Confidence >=30         August       20    4036      0.0036226688
+ Confidence >=80 January-August       10    1726      0.0011979010
+ Confidence >=80 January-August       20    1726      0.0037955328
+ Confidence >=80   January-July       10      83      0.0001719775
+ Confidence >=80   January-July       20      83      0.0010053302
+ Confidence >=80         August       10    1643      0.0011979009
+ Confidence >=80         August       20    1643      0.0037700521
+ maximum_reciprocal_share_percent reciprocal_effective_count normalization_c
+                         1.911786                  678.48077       1.2221680
+                         1.047725                 1576.75651       1.2200530
+                         6.523295                  135.06035       1.2991387
+                         2.079511                  313.88440       1.2638242
+                         1.932902                  620.51201       1.2356143
+                         1.131016                 1358.18392       1.2290662
+                         3.624476                  295.15968       1.3023994
+                         1.153577                  569.41992       1.3134015
+                        17.582379                   18.12730       0.9070419
+                         3.845766                   59.32182       1.1597639
+                         3.640231                  271.31350       1.3080605
+                         1.167461                  516.26210       1.3202853
+ eligible_centres_10km maximum_eligible_reciprocal_share_percent_10km
+                  2734                                       2.799100
+                  2734                                       1.733589
+                   297                                       9.653295
+                   297                                       3.309225
+                  2437                                       2.807506
+                  2437                                       1.872110
+                  1015                                       5.444144
+                  1015                                       1.966811
+                    55                                      19.766174
+                    55                                       4.598752
+                   960                                       5.455203
+                   960                                       1.993332
+ eligible_reciprocal_effective_count_10km        top_weight_source_file
+                                356.03947     fire_nrt_M-C61_803220.csv
+                                858.67024     fire_nrt_M-C61_803220.csv
+                                 71.60424     fire_nrt_M-C61_803220.csv
+                                199.54414     fire_nrt_M-C61_803220.csv
+                                331.12598     fire_nrt_M-C61_803220.csv
+                                733.39976     fire_nrt_M-C61_803220.csv
+                                169.76568     fire_nrt_M-C61_803220.csv
+                                401.00995     fire_nrt_M-C61_803220.csv
+                                 14.76540     fire_nrt_M-C61_803220.csv
+                                 41.24698 fire_archive_M-C61_803220.csv
+                                160.91382     fire_nrt_M-C61_803220.csv
+                                369.02061     fire_nrt_M-C61_803220.csv
+ top_weight_source_row raw_negative_roundoff_values invalid_K_values
+                 37860                            1                0
+                 37860                            0                0
+                  5948                            0                0
+                  5948                            0                0
+                 37860                            0                0
+                 37860                            0                0
+                 38442                            0                0
+                 29717                            1                0
+                  4991                           22                0
+                   192                            0                0
+                 38442                            1                0
+                 29717                            1                0
+
+BORDER SUPPORT AT 10 KM
+          subset         period r_km eligible_centres records  fraction
+ Confidence >=30 January-August   10             2734    4472 0.6113596
+ Confidence >=30   January-July   10              297     436 0.6811927
+ Confidence >=30         August   10             2437    4036 0.6038157
+ Confidence >=80 January-August   10             1015    1726 0.5880649
+ Confidence >=80   January-July   10               55      83 0.6626506
+ Confidence >=80         August   10              960    1643 0.5842970
+
+The January-August estimates are reused unchanged after source identifier and checksum checks.
+New period-specific intensities: Gaussian leave-one-out, Jones-Diggle, eps 0.5 km, sigma 10/20 km.
+Both bandwidths and the shared 0-10 km distance range are provisional sensitivity settings.
+All spatial points retained; full polygon unchanged; no thinning, event merging, clipping of weights or intensity flooring.
+Reciprocal effective counts measure weight concentration, not independent events or effective statistical sample sizes.
+The largest reciprocal share is not a share of K pair contributions. Border-eligible shares are separately reported.
+Small early-period samples, different processing status and observation opportunity affect comparability.
+A lack of visible departure or a negative transformed curve is not evidence of randomness or inhibition.
+No fitted null model, simulations, confidence envelopes, significance tests, final bandwidths or fire-risk inference.
+Raw K estimates are preserved. Values in [-1e-8, 0) are bounded only for sqrt display; invalid values become display NA.
+Invalid K values across all weighted curves: 0 
+
+Source MD5 unchanged:
+        E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_boundary.gpkg 
+                                                                     "14bbc09bebf57c6df47a7100dba3925f" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf30.csv 
+                                                                     "5983d12b76a3613d1a0383e4a6b79e9c" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf80.csv 
+                                                                     "e771bd6556dbcd59ffa98ddd393d8e8a" 
+
+Prior result MD5 unchanged:
+                    E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/second_order/observed_summaries.rds 
+                                                                                              "c46cd742ddc704f8b74a3b03d9a9736a" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/inhomogeneous_checks/intensity_reweighted_summaries.rds 
+                                                                                              "81466e4a2ce3641a724d3546f711eb83" 
+         E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/time_window_checks/time_window_diagnostics.rds 
+                                                                                              "147c0fbec1a8a9f8a2c1d91632da6e4e" 
+
+References:
+https://search.r-project.org/CRAN/refmans/spatstat.explore/html/Kinhom.html
+https://search.r-project.org/CRAN/refmans/spatstat.explore/html/Kest.html
+R version 4.5.3 (2026-03-11 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: Asia/Singapore
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_4.0.3          spatstat.explore_3.8-2 nlme_3.1-168          
+[4] spatstat.random_3.5-1  spatstat.geom_3.8-2    spatstat.univar_3.2-0 
+[7] spatstat.data_3.1-9    sf_1.1-0              
+
+loaded via a namespace (and not attached):
+ [1] Matrix_1.7-4          gtable_0.3.6          dplyr_1.2.1          
+ [4] compiler_4.5.3        spatstat.utils_3.2-4  tidyselect_1.2.1     
+ [7] Rcpp_1.1.1-1.1        spatstat.sparse_3.2-0 textshaping_1.0.5    
+[10] systemfonts_1.3.2     scales_1.4.0          lattice_0.22-9       
+[13] deldir_2.0-4          tensor_1.5.1          R6_2.6.1             
+[16] labeling_0.4.3        generics_0.1.4        classInt_0.4-11      
+[19] polyclip_1.10-7       tibble_3.3.1          units_1.0-1          
+[22] DBI_1.3.0             pillar_1.11.1         RColorBrewer_1.1-3   
+[25] rlang_1.2.0           S7_0.2.2              otel_0.2.0           
+[28] cli_3.6.6             withr_3.0.2           magrittr_2.0.5       
+[31] class_7.3-23          grid_4.5.3            lifecycle_1.0.5      
+[34] vctrs_0.7.3           KernSmooth_2.23-26    proxy_0.4-29         
+[37] glue_1.8.1            farver_2.1.2          ragg_1.5.2           
+[40] goftest_1.2-3         abind_1.4-8           e1071_1.7-17         
+[43] pkgconfig_2.0.3       tools_4.5.3          

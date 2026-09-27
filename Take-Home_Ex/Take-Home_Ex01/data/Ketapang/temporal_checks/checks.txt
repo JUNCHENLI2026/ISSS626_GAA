@@ -1,0 +1,231 @@
+EXPLORATORY TEMPORAL-REPEAT CHECKS: proximity is not fire-event identity.
+
+          subset records duplicate_source_identifiers duplicate_detection_keys
+ Confidence >=30    4472                            0                        0
+ Confidence >=80    1726                            0                        0
+ duplicate_numeric_coordinates dates_with_records dates_without_records
+                             0                 95                   148
+                             0                 67                   176
+ acquisition_group_proxies maximum_records_per_acquisition_proxy peak_date_utc
+                       218                                   284    2026-08-29
+                       144                                   182    2026-08-29
+ peak_day_records peak_day_percent august_records august_percent
+              674         15.07156           4036       90.25045
+              318         18.42410           1643       95.19119
+ minimum_scan_km maximum_scan_km minimum_track_km maximum_track_km
+               1            4.82                1             2.00
+               1            4.75                1             1.99
+
+ACQUISITION-TIME PROXIMITY (unordered distinct record pairs):
+          subset distance_km all_time_pairs same_minute_same_satellite_pairs
+ Confidence >=30         0.5           4514                                1
+ Confidence >=30         1.0          17281                             1022
+ Confidence >=30         2.0          54023                             3335
+ Confidence >=80         0.5           1247                                0
+ Confidence >=80         1.0           5073                              456
+ Confidence >=80         2.0          16035                             1449
+ same_minute_different_satellite_pairs
+                                     0
+                                     0
+                                     0
+                                     0
+                                     0
+                                     0
+ positive_gap_under_1h_same_satellite_pairs
+                                          0
+                                          0
+                                          0
+                                          0
+                                          0
+                                          0
+ positive_gap_under_1h_different_satellite_pairs
+                                               0
+                                               0
+                                               0
+                                               0
+                                               0
+                                               0
+
+PRIOR-RECORD SENSITIVITY:
+          subset                        rule distance_km max_gap_hours records
+ Confidence >=30 Any strictly earlier record         0.5             6    4472
+ Confidence >=30 Any strictly earlier record         0.5            24    4472
+ Confidence >=30 Any strictly earlier record         0.5            72    4472
+ Confidence >=30 Any strictly earlier record         1.0             6    4472
+ Confidence >=30 Any strictly earlier record         1.0            24    4472
+ Confidence >=30 Any strictly earlier record         1.0            72    4472
+ Confidence >=30 Any strictly earlier record         2.0             6    4472
+ Confidence >=30 Any strictly earlier record         2.0            24    4472
+ Confidence >=30 Any strictly earlier record         2.0            72    4472
+ Confidence >=30     At least 1 hour earlier         0.5             6    4472
+ Confidence >=30     At least 1 hour earlier         0.5            24    4472
+ Confidence >=30     At least 1 hour earlier         0.5            72    4472
+ Confidence >=30     At least 1 hour earlier         1.0             6    4472
+ Confidence >=30     At least 1 hour earlier         1.0            24    4472
+ Confidence >=30     At least 1 hour earlier         1.0            72    4472
+ Confidence >=30     At least 1 hour earlier         2.0             6    4472
+ Confidence >=30     At least 1 hour earlier         2.0            24    4472
+ Confidence >=30     At least 1 hour earlier         2.0            72    4472
+ Confidence >=80 Any strictly earlier record         0.5             6    1726
+ Confidence >=80 Any strictly earlier record         0.5            24    1726
+ Confidence >=80 Any strictly earlier record         0.5            72    1726
+ Confidence >=80 Any strictly earlier record         1.0             6    1726
+ Confidence >=80 Any strictly earlier record         1.0            24    1726
+ Confidence >=80 Any strictly earlier record         1.0            72    1726
+ Confidence >=80 Any strictly earlier record         2.0             6    1726
+ Confidence >=80 Any strictly earlier record         2.0            24    1726
+ Confidence >=80 Any strictly earlier record         2.0            72    1726
+ Confidence >=80     At least 1 hour earlier         0.5             6    1726
+ Confidence >=80     At least 1 hour earlier         0.5            24    1726
+ Confidence >=80     At least 1 hour earlier         0.5            72    1726
+ Confidence >=80     At least 1 hour earlier         1.0             6    1726
+ Confidence >=80     At least 1 hour earlier         1.0            24    1726
+ Confidence >=80     At least 1 hour earlier         1.0            72    1726
+ Confidence >=80     At least 1 hour earlier         2.0             6    1726
+ Confidence >=80     At least 1 hour earlier         2.0            24    1726
+ Confidence >=80     At least 1 hour earlier         2.0            72    1726
+ pair_count records_with_prior percent_with_prior records_in_any_pair
+        310                308            6.88730                 618
+       1072                857           19.16369                1446
+       2365               1351           30.21020                2031
+       1018                715           15.98837                1446
+       3597               1632           36.49374                2426
+       8044               2166           48.43470                2873
+       2344               1006           22.49553                1988
+       8863               2115           47.29428                2858
+      21377               2736           61.18068                3295
+        310                308            6.88730                 618
+       1072                857           19.16369                1446
+       2365               1351           30.21020                2031
+       1018                715           15.98837                1446
+       3597               1632           36.49374                2426
+       8044               2166           48.43470                2873
+       2344               1006           22.49553                1988
+       8863               2115           47.29428                2858
+      21377               2736           61.18068                3295
+        117                117            6.77868                 234
+        407                337           19.52491                 578
+        817                495           28.67903                 770
+        402                269           15.58517                 542
+       1415                644           37.31170                 995
+       2880                825           47.79838                1128
+        946                389           22.53766                 744
+       3472                821           47.56663                1151
+       7788               1037           60.08111                1282
+        117                117            6.77868                 234
+        407                337           19.52491                 578
+        817                495           28.67903                 770
+        402                269           15.58517                 542
+       1415                644           37.31170                 995
+       2880                825           47.79838                1128
+        946                389           22.53766                 744
+       3472                821           47.56663                1151
+       7788               1037           60.08111                1282
+ same_satellite_pairs different_satellite_pairs different_utc_date_pairs
+                    0                       310                       78
+                  313                       759                      480
+                  979                      1386                     1773
+                    0                      1018                      265
+                 1042                      2555                     1651
+                 3265                      4779                     6098
+                    0                      2344                      561
+                 2741                      6122                     4093
+                 8910                     12467                    16607
+                    0                       310                       78
+                  313                       759                      480
+                  979                      1386                     1773
+                    0                      1018                      265
+                 1042                      2555                     1651
+                 3265                      4779                     6098
+                    0                      2344                      561
+                 2741                      6122                     4093
+                 8910                     12467                    16607
+                    0                       117                       27
+                  113                       294                      169
+                  332                       485                      579
+                    0                       402                      101
+                  382                      1033                      628
+                 1112                      1768                     2093
+                    0                       946                      207
+                 1024                      2448                     1536
+                 3146                      4642                     5852
+                    0                       117                       27
+                  113                       294                      169
+                  332                       485                      579
+                    0                       402                      101
+                  382                      1033                      628
+                 1112                      1768                     2093
+                    0                       946                      207
+                 1024                      2448                     1536
+                 3146                      4642                     5852
+
+UTC HHMM acquisition timestamps round-trip checked; coordinates projected to EPSG:32749, km.
+Exact detection key: latitude, longitude, acquisition date/minute and satellite. Not a fire-event ID.
+Date/minute/satellite groups are acquisition proxies, not verified orbit or granule identifiers.
+Distance limits 0.5/1/2 km and time limits 6/24/72 hours are sensitivity choices, not calibrated event rules.
+Both satellites are included. Same-minute pairs and positive gaps below 1 hour are reported separately.
+A one-hour gap excludes near-simultaneous detections but cannot guarantee separate passes.
+MODIS coordinates represent pixel centres; scan/track dimensions vary, and distances are not footprint-overlap tests.
+Same fire can persist or spread; separate fires can occur nearby. Neither identity is established here.
+Counts are detection records, not burned area, unique fires, or measures corrected for observation opportunity.
+No-record dates do not establish absence of fire or availability of valid clear-sky observations.
+Temporal and geographic truncation may hide prior records; no prior match is not evidence of independence.
+Higher-confidence threshold can remove earlier nearby records. Subsets are nested, not independent.
+No null simulations, p-values, event merging, thinning, new bandwidth choice or significance claims.
+Checks: unique unordered pair keys; direct checks on 25 focal rows x 18 settings per subset;
+monotone counts as spatial/time limits increase; nested absolute counts; reconciled daily totals.
+
+Source MD5 unchanged:
+        E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_boundary.gpkg 
+                                                                     "14bbc09bebf57c6df47a7100dba3925f" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf30.csv 
+                                                                     "5983d12b76a3613d1a0383e4a6b79e9c" 
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/ketapang_modis_2026_conf80.csv 
+                                                                     "e771bd6556dbcd59ffa98ddd393d8e8a" 
+
+Previous bandwidth results unchanged:
+E:\\JUNCHENLI\\ISSS626_GAA\\Take-Home_Ex\\Take-Home_Ex01\\data\\Ketapang/bandwidth_checks/bandwidth_diagnostics.rds 
+                                                                                 "175d17efbf4a69e572c63339ea34f27e" 
+
+Reference: https://firms.modaps.eosdis.nasa.gov/descriptions/FIRMS_MODIS_Firehotspots.html
+
+Runtime:
+R version 4.5.3 (2026-03-11 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 11 x64 (build 26200)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: Asia/Singapore
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_4.0.3         spatstat.geom_3.8-2   spatstat.univar_3.2-0
+[4] spatstat.data_3.1-9   sf_1.1-0             
+
+loaded via a namespace (and not attached):
+ [1] Matrix_1.7-4         gtable_0.3.6         dplyr_1.2.1         
+ [4] compiler_4.5.3       spatstat.utils_3.2-4 tidyselect_1.2.1    
+ [7] Rcpp_1.1.1-1.1       textshaping_1.0.5    systemfonts_1.3.2   
+[10] scales_1.4.0         lattice_0.22-9       deldir_2.0-4        
+[13] R6_2.6.1             labeling_0.4.3       generics_0.1.4      
+[16] classInt_0.4-11      polyclip_1.10-7      tibble_3.3.1        
+[19] units_1.0-1          DBI_1.3.0            pillar_1.11.1       
+[22] RColorBrewer_1.1-3   rlang_1.2.0          S7_0.2.2            
+[25] otel_0.2.0           cli_3.6.6            withr_3.0.2         
+[28] magrittr_2.0.5       class_7.3-23         grid_4.5.3          
+[31] lifecycle_1.0.5      vctrs_0.7.3          KernSmooth_2.23-26  
+[34] proxy_0.4-29         glue_1.8.1           farver_2.1.2        
+[37] ragg_1.5.2           e1071_1.7-17         tools_4.5.3         
+[40] pkgconfig_2.0.3     
