@@ -1,0 +1,424 @@
+---
+title: "Hands-on Exercise 6: Spatially Constrained Clustering"
+author: "JUNCHEN LI"
+date: "October 1, 2026"
+date-modified: "last-modified"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+editor: source
+execute:
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+---
+
+# Overview
+
+How does a requirement for geographically coherent regions change a multivariate classification? This exercise uses township ICT indicators to compare attribute-only clustering with a connected-region algorithm and a soft geographical penalty. It accompanies [Chapter 12](https://r4gdsa.netlify.app/chap12.html), with explicit checks for data alignment, feature scaling and cluster connectivity.
+
+# 1 Data, packages and provenance
+
+The inputs are the Myanmar township boundary layer and **Shan-ICT.csv**, representing **2014 census** household indicators. They were retrieved from the instructor's [IS415 data repository](https://github.com/tskam/IS415/tree/acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773/Hands-on_Ex/Hands-on_Ex08/data), pinned to a fixed commit. The chapter attributes the inputs to MIMU. The census year is not the download year, and the supplied boundary's effective vintage is not independently verified here.
+
+The raw files are in `data/aspatial` and `data/geospatial`. `data/download-data.R` downloads them without overwriting existing files, and `data/download-manifest.txt` records URLs and checksums. Install missing packages before rendering. No package installation occurs inside this document.
+
+```{r}
+#| label: setup
+library(sf)
+library(spdep)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(ggplot2)
+library(tmap)
+library(cluster)
+library(ClustGeo)
+library(corrplot)
+library(heatmaply)
+library(knitr)
+tmap_mode("plot")
+theme_set(theme_minimal(base_size = 12))
+```
+
+## Import, filter and check
+
+```{r}
+#| label: inputs
+townships <- st_read("data/geospatial/myanmar_township_boundaries.shp", quiet = TRUE)
+shan <- townships |>
+  filter(ST %in% c("Shan (East)", "Shan (North)", "Shan (South)")) |>
+  select(ST, ST_PCODE, DT, DT_PCODE, TS, TS_PCODE)
+ict <- read_csv("data/aspatial/Shan-ICT.csv", show_col_types = FALSE)
+stopifnot(nrow(shan) == 55L, nrow(ict) == 55L,
+          !anyDuplicated(shan$TS_PCODE), !anyDuplicated(ict$`Township Pcode`),
+          setequal(shan$TS_PCODE, ict$`Township Pcode`),
+          !any(st_is_empty(shan)))
+invalid_before <- sum(!st_is_valid(shan))
+if (invalid_before > 0) shan <- st_make_valid(shan)
+stopifnot(all(st_is_valid(shan)))
+data.frame(National_polygons = nrow(townships), Shan_townships = nrow(shan),
+           Census_rows = nrow(ict), Geometries_repaired = invalid_before) |> kable()
+```
+
+## Household ownership rates
+
+Counts are converted to ownership per 1,000 households. A township with many households should not automatically appear more digitally connected simply because it is larger. Rates use the same denominator within each township, but are not percentages and should not be added across devices.
+
+```{r}
+#| label: rates
+device_names <- c("Radio", "Television", "Land line phone", "Mobile phone", "Computer", "Internet at home")
+rate_names <- c("RADIO_PR", "TV_PR", "LLPHONE_PR", "MPHONE_PR", "COMPUTER_PR", "INTERNET_PR")
+stopifnot(all(ict$`Total households` > 0))
+counts <- as.matrix(select(ict, all_of(device_names)))
+stopifnot(all(is.finite(counts)), all(counts >= 0),
+          all(sweep(counts, 1, ict$`Total households`, "<=") ))
+rates <- sweep(counts, 1, ict$`Total households`, "/") * 1000
+colnames(rates) <- rate_names
+derived <- bind_cols(tibble(TS_PCODE = ict$`Township Pcode`,
+                           Households = ict$`Total households`, Radio_count = ict$Radio),
+                     as.data.frame(rates))
+original_order <- shan$TS_PCODE
+shan <- left_join(shan, derived, by = "TS_PCODE", relationship = "one-to-one")
+stopifnot(identical(original_order, shan$TS_PCODE),
+          all(is.finite(as.matrix(st_drop_geometry(shan)[rate_names]))))
+head(st_drop_geometry(shan)[c("TS", "Households", rate_names)]) |> kable(digits = 2)
+```
+
+# 2 Exploratory analysis
+
+```{r}
+#| label: fig-distributions
+#| fig-width: 10
+#| fig-height: 6
+#| fig-cap: "Township ownership rates for six ICT indicators, per 1,000 households."
+long_rates <- shan |> st_drop_geometry() |>
+  select(TS, all_of(rate_names)) |>
+  pivot_longer(all_of(rate_names), names_to = "Indicator", values_to = "Rate")
+ggplot(long_rates, aes(Rate)) +
+  geom_histogram(bins = 15, fill = "#3f88a6", colour = "white") +
+  facet_wrap(~Indicator, scales = "free", ncol = 3) +
+  labs(x = "Ownership per 1,000 households", y = "Townships")
+```
+
+Different axes are used to reveal each distribution. Similar shapes on these panels do not imply comparable numerical ranges. Right-skewed variables can give a few townships substantial influence in an unscaled distance calculation.
+
+```{r}
+#| label: fig-rate-maps
+#| fig-width: 12
+#| fig-height: 6
+#| fig-cap: "Household totals, radio counts and radio ownership rates answer different questions."
+numeric_map <- function(field, title) {
+  tm_shape(shan) + tm_polygons(fill = field,
+    fill.scale = tm_scale_intervals(style = "quantile", n = 5, values = "brewer.blues"),
+    fill.legend = tm_legend(title = title), col = "white", lwd = .3) +
+    tm_title(title, size = .9) + tm_layout(frame = FALSE, legend.outside = TRUE)
+}
+tmap_arrange(numeric_map("Households", "Households"),
+             numeric_map("Radio_count", "Radio count"),
+             numeric_map("RADIO_PR", "Radio per 1,000"), ncol = 3)
+```
+
+These quantile maps use separate numerical class boundaries. The rate map removes the direct scale of the household total, although it does not correct for sampling error or other differences between townships.
+
+## Correlation and feature selection
+
+```{r}
+#| label: fig-correlation
+#| fig-width: 8
+#| fig-height: 7
+#| fig-cap: "Pearson correlations among the six ownership rates."
+R <- cor(st_drop_geometry(shan)[rate_names])
+corrplot.mixed(R, lower = "ellipse", upper = "number", tl.col = "black", tl.pos = "lt")
+```
+
+Computer and internet ownership have correlation **`r round(R["COMPUTER_PR", "INTERNET_PR"], 3)`**. Five features are retained below, excluding internet ownership to avoid counting a strongly overlapping dimension twice. Correlation is a guide to weighting decisions, not a universal prohibition against using two related variables.
+
+# 3 Scaling and attribute distances
+
+```{r}
+#| label: scaling
+features <- rate_names[1:5]
+X_raw <- as.matrix(st_drop_geometry(shan)[features])
+rownames(X_raw) <- shan$TS_PCODE
+stopifnot(all(apply(X_raw, 2, sd) > 0))
+X_minmax <- apply(X_raw, 2, function(x) (x - min(x))/(max(x) - min(x)))
+X_z <- scale(X_raw)
+X <- X_minmax
+D0 <- dist(X)
+data.frame(Indicator = features, Raw_SD = apply(X_raw, 2, sd),
+           Minmax_min = apply(X_minmax, 2, min), Minmax_max = apply(X_minmax, 2, max),
+           Z_mean = colMeans(X_z), Z_SD = apply(X_z, 2, sd)) |> kable(digits = 3)
+```
+
+The main comparison consistently uses **min-max scaled** features and Euclidean attribute distances. This is an explicit extension of the chapter, whose examples include raw-rate distances. Min-max scaling gives equal ranges but is sensitive to extreme values. Z-scoring gives equal variance; it does not require a normal distribution merely to rescale data, nor does it make a skewed distribution normal.
+
+```{r}
+#| label: fig-scaling
+#| fig-width: 10
+#| fig-height: 4
+#| fig-cap: "Radio ownership under three scales. Linear rescaling changes units, not the underlying distribution shape."
+scale_view <- bind_rows(tibble(Scale = "Raw rate", Value = X_raw[,1]),
+                       tibble(Scale = "Min-max", Value = X_minmax[,1]),
+                       tibble(Scale = "Z-score", Value = X_z[,1]))
+ggplot(scale_view, aes(Value)) + geom_density(fill = "#90c7db", alpha = .7) +
+  facet_wrap(~Scale, scales = "free", nrow = 1) + labs(y = "Density")
+```
+
+# 4 Hierarchical clustering
+
+## Linkage comparison
+
+```{r}
+#| label: linkage
+methods <- c("single", "average", "complete", "ward")
+data.frame(Linkage = methods,
+           Agglomerative_coefficient = vapply(methods, function(m) agnes(X, method = m)$ac,
+                                              numeric(1))) |> kable(digits = 3)
+ward <- hclust(D0, method = "ward.D2")
+```
+
+The agglomerative coefficient describes a hierarchy, not predictive accuracy. Ward.D2 is used with Euclidean distances for its within-cluster sum-of-squares interpretation. It is not assumed identical to the chapter's Ward.D example.
+
+## Number of groups: diagnostics before a teaching choice
+
+```{r}
+#| label: cluster-number
+ward_cut <- function(x, k, ...) list(cluster = cutree(hclust(dist(x), method = "ward.D2"), k))
+set.seed(12345)
+gap <- clusGap(X, FUNcluster = ward_cut, K.max = 10, B = 50)
+gap_k <- maxSE(gap$Tab[,"gap"], gap$Tab[,"SE.sim"], method = "firstSEmax")
+sil <- vapply(2:10, function(k) mean(silhouette(cutree(ward, k), D0)[,"sil_width"]), numeric(1))
+kable(data.frame(K = 1:10, Gap = gap$Tab[,"gap"], SE = gap$Tab[,"SE.sim"],
+                 Mean_silhouette = c(NA, sil)), digits = 3)
+K <- 6L
+ward_groups <- cutree(ward, K)
+```
+
+The gap rule (`firstSEmax`) selects **`r gap_k`** group(s), while the best silhouette among 2–10 groups occurs at **`r (2:10)[which.max(sil)]`**. Fifty reference simulations provide an exploratory diagnostic, not a definitive optimum. **Six groups are retained as a fixed teaching comparison across methods**, not relabelled as the statistical optimum. A recommendation of one group is a meaningful warning against over-segmentation, not a result to discard.
+
+```{r}
+#| label: fig-gap
+#| fig-cap: "Gap statistic with reference-simulation uncertainty."
+plot(gap, main = "Gap diagnostic: Ward.D2")
+```
+
+```{r}
+#| label: fig-dendrogram
+#| fig-width: 12
+#| fig-height: 6
+#| fig-cap: "Ward.D2 hierarchy; boxes show the six-group teaching cut."
+plot(ward, labels = shan$TS, cex = .55, hang = -1, main = "ICT similarity", xlab = "", sub = "")
+rect.hclust(ward, k = K, border = 2:7)
+```
+
+Merge height, rather than horizontal leaf spacing, indicates dissimilarity. The hierarchy has no knowledge of geography, so similar townships can belong to the same group despite being far apart.
+
+## Interactive heatmap
+
+```{r}
+#| label: heatmap
+heatmaply(X, Rowv = as.dendrogram(ward), Colv = FALSE, scale = "none",
+          labRow = shan$TS, k_row = K,
+          colors = colorRampPalette(c("#f7fbff", "#08306b"))(100),
+          main = "ICT profiles: min-max scale", xlab = "Indicator", ylab = "Township")
+```
+
+The heatmap uses the already fitted hierarchy and the same scaled matrix as the main analysis. Hover to inspect individual values; blue intensity represents relative feature position, not an ownership percentage.
+
+# 5 SKATER: connected regions
+
+## Neighbour graph and edge costs
+
+```{r}
+#| label: skater
+# Use planar topology explicitly for this historical polygon layer.
+old_s2 <- sf_use_s2(FALSE)
+nb <- poly2nb(shan, queen = TRUE, row.names = shan$TS_PCODE)
+sf_use_s2(old_s2)
+stopifnot(all(card(nb) > 0), n.comp.nb(nb)$nc == 1L)
+costs <- nbcosts(nb, X)
+cost_weights <- nb2listw(nb, glist = costs, style = "B")
+tree <- mstree(cost_weights, ini = 1)
+stopifnot(nrow(tree) == nrow(shan) - 1)
+sk <- skater(tree[,1:2], data = X, ncuts = K - 1, method = "euclidean")
+sk_groups <- sk$groups
+table(sk_groups)
+```
+
+Queen adjacency is the hard spatial constraint. Edge costs measure attribute differences, not kilometres. The spanning tree has **`r nrow(tree)` edges** connecting **`r nrow(shan)` townships**. Five cuts create six groups. No minimum population or township count is imposed, so singleton regions are possible. Modern spdep accepts the neighbour graph derived directly from sf; converting to a legacy spatial class is unnecessary.
+
+```{r}
+#| label: fig-tree
+#| fig-width: 10
+#| fig-height: 6
+#| fig-cap: "Queen graph and minimum spanning tree in a projected display."
+map_shan <- st_transform(shan, 32647)
+coords <- st_coordinates(st_point_on_surface(st_geometry(map_shan)))
+par(mfrow = c(1,2), mar = c(1,1,3,1))
+plot(st_geometry(map_shan), border = "grey65", main = "Queen neighbours")
+plot(nb, coords, add = TRUE, col = "#2166ac", points = FALSE)
+plot(st_geometry(map_shan), border = "grey65", main = "Minimum spanning tree")
+plot(tree, coords, add = TRUE, col = "#b2182b", cex.lab = .5, cex.circles = .003)
+par(mfrow = c(1,1))
+```
+
+The drawing uses points on polygon surfaces only to position graph nodes. The edges derive from shared boundaries and feature costs. EPSG:32647 provides a regional display, not a road-network model.
+
+# 6 ClustGeo: attribute and geographical dissimilarity
+
+```{r}
+#| label: clustgeo
+# Polygon-to-polygon geodesic distances; touching polygons have distance zero.
+spatial_matrix <- units::drop_units(st_distance(shan))
+D1 <- as.dist(spatial_matrix)
+stopifnot(all(is.finite(D1)), max(D1) > 0)
+alpha_values <- seq(0, 1, .1)
+alpha_check <- choicealpha(D0, D1, range.alpha = alpha_values, K = K, graph = FALSE)
+nongeo <- hclustgeo(D0)
+alpha <- .2
+geo <- hclustgeo(D0, D1, alpha = alpha)
+geo_groups <- cutree(geo, K)
+```
+
+Both dissimilarities are rescaled by ClustGeo's default scaling. Alpha zero uses only ICT differences, while increasing alpha gives geographical proximity more influence. Polygon separation differs from centroid distance: adjacent polygons have zero geographical distance. **Alpha = 0.2 is a declared teaching setting**, assessed against the full trade-off curve rather than asserted to be universally optimal. This is a soft penalty and does not guarantee connected groups.
+
+```{r}
+#| label: fig-alpha
+#| fig-width: 10
+#| fig-height: 5
+#| fig-cap: "Attribute and geographical homogeneity across the alpha grid at six groups."
+plot(alpha_check, norm = TRUE)
+```
+
+# 7 Compare geography and attribute compactness
+
+```{r}
+#| label: compare-methods
+partitions <- list(Ward = ward_groups, SKATER = sk_groups, ClustGeo = geo_groups)
+A <- nb2mat(nb, style = "B") > 0
+components <- function(ids) {
+  pending <- ids; total <- 0L
+  while (length(pending)) {
+    total <- total + 1L; frontier <- pending[1]; seen <- integer()
+    while (length(frontier)) {
+      seen <- union(seen, frontier)
+      next_nodes <- ids[colSums(A[frontier, ids, drop = FALSE]) > 0]
+      frontier <- setdiff(next_nodes, seen)
+    }
+    pending <- setdiff(pending, seen)
+  }
+  total
+}
+within_ss <- function(groups) sum(vapply(split(seq_len(nrow(X)), groups), function(ids) {
+  sum(sweep(X[ids,,drop = FALSE], 2, colMeans(X[ids,,drop = FALSE]), "-")^2)
+}, numeric(1)))
+comparison <- bind_rows(lapply(names(partitions), function(method) {
+  g <- partitions[[method]]
+  sizes <- table(g)
+  connected <- vapply(split(seq_along(g), g), components, integer(1))
+  data.frame(Method = method, Groups = length(sizes), Smallest = min(sizes), Largest = max(sizes),
+             Disconnected_groups = sum(connected > 1), Within_SS = within_ss(g),
+             Silhouette = mean(silhouette(g, D0)[,"sil_width"]))
+}))
+stopifnot(comparison$Disconnected_groups[comparison$Method == "SKATER"] == 0L)
+comparison |> kable(digits = 3)
+```
+
+Within-SS and silhouette use the **same min-max attribute space** for all methods. Smaller within-SS reflects more compact attribute profiles, but not automatically better planning regions. The connectivity check counts components inside each group under the original queen graph. It is stronger evidence than judging a map by eye.
+
+```{r}
+#| label: fig-clusters
+#| fig-width: 12
+#| fig-height: 7
+#| fig-cap: "Six-group classifications. Cluster numbers and colours are arbitrary within each method."
+palette6 <- c("#4477aa", "#ee6677", "#228833", "#ccbb44", "#66ccee", "#aa3377")
+cluster_map <- function(groups, title) {
+  obj <- shan; obj$Group <- factor(groups, levels = 1:K)
+  tm_shape(obj) + tm_polygons(fill = "Group",
+    fill.scale = tm_scale_categorical(values = palette6),
+    fill.legend = tm_legend(title = "Group"), col = "white", lwd = .4) +
+    tm_title(title, size = .9) + tm_layout(frame = FALSE, legend.outside = TRUE)
+}
+tmap_arrange(cluster_map(ward_groups, "Ward.D2"), cluster_map(sk_groups, "SKATER"),
+             cluster_map(geo_groups, "ClustGeo: alpha 0.2"), ncol = 3)
+```
+
+Cluster 1 in one panel is not necessarily comparable to cluster 1 in another. SKATER guarantees queen-connected regions for this connected input graph. ClustGeo produces **`r comparison$Disconnected_groups[comparison$Method == "ClustGeo"]` disconnected group(s)** in this run, showing why its geographical penalty and a hard adjacency constraint should be distinguished.
+
+## Sensitivity to feature scaling
+
+```{r}
+#| label: scale-sensitivity
+coassignment_agreement <- function(a, b) {
+  upper <- upper.tri(outer(a, a, "=="))
+  mean((outer(a, a, "==") == outer(b, b, "=="))[upper])
+}
+raw_cut <- cutree(hclust(dist(X_raw), method = "ward.D2"), K)
+z_cut <- cutree(hclust(dist(X_z), method = "ward.D2"), K)
+data.frame(Comparison = c("Min-max versus raw", "Min-max versus z-score"),
+           Pair_agreement = c(coassignment_agreement(ward_groups, raw_cut),
+                              coassignment_agreement(ward_groups, z_cut))) |> kable(digits = 3)
+```
+
+This label-invariant agreement counts township pairs for which two classifications agree on being together or apart. It is not adjusted for chance and can be high because many pairs are separated. Scaling affects the feature weights, so disagreement is a substantive modelling issue rather than a software error.
+
+# 8 Profiles and interpretation
+
+```{r}
+#| label: profiles
+profile_data <- shan |> st_drop_geometry() |> mutate(Region = factor(sk_groups))
+profiles <- profile_data |> group_by(Region) |>
+  summarise(Townships = n(), across(all_of(features), mean), .groups = "drop")
+profiles |> kable(digits = 2)
+```
+
+These are **unweighted means of township rates**, not pooled household ownership rates. The SKATER region with the highest mean computer rate is group **`r profiles$Region[which.max(profiles$COMPUTER_PR)]`**, at **`r round(max(profiles$COMPUTER_PR), 1)` per 1,000 households**. Labels should be derived from these profiles rather than copied from another run's cluster numbers.
+
+```{r}
+#| label: fig-profiles
+#| fig-width: 11
+#| fig-height: 6
+#| fig-cap: "Distribution of original ownership rates within the six SKATER regions."
+profile_data |> select(Region, all_of(features)) |>
+  pivot_longer(all_of(features), names_to = "Indicator", values_to = "Rate") |>
+  ggplot(aes(Region, Rate, fill = Region)) + geom_boxplot(show.legend = FALSE) +
+  scale_fill_manual(values = palette6) + facet_wrap(~Indicator, scales = "free_y", ncol = 3) +
+  labs(y = "Ownership per 1,000 households")
+```
+
+```{r}
+#| label: fig-parallel
+#| fig-width: 11
+#| fig-height: 6
+#| fig-cap: "Parallel profiles in the main min-max feature space, grouped by SKATER region."
+as.data.frame(X) |> mutate(Township = shan$TS, Region = factor(sk_groups)) |>
+  pivot_longer(all_of(features), names_to = "Indicator", values_to = "Value") |>
+  ggplot(aes(Indicator, Value, group = Township)) +
+  geom_line(alpha = .3, colour = "#2166ac") + facet_wrap(~Region, ncol = 3) +
+  theme(axis.text.x = element_text(angle = 35, hjust = 1, size = 8)) +
+  labs(y = "Min-max scaled rate")
+```
+
+# 9 Conclusions and limitations
+
+Clustering groups similar profiles; it does not test statistical significance or establish a causal mechanism. Here the common feature matrix allows a fair description of how geographic requirements change the partition. SKATER supplies connected regions, while ClustGeo trades attribute similarity against spatial separation. Neither method guarantees that the regions match administrative capacity, travel accessibility or community needs. The 2014 snapshot cannot describe current ICT access, and small clusters warrant particular care. Six groups and alpha 0.2 remain teaching choices, supported by diagnostics rather than claims of unique optimality.
+
+# References and reproducibility
+
+- [Chapter 12: Geographical Segmentation](https://r4gdsa.netlify.app/chap12.html).
+- [Instructor's raw data snapshot](https://github.com/tskam/IS415/tree/acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773/Hands-on_Ex/Hands-on_Ex08/data).
+- [spdep SKATER documentation](https://r-spatial.github.io/spdep/reference/skater.html).
+- [ClustGeo package](https://cran.r-project.org/package=ClustGeo).
+
+All calculations run from the supplied raw inputs. No precomputed township assignments are required. The session below records the software versions used.
+
+```{r}
+#| label: session-info
+sessionInfo()
+```

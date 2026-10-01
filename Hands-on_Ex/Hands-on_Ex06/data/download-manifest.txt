@@ -1,0 +1,23 @@
+Source: instructor tskam/IS415, pinned commit acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773 
+Retrieved: 2026-10-01 
+Census indicator year: 2014
+Original provenance described by Chapter 12: MIMU.
+Boundary effective vintage is not independently established by this download.
+https://raw.githubusercontent.com/tskam/IS415/acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773/Hands-on_Ex/Hands-on_Ex08/data/aspatial/Shan-ICT.csv
+https://raw.githubusercontent.com/tskam/IS415/acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773/Hands-on_Ex/Hands-on_Ex08/data/geospatial/myanmar_township_boundaries.cst
+https://raw.githubusercontent.com/tskam/IS415/acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773/Hands-on_Ex/Hands-on_Ex08/data/geospatial/myanmar_township_boundaries.dbf
+https://raw.githubusercontent.com/tskam/IS415/acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773/Hands-on_Ex/Hands-on_Ex08/data/geospatial/myanmar_township_boundaries.prj
+https://raw.githubusercontent.com/tskam/IS415/acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773/Hands-on_Ex/Hands-on_Ex08/data/geospatial/myanmar_township_boundaries.shp
+https://raw.githubusercontent.com/tskam/IS415/acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773/Hands-on_Ex/Hands-on_Ex08/data/geospatial/myanmar_township_boundaries.shx 
+                     data/aspatial/Shan-ICT.csv 
+             "eb7a3f9ab62937ff1909e63ec084bfdf" 
+data/geospatial/myanmar_township_boundaries.cst 
+             "ae3b3df9970b49b6523e608759bc957d" 
+data/geospatial/myanmar_township_boundaries.dbf 
+             "3097ec7b386c1e33da1a8e0977ad7a8a" 
+data/geospatial/myanmar_township_boundaries.prj 
+             "293237e33df754aca1ef509fcd255603" 
+data/geospatial/myanmar_township_boundaries.shp 
+             "a4cace64176d62bd07b428c7bebb8238" 
+data/geospatial/myanmar_township_boundaries.shx 
+             "70cf9b072d97162c6f6d9ed920e77d6c" 
