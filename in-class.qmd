@@ -15,8 +15,8 @@ editor: source
     <p>Follow my classroom practice in geospatial analytics. These exercises connect course concepts with R workflows, from preparing spatial data to exploring local patterns and presenting results through maps.</p>
   </div>
   <div class="exercise-summary" aria-label="Portfolio summary">
-    <span class="summary-value">01</span>
-    <span class="summary-label">Exercise available</span>
+    <span class="summary-value">03</span>
+    <span class="summary-label">Exercise pages</span>
   </div>
 </header>
 
@@ -42,6 +42,37 @@ editor: source
     </div>
     <a class="exercise-link" href="In_Class_Ex/In-class-ex04/In_class_ex04.html">
       Open Exercise 4 <i class="bi bi-arrow-up-right"></i>
+    </a>
+  </article>
+  <article class="exercise-card accent-blue">
+    <div class="exercise-card-top">
+      <span class="exercise-number">05</span>
+      <span class="exercise-icon"><i class="bi bi-map"></i></span>
+    </div>
+    <span class="exercise-category">Spatial association</span>
+    <h3>Spatial Autocorrelation</h3>
+    <p>Explore GDP per capita in Hunan using contiguity-based spatial weights, global Moran's I, permutation testing, and local Moran's I.</p>
+    <div class="exercise-tags">
+      <span>sfdep</span><span>Moran's I</span><span>Spatial weights</span>
+    </div>
+    <a class="exercise-link" href="In_Class_Ex/In-class-ex05/In-class-Ex05.html">
+      Open Exercise 5 <i class="bi bi-arrow-up-right"></i>
+    </a>
+  </article>
+
+  <article class="exercise-card accent-blue">
+    <div class="exercise-card-top">
+      <span class="exercise-number">06</span>
+      <span class="exercise-icon"><i class="bi bi-journal-code"></i></span>
+    </div>
+    <span class="exercise-category">Space-time patterns</span>
+    <h3>Emerging Hotspot Analysis</h3>
+    <p>Explore changes in Hunan GDP per capita through a space-time cube, Getis–Ord Gi* statistics, Mann–Kendall trend tests, and maps of emerging hotspot classes.</p>
+    <div class="exercise-tags">
+      <span>sfdep</span><span>Gi*</span><span>Mann–Kendall</span>
+    </div>
+    <a class="exercise-link" href="In_Class_Ex/In-class-ex06/In-class-ex06.html">
+      Open Exercise 6 <i class="bi bi-arrow-up-right"></i>
     </a>
   </article>
 </div>
