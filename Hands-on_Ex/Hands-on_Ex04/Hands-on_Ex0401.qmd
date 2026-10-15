@@ -24,13 +24,15 @@ This exercise follows [Chapter 8: Spatial Weights and Applications](https://r4gd
 
 # 1 Data and reproducibility
 
-The files were downloaded from the instructor's [ISSS626-AY2026-27Aug repository](https://github.com/tskam/ISSS626-AY2026-27Aug/tree/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data) on 16 September 2026. The download script pins the repository commit, so future changes to the online course will not silently replace this input. The indicator year remains 2012; it is not the year of download. No newer statistical series has been substituted.
+[Chapter 8](https://r4gdsa.netlify.app/chap08.html) specifies the Hunan county boundary shapefile and `Hunan_2012.csv`, but does not provide a separate public download link for these prepared inputs. Obtain the matching files from the course materials. The locally downloaded `data.zip` contains both datasets and `Dictionary.xlsx`: extract its `data` folder into this exercise folder, keeping the shapefile companion files together. Consult the dictionary for indicator definitions. The indicator year remains **2012**, not the download year.
+
+The downloaded archive's boundary files match the existing inputs byte for byte; the CSV text matches after normalising line endings. No data replacement was needed. For provenance, the existing project files were originally retrieved from the instructor's repository on 16 September 2026. The historical retrieval script and manifest are retained as records, not as the recommended download route.
 
 | Local file | Purpose |
 |---|---|
 | `data/geospatial/Hunan.shp` and companion files | County polygons and identifiers |
 | `data/aspatial/Hunan_2012.csv` | County development indicators for 2012 |
-| `data/download-data.R` | Retrieve the pinned source files into an empty data location |
+| `data/download-data.R` | Historical retrieval script; use the course data archive for acquisition |
 | `data/download-manifest.txt` | Source URLs, retrieval date and raw-file checksums |
 
 ## Loading packages
@@ -366,7 +368,7 @@ sessionInfo()
 # References
 
 - [Chapter 8: Spatial Weights and Applications](https://r4gdsa.netlify.app/chap08.html)
-- [Instructor's pinned Lesson 4 data](https://github.com/tskam/ISSS626-AY2026-27Aug/tree/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data)
+- [Chapter 8: study area and data](https://r4gdsa.netlify.app/chap08.html); matching inputs are available in the downloaded course archive `data.zip`.
 - [spdep documentation](https://r-spatial.github.io/spdep/)
 - [sf geometry operations](https://r-spatial.github.io/sf/reference/geos_unary.html)
 - [tmap 4 polygon layers](https://r-tmap.github.io/tmap/reference/tm_polygons.html)

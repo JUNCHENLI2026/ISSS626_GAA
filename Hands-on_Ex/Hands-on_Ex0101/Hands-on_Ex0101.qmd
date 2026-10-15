@@ -56,7 +56,15 @@ pacman::p_load(
 | `PreSchoolsLocation.kml` | Point | Preschool locations |
 | `listings.csv` | Aspatial CSV | Airbnb listings with coordinates |
 
-The three geospatial datasets were obtained from [data.gov.sg](https://data.gov.sg/), while the listings data came from [Inside Airbnb](https://insideairbnb.com/get-the-data/). The current cycling-path and preschool downloads were converted to the shapefile and KML formats used in the chapter.
+To obtain the inputs, follow the sources named in Chapter 1:
+
+- Search [data.gov.sg](https://data.gov.sg/) for **Master Plan 2014 Subzone Boundary (Web)** and **Pre-Schools Location**. Preserve the boundary vintage rather than substituting a newer Master Plan.
+- Obtain **Cycling Path** from [LTA DataMall](https://www.mytransport.sg/content/mytransport/home/dataMall.html), the source named in the chapter.
+- On [Inside Airbnb](https://insideairbnb.com/get-the-data/), locate Singapore and download the listings CSV. Record the snapshot date because listings change over time.
+
+Store spatial files in `data/geospatial` and the listings CSV in `data/aspatial`, using the filenames expected below. Keep all shapefile companion files together. If a portal supplies a different format, convert it explicitly rather than merely changing its extension.
+
+For provenance, the existing three geospatial inputs were obtained through data.gov.sg, and the listings came from Inside Airbnb. The cycling-path and preschool downloads were converted to the formats used here. The instructions above describe the chapter's acquisition routes; this revision does not replace those existing files.
 
 # Importing geospatial data
 

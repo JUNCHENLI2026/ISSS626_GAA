@@ -24,9 +24,11 @@ How does a requirement for geographically coherent regions change a multivariate
 
 # 1 Data, packages and provenance
 
-The inputs are the Myanmar township boundary layer and **Shan-ICT.csv**, representing **2014 census** household indicators. They were retrieved from the instructor's [IS415 data repository](https://github.com/tskam/IS415/tree/acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773/Hands-on_Ex/Hands-on_Ex08/data), pinned to a fixed commit. The chapter attributes the inputs to MIMU. The census year is not the download year, and the supplied boundary's effective vintage is not independently verified here.
+The inputs are the Myanmar township boundary layer and **Shan-ICT.csv**, representing **2014 census** household indicators. [Chapter 12](https://r4gdsa.netlify.app/chap12.html) attributes the data to [MIMU](https://themimu.info/) and links to the [2014 census data sheet](https://myanmar.unfpa.org/en/publications/2014-population-and-housing-census-myanmar-data-sheet). The census publication supplies context; it is not a direct download of the prepared `Shan-ICT.csv`.
 
-The raw files are in `data/aspatial` and `data/geospatial`. `data/download-data.R` downloads them without overwriting existing files, and `data/download-manifest.txt` records URLs and checksums. Install missing packages before rendering. No package installation occurs inside this document.
+Use the course package **Hands-on Exercise 6.zip**, located in the local Downloads folder. Extract its `aspatial` and `geospatial` folders into this exercise's `data` folder. Retain all `myanmar_township_boundaries` companion files and `aspatial/Shan-ICT.csv`. If obtaining boundaries afresh from MIMU, verify the vintage and township identifiers before joining them to the prepared census table. The census year is not the download year, and the supplied boundary's effective vintage is not independently verified here.
+
+The downloaded course package's boundary files match the existing inputs byte for byte, and its CSV matches after normalising line endings. No replacement was needed. Existing files were originally retrieved from the instructor's repository; `data/download-data.R` and `data/download-manifest.txt` retain that retrieval history and checksums, not the recommended acquisition route. Install missing packages before rendering. No package installation occurs inside this document.
 
 ```{r}
 #| label: setup
@@ -412,7 +414,7 @@ Clustering groups similar profiles; it does not test statistical significance or
 # References and reproducibility
 
 - [Chapter 12: Geographical Segmentation](https://r4gdsa.netlify.app/chap12.html).
-- [Instructor's raw data snapshot](https://github.com/tskam/IS415/tree/acaa1f9995d3d778a02a09c6bbdd5ef4f4eae773/Hands-on_Ex/Hands-on_Ex08/data).
+- [MIMU](https://themimu.info/) and the [2014 census data sheet](https://myanmar.unfpa.org/en/publications/2014-population-and-housing-census-myanmar-data-sheet); use the downloaded course package `Hands-on Exercise 6.zip` for the prepared inputs.
 - [spdep SKATER documentation](https://r-spatial.github.io/spdep/reference/skater.html).
 - [ClustGeo package](https://cran.r-project.org/package=ClustGeo).
 

@@ -56,6 +56,8 @@ pacman::p_load(
 
 The same official datasets used in Exercise 2(1) are copied into this exercise's own `data/geospatial` folder so that the page can be rendered independently.
 
+For a fresh download, follow [Chapter 5](https://r4gdsa.netlify.app/chap05.html): search [data.gov.sg](https://data.gov.sg/) for **Child Care Services** and **Master Plan 2019 Subzone Boundary (No Sea)**. Download the GeoJSON versions and use the filenames listed above. Use the same snapshots as Exercise 2(1) when comparing first- and second-order results; a newer childcare layer changes the point pattern.
+
 # Preparing the point patterns
 
 ```{r}

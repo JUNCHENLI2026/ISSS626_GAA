@@ -36,6 +36,15 @@ By the end of this exercise, I should be able to:
 
 # Getting started
 
+## Downloading the data
+
+Following [Chapter 2](https://r4gdsa.netlify.app/chap02.html), obtain these two inputs:
+
+- From [data.gov.sg](https://data.gov.sg/), search for **Master Plan 2019 Subzone Boundary (No Sea)** and download the **KML** version into `data/geospatial`.
+- From the [Singapore Department of Statistics](https://www.singstat.gov.sg/), locate **Singapore Residents by Planning Area / Subzone, Age Group, Sex and Type of Dwelling, June 2024**. Download the CSV as `data/aspatial/respopagesextod2024.csv`.
+
+Select **June 2024**, not the latest available year. Keep the filenames used by the import code below. These instructions identify the chapter's source websites; the existing local inputs and results are unchanged.
+
 ## Loading the R packages
 
 ```{r}

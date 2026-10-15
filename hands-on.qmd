@@ -15,7 +15,7 @@ editor: source
     <p>Explore my practical work in geospatial data science. Each exercise documents the data preparation, analytical decisions, R workflow, results, and reflections developed during the course.</p>
   </div>
   <div class="exercise-summary" aria-label="Portfolio summary">
-    <span class="summary-value">09</span>
+    <span class="summary-value">10</span>
     <span class="summary-label">Exercises completed</span>
   </div>
 </header>
@@ -25,7 +25,7 @@ editor: source
     <span class="exercise-eyebrow">Assignment directory</span>
     <h2>Choose an exercise</h2>
   </div>
-  <p>The exercises progress from preparing and visualising geospatial data to analysing point patterns, spatial autocorrelation, and geographically constrained regional clusters.</p>
+  <p>The exercises progress from preparing and visualising geospatial data to analysing point patterns, spatial autocorrelation, regional clusters, and service accessibility.</p>
 </section>
 
 <div class="exercise-grid">
@@ -155,6 +155,17 @@ editor: source
     <p>Use Shan State's 2014 household ICT indicators to compare Ward clustering, connected SKATER regions, and ClustGeo. Examine scaling, cluster-number diagnostics, geographical trade-offs, and regional profiles.</p>
     <div class="exercise-tags"><span>SKATER</span><span>ClustGeo</span><span>Regionalisation</span></div>
     <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex0601.html">Open Exercise 6 <i class="bi bi-arrow-up-right"></i></a>
+  </article>
+  <article class="exercise-card accent-blue">
+    <div class="exercise-card-top">
+      <span class="exercise-number">07</span>
+      <span class="exercise-icon"><i class="bi bi-signpost-split"></i></span>
+    </div>
+    <span class="exercise-category">Geographical accessibility</span>
+    <h3>Modelling Access to Eldercare</h3>
+    <p>Compare Hansen, KD2SFCA, and SAM accessibility across Singapore using teaching data. Align network-distance matrices, map service catchments, compare planning regions, and examine sensitivity to modelling assumptions.</p>
+    <div class="exercise-tags"><span>SpatialAcc</span><span>Network distance</span><span>Accessibility</span></div>
+    <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex0701.html">Open Exercise 7 <i class="bi bi-arrow-up-right"></i></a>
   </article>
 </div>
 

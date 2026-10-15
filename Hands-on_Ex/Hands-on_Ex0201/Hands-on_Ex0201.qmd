@@ -60,6 +60,8 @@ tmap_mode("plot")
 
 Both files were downloaded from [data.gov.sg](https://data.gov.sg/) and stored locally in this exercise's `data/geospatial` folder.
 
+To obtain them, search the portal for **Child Care Services** and **Master Plan 2019 Subzone Boundary (No Sea)**, as specified in [Chapter 4](https://r4gdsa.netlify.app/chap04.html). Choose GeoJSON for this implementation and save the files under the names in the table above. Record the downloaded dataset version/date; newer childcare records may not reproduce the existing results exactly. Do not substitute a different Master Plan boundary vintage.
+
 # Importing and preparing the data
 
 ```{r}

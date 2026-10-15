@@ -26,7 +26,12 @@ My questions are: when are detections most frequent, how does their geographical
 
 # 1 Data and reproducibility
 
-The chapter attributes the fire archive to [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/download/) and the administrative boundaries to [Indonesia Geospatial](https://www.indonesia-geospasial.com/2023/05/download-shapefile-batas-administrasi.html). The local files were retrieved on 9 September 2026 from a [public course data mirror](https://github.com/xhwang0226/ISSS626/tree/main/Hands-on/Hands-on_Ex05/data). They were not downloaded directly from NASA in this run.
+Follow [Chapter 6](https://r4gdsa.netlify.app/chap06.html) to acquire the source data:
+
+- Use [NASA FIRMS Archive Download](https://firms.modaps.eosdis.nasa.gov/download/) for the MODIS fire detections. Select Indonesia and the 2023 period used in this exercise, not the current year. Preserve the product, date range and output format required by the import code below.
+- Obtain the administrative boundaries from the chapter's [Indonesia Geospatial download page](https://www.indonesia-geospasial.com/2023/05/download-shapefile-batas-administrasi.html). The original coverage is Indonesia; retain the Kepulauan Bangka Belitung subset used in the analysis. Keep all shapefile companion files together in `data/geospatial`.
+
+These are acquisition instructions, not a claim of a new download. The existing inputs were retrieved from a public course data mirror on 9 September 2026, rather than directly from NASA. They remain unchanged; a fresh download must be checked against the existing product, dates and boundary version before reproducing the results.
 
 The mirror covers the whole province. I extract its largest connected land polygon, Bangka main island, whose geographical extent matches the chapter and intersects 297 administrative units. Belitung and smaller islands are excluded. The resulting archive has **744 detections**, compared with 741 in the chapter. The exact reason for the three-record difference is unverified; no records were discarded simply to reproduce the textbook count.
 
@@ -263,6 +268,6 @@ Adding a date changes what a hotspot means: a location can have a high annual to
 
 - [Chapter 6: Spatio-Temporal Point Patterns Analysis](https://r4gdsa.netlify.app/chap06)
 - [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/download/)
-- [Data mirror used in this exercise](https://github.com/xhwang0226/ISSS626/tree/main/Hands-on/Hands-on_Ex05/data)
+- [Indonesia Geospatial: administrative-boundary download](https://www.indonesia-geospasial.com/2023/05/download-shapefile-batas-administrasi.html)
 - [sparr: Spatiotemporal density estimation](https://tilmandavies.github.io/sparr/reference/spattemp.density.html)
 - R package documentation: `help("BOOT.spattemp", package="sparr")` and `help("STIKhat", package="stpp")`.

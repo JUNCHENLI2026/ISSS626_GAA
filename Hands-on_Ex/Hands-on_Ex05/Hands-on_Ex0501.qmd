@@ -24,7 +24,9 @@ This exercise accompanies [Chapter 9](https://r4gdsa.netlify.app/chap09.html). T
 
 # 1 Data and preparation
 
-Both parts use `data/geospatial/Hunan.shp` and its companion files, together with `data/aspatial/Hunan_2012.csv`. The data are downloaded from the instructor's [pinned course repository](https://github.com/tskam/ISSS626-AY2026-27Aug/tree/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data). `data/download-data.R` retrieves the inputs; `data/download-manifest.txt` records URLs, retrieval date and checksums. **2012 is the indicator year**, not the download year. Values retain the supplied scale.
+Both parts use `data/geospatial/Hunan.shp` and its companion files, together with `data/aspatial/Hunan_2012.csv`. [Chapter 9](https://r4gdsa.netlify.app/chap09.html) names these prepared inputs but does not supply a separate public download link. Obtain the matching course materials; the downloaded `data.zip` contains the boundary, CSV and indicator dictionary. Extract its `data` folder into `Hands-on_Ex05`, shared by both parts. Keep the complete shapefile and use the dictionary to interpret the variables. **2012 is the indicator year**, not the download year. Values retain the supplied scale.
+
+The current project inputs are retained. Their original repository retrieval is documented in `data/download-manifest.txt`; `data/download-data.R` is a historical retrieval record, not the acquisition route recommended here.
 
 ## Packages
 

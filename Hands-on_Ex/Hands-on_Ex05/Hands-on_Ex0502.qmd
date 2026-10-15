@@ -24,7 +24,9 @@ This exercise accompanies [Chapter 10](https://r4gdsa.netlify.app/chap10.html). 
 
 # 1 Data preparation
 
-The shared `data` directory contains county polygons and `Hunan_2012.csv`, plus a download script and provenance manifest. The [pinned instructor repository](https://github.com/tskam/ISSS626-AY2026-27Aug/tree/966eea6df498b38f10bc209d07a922f4d87b95d9/lesson/Lesson04/data) supplies the raw files. The statistical reference year remains **2012**.
+The shared `data` directory contains the Hunan county polygons and `Hunan_2012.csv` specified in [Chapter 10](https://r4gdsa.netlify.app/chap10.html). Obtain these prepared inputs from the course materials: the downloaded `data.zip` provides the shapefile, CSV and dictionary. Extract its `data` folder into `Hands-on_Ex05`, as described in Part 1, and use the same files for both parts. The chapter does not supply a separate public download link. The statistical reference year remains **2012**.
+
+Existing inputs have not been replaced. The download script and provenance manifest retain the original repository retrieval details; they are historical records rather than the recommended acquisition route.
 
 ```{r}
 #| label: setup
