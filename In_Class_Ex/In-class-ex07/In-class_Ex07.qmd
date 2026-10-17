@@ -1,0 +1,263 @@
+---
+title: "In-class Exercise 7: Floating Catchment Area Accessibility"
+author: "JUNCHEN LI"
+date: "2026-10-17"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+execute:
+  eval: true
+  echo: true
+  freeze: true
+---
+# Overview
+
+This classroom exercise compares four floating catchment area approaches to eldercare accessibility in Singapore. It uses the supplied `In-class_Ex07.zip` data and adapts its R workflow, whose original document lists Xiaohan as author. The numerical model code is retained; the introductory text and website presentation have been expanded for this learning portfolio.
+
+Demand is set to 100 for every hexagon and capacity to 100 for every facility. These are teaching assumptions, not measured elderly populations or service capacities. The resulting maps illustrate model behaviour rather than current service adequacy.
+
+## Data and preparation
+
+Extract the supplied archive into this exercise folder, keeping `data/aspatial/OD_Matrix.csv` and the complete shapefile components in `data/geospatial`. The spatial layers are Master Plan 2014 subzones, a prepared hexagonal grid, and eldercare locations. Use these matched inputs together rather than substituting newer layers independently. GIS metadata files ending in `.qmd` are not Quarto pages and are excluded from the website source folder.
+
+# 1 Loading R packages
+
+Installing catchment R package from github
+
+Run the following installation commands manually only when the packages are missing. They are displayed but not executed during rendering. This GitHub link installs software; the exercise data come from the supplied course archive.
+
+```{r}
+#| eval: false
+install.packages("remotes")
+```
+
+```{r}
+#| eval: false
+remotes::install_github('uva-bi-sdad/catchment')
+```
+
+
+Next, load sf, tidyverse, tmap, accessibility and catchment R packages into RStudio environment using the code chunk below
+
+```{r}
+pacman::p_load(sf, tidyverse, tmap, accessibility, catchment)
+```
+
+# 2 Importing and preparing the data
+
+The three spatial layers are transformed to Singapore SVY21 (EPSG:3414). Network costs in the supplied OD table are converted from metres to kilometres. Matrix rows must correspond to the hexagon order and columns to the facility order before the accessibility scores are attached to the map.
+
+```{r}
+mpsz <- st_read(dsn = "data/geospatial",
+                layer = "MP14_SUBZONE_NO_SEA_PL") %>%
+  st_transform(crs = 3414)
+```
+
+```{r}
+hexagons <- st_read(dsn = "data/geospatial",
+                    layer = "hexagons") %>%
+  st_transform(crs = 3414)
+```
+
+```{r}
+eldercare <- st_read(dsn = "data/geospatial",
+                     layer = "ELDERCARE") %>%
+  st_transform(crs = 3414)
+```
+
+Next, use the code chunk below to import OD_Matrix.
+
+```{r}
+ODMatrix <- read_csv("data/aspatial/OD_Matrix.csv", skip = 0)
+```
+
+Use the code chunk below to create a new field called demand and populate value 100 in it.
+
+```{r}
+hexagons <- hexagons %>%
+  select(fid) %>%
+  mutate(demand = 100) %>%
+  rename(id = fid)
+```
+
+Use the code chunk the select origin_id, destination_id and total_cost of ODMatrix data frame. Then, rename them to from_id, to_id and dist respectively.
+
+```{r}
+ODMatrix_tidied <- ODMatrix %>%
+  select(origin_id, destination_id, total_cost) %>%
+  rename(from_id = origin_id,
+         to_id = destination_id,
+         dist = total_cost)
+```
+
+In the code chunk below as.matrix() is used to convert the data frame into matrix object.
+
+```{r}
+distmat <- ODMatrix %>%
+  select(origin_id, destination_id, total_cost) %>%
+  spread(destination_id, total_cost) %>%
+  select(c(-c('origin_id')))
+
+distmat_km <- as.matrix(distmat/1000)
+```
+
+In this code chunk below, catchment_ratio() of catchment package is used to compute 2SFCA.
+
+```{r}
+eldercare <- eldercare %>%
+  mutate(capacity = 100)
+```
+
+
+```{r}
+df_2sfca <- catchment_ratio(
+  consumers = hexagons$demand,
+  providers = eldercare$capacity,
+  cost = distmat_km,
+  max_cost = 5) %>%
+  as.data.frame() %>%
+  rename("2SFCA" = ".")
+```
+
+# 3 Mapping 2SFCA
+
+The two-step floating catchment area model first relates facility capacity to demand within a catchment, then aggregates the available supply-to-demand ratios for each demand location. Here, `max_cost = 5` defines a five-kilometre network-distance catchment.
+```{r}
+mapex <- st_bbox(hexagons)
+```
+
+```{r}
+hex_2SFCA <- bind_cols(hexagons, df_2sfca)
+tm_shape(hex_2SFCA,
+         bbox = mapex) +
+  tm_polygons(fill = "2SFCA",
+              fill.scale = tm_scale_intervals(
+                style = "pretty",
+                n = 5,
+                values = "-brewer.blues")) +
+tm_shape(eldercare) +
+  tm_dots(size = 0.3,
+          fill = "red",
+          col = "black") +
+  tm_title("2SFCA Accessibility measures") +
+  tm_layout(frame = TRUE) +
+  tm_compass(type="8star", size = 2) +
+  tm_scalebar() +
+  tm_grid(alpha = 0.2)
+```
+
+# 4 Enhanced 2-Step Floating Catchment Area (E2SFCA)
+
+E2SFCA introduces stepped distance-decay weights: nearby opportunities receive greater weight than more distant opportunities. The supplied thresholds span one to five kilometres. These weights are illustrative assumptions rather than empirically calibrated travel preferences.
+
+```{r}
+step_weights <- list(c(5, .01), c(4, .05), c(3, .1), c(2, .4), c(1, 1))
+df_e2sfca <- catchment_ratio(
+  consumers = hexagons$demand,
+  providers = eldercare$capacity,
+  cost = distmat_km,
+  weight = step_weights) %>%
+  as.data.frame() %>%
+  rename("E2SFCA" = ".")
+```
+
+```{r}
+hex_E2SFCA <- bind_cols(hexagons, df_e2sfca)
+tm_shape(hex_E2SFCA,
+         bbox = mapex) +
+  tm_polygons(fill = "E2SFCA",
+              fill.scale = tm_scale_intervals(
+                style = "pretty",
+                n = 5,
+                values = "-brewer.blues")) +
+tm_shape(eldercare) +
+  tm_dots(size = 0.3,
+          fill = "red",
+          col = "black") +
+  tm_title("E2SFCA Accessibility measures") +
+  tm_layout(frame = TRUE) +
+  tm_compass(type="8star", size = 2) +
+  tm_scalebar() +
+  tm_grid(alpha = 0.2)
+```
+
+# 5 Gaussian Kernel 2-Step Floating Catchment Area
+
+This variant applies the package\'s Gaussian weighting option to introduce smooth distance decay. Its defaults are retained from the supplied exercise. This is a distance-weighted accessibility model, not a point-pattern kernel density map.
+
+```{r}
+df_kd2sfca <- catchment_ratio(
+  consumers = hexagons$demand,
+  providers = eldercare$capacity,
+  cost = distmat_km,
+  weight = "gaussian") %>%
+  as.data.frame() %>%
+  rename("KD2SFCA" = ".")
+```
+
+```{r}
+hex_KD2SFCA <- bind_cols(hexagons, df_kd2sfca)
+tm_shape(hex_KD2SFCA,
+         bbox = mapex) +
+  tm_polygons(fill = "KD2SFCA",
+              fill.scale = tm_scale_intervals(
+                style = "pretty",
+                n = 5,
+                values = "-brewer.blues")) +
+tm_shape(eldercare) +
+  tm_dots(size = 0.3,
+          fill = "red",
+          col = "black") +
+  tm_title("KD2SFCA Accessibility measures") +
+  tm_layout(frame = TRUE) +
+  tm_compass(type="8star", size = 2) +
+  tm_scalebar() +
+  tm_grid(alpha = 0.2)
+```
+
+# 6 3-Step Floating Catchment Area
+
+The final variant uses the stepped weights with `normalize_weight = TRUE`. This changes how demand is allocated across competing providers. Compare its spatial distribution with the earlier models while keeping the demand, capacity and network inputs fixed.
+
+```{r}
+df_3sfca <- catchment_ratio(
+  consumers = hexagons$demand,
+  providers = eldercare$capacity,
+  cost = distmat_km,
+  step_weights,
+  normalize_weight = TRUE) %>%
+  as.data.frame() %>%
+  rename("3SFCA" = ".")
+```
+
+```{r}
+hex_3SFCA <- bind_cols(hexagons, df_3sfca)
+tm_shape(hex_3SFCA,
+         bbox = mapex) +
+  tm_polygons(fill = "3SFCA",
+              fill.scale = tm_scale_intervals(
+                style = "pretty",
+                n = 5,
+                values = "-brewer.blues")) +
+tm_shape(eldercare) +
+  tm_dots(size = 0.3,
+          fill = "red",
+          col = "black") +
+  tm_title("3SFCA Accessibility measures") +
+  tm_layout(frame = TRUE) +
+  tm_compass(type="8star", size = 2) +
+  tm_scalebar() +
+  tm_grid(alpha = 0.2)
+```
+
+
+# Interpretation and limitations
+
+The four maps use model-specific rounded intervals (`style = "pretty"`, with five intervals requested). This presentation-only adjustment replaces the supplied ten-quantile classification, which produced repeated breakpoints and misleading interval labels where many scores were zero. The model calculations are unchanged. Because each map has its own range, the same colour need not represent the same score across models. Compare the legend values and underlying scores before drawing conclusions about differences in magnitude. The original reversed blue palette is retained: darker colours indicate lower accessibility.
+
+The uniform demand and capacity assumptions, historical teaching layers, distance-decay choices and supplied network matrix limit real-world interpretation. The imported subzone layer provides geographical context but is not used in the accessibility calculations below. These maps do not test statistical significance or establish actual unmet need.
+
