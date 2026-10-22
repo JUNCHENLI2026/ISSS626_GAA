@@ -16,7 +16,7 @@ Where does recorded armed conflict concentrate, and how do those concentrations 
 |---|---|---|
 | Executive Summary | [Open the slides](executive_summary.qmd) | Ten content slides presenting the research question, key maps, findings and limitations |
 | Technical Report | [Read the report](Take-Home_Ex02.qmd) | Data checks, analytical decisions, results, robustness tests and reproducible R code |
-| Coursework Repository | [Open GitHub](https://github.com/JUNCHENLI2026/ISSS626_GAA) | Quarto project and analytical R scripts |
+| GitHub Repository | [View JUNCHENLI2026/ISSS626_GAA](https://github.com/JUNCHENLI2026/ISSS626_GAA) | Coursework source repository; exercise files belong under `Take-Home_Ex/Take-Home_Ex02/` |
 
 ### Data and analytical approach
 

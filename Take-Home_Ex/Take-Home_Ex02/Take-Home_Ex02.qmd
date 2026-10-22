@@ -602,6 +602,8 @@ Together these findings support contextual investigation of burden, change and s
 
 # Reproducibility
 
+Project repository: [JUNCHENLI2026/ISSS626_GAA on GitHub](https://github.com/JUNCHENLI2026/ISSS626_GAA). Exercise sources are organised under `Take-Home_Ex/Take-Home_Ex02/`.
+
 The report and executive summary read the same analytical outputs. Raw inputs remain unchanged. From the exercise folder, run `Rscript --vanilla analysis/run_analysis.R`, then render the two QMD documents. Dependencies are checked rather than installed automatically; changed inputs, analysis scripts or package versions invalidate the relevant caches.
 
 The [technical appendix](#technical-appendix) contains the complete analysis scripts, test and rebuild instructions, input fingerprints and runtime information. It is collapsed by default. Individual event notes and coordinates are not embedded in the reporting pages.

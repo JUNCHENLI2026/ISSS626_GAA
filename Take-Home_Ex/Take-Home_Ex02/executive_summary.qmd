@@ -176,6 +176,8 @@ The results support retrospective humanitarian discussion. They do not establish
 
 [Technical report](Take-Home_Ex02.qmd) documents processing, parameters, results and runnable R scripts.
 
+[GitHub repository: JUNCHENLI2026/ISSS626_GAA](https://github.com/JUNCHENLI2026/ISSS626_GAA).
+
 - ACLED event extract supplied for this exercise; [Codebook](https://acleddata.com/methodology/acled-codebook).
 - [MIMU GeoNode](https://geonode.themimu.info/), township boundaries v9.4.
 - [spdep](https://r-spatial.github.io/spdep/), local spatial tests.
