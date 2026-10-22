@@ -1,0 +1,7 @@
+"variable","scenario","baseline_hot","alternative_hot","retained","gained","lost","Jaccard"
+"events","Add records within 1 km of boundary",38,38,38,0,0,1
+"events","Precisely located events only",38,38,35,3,3,0.853658536585366
+"events","Six-nearest-neighbour graph",38,41,30,11,8,0.612244897959184
+"fatalities","Add records within 1 km of boundary",43,43,43,0,0,1
+"fatalities","Precisely located events only",43,40,39,1,4,0.886363636363636
+"fatalities","Six-nearest-neighbour graph",43,40,36,4,7,0.765957446808511

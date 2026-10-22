@@ -1,0 +1,5 @@
+# Keep licensed event-level inputs and derived event-level caches local.
+/data/Aspatial/
+/outputs/prepared.rds
+/outputs/build_signature.rds
+/*_cache/

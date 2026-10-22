@@ -1,0 +1,7 @@
+"scenario","variable","baseline_hot","alternative_hot","retained","gained","lost","Jaccard","lisa_label_changes"
+"Exclude every initial name flag","events",23,23,23,0,0,1,5
+"Exclude every initial name flag","fatalities",27,27,27,0,0,1,4
+"Exclude unresolved or missing labels","events",23,23,23,0,0,1,0
+"Exclude unresolved or missing labels","fatalities",27,27,27,0,0,1,1
+"Use unique conflicting labels instead of coordinates","events",23,23,23,0,0,1,0
+"Use unique conflicting labels instead of coordinates","fatalities",27,27,27,0,0,1,0

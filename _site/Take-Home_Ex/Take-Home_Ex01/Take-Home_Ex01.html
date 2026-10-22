@@ -4847,7 +4847,18 @@ padding: 1.4rem;
     <a class="dropdown-item" href="../../Take-Home_Ex/Take-Home_Ex01/executive_summary.html">
  <span class="dropdown-text">Take-Home Exercise 1: Executive Summary</span></a>
   </li>  
-        <li class="dropdown-header">Take-Home Exercise 2</li>
+        <li>
+    <a class="dropdown-item" href="../../Take-Home_Ex/Take-Home_Ex02/index.html">
+ <span class="dropdown-text">Take-Home Exercise 2: Submission Links</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Take-Home_Ex/Take-Home_Ex02/Take-Home_Ex02.html">
+ <span class="dropdown-text">Take-Home Exercise 2: Technical Report</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../Take-Home_Ex/Take-Home_Ex02/executive_summary.html">
+ <span class="dropdown-text">Take-Home Exercise 2: Executive Summary</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -6094,7 +6105,7 @@ Figure 9: Consistency of recurrence screening across eight confidence/grid sett
 <p>The data README lists the scripts, dependencies, output files and checks for each stage. The report’s inference uses the last stage; the spatial K/L diagnostics are not substituted for a fitted simulation test.</p>
 <p>The report reads verified calculation objects. Rendering alone does not rerun the 279,972 original, whole-day and final-audit permutations. For a complete rebuild from the supplied raw downloads, use the exercise-root <code>reproduce.R</code> entry point with an <strong>unused output directory</strong>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode powershell code-with-copy"><code class="sourceCode powershell"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Rscript reproduce<span class="op">.</span><span class="fu">R</span> <span class="st">&quot;E:/JUNCHENLI/ISSS626_GAA/Take-Home_Ex/Take-Home_Ex01&quot;</span> <span class="st">&quot;C:/path/to/new-build&quot;</span> <span class="st">&quot;E:/quarto/bin/quarto.exe&quot;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Replace paths with the local exercise directory, a new writable destination and the installed Quarto executable. The raw NASA files and national boundary must be present in their documented locations. Required R packages include sf, dplyr, ggplot2, spatstat.geom, spatstat.explore, knitr and rmarkdown. The runner checks dependencies and refuses to reuse an existing destination. It rebuilds the extraction, reconciles confidence-subset rows with the retained inputs, runs all diagnostic and inferential stages, executes independent verification, and renders the report and summary. Step logs and session information are written under the new build’s <code>logs/</code> directory. It does not delete data, publish a site, commit or push.</p>
+<p>Replace paths with the local exercise directory, a new writable destination and the installed Quarto executable. The raw NASA files and national boundary must be present in their documented locations. Required R packages include sf, dplyr, ggplot2, spatstat.geom, spatstat.explore, knitr and rmarkdown. The runner checks dependencies and refuses to reuse an existing destination. It rebuilds the extraction, reconciles confidence-subset rows with the retained inputs, runs all diagnostic and inferential stages, executes independent verification, and renders the report and summary. Step logs and session information are written under the new build’s <code>logs/</code> directory. It does not delete data.</p>
 <p>For a faster render from existing results, render the two QMD documents without running the rebuild script. The distinction between regenerating analysis and rendering saved analysis is explicit. Detailed dependencies and source-data restrictions remain documented in the data README.</p>
 <p>The labelled recurrence map is generated during rendering by <code>recurrence_map.R</code>, using the saved grid and district geometries. Assertions verify the two displayed record/date counts before plotting. It changes presentation without altering the statistical results. The complete rebuild copies this helper alongside both documents. NASA acquisition-request metadata are supported by the supplied emails; boundary vintage remains an outstanding provenance check. Successful rendering does not resolve it.</p>
 <p>Source and previous-result hashes were checked before and after computation. An independent verification enumerated all spatial pairs from projected coordinates, reconciled observed counts, checked three stored permutations per case, recomputed all p-values and independently reconstructed the Holm step-down adjustment. Figures were inspected after rendering.</p>
@@ -12521,7 +12532,7 @@ All 48 final-audit comparisons
 <span id="cb40-506"><a href="#cb40-506" aria-hidden="true" tabindex="-1"></a><span class="in">Rscript reproduce.R &quot;E:/JUNCHENLI/ISSS626_GAA/Take-Home_Ex/Take-Home_Ex01&quot; &quot;C:/path/to/new-build&quot; &quot;E:/quarto/bin/quarto.exe&quot;</span></span>
 <span id="cb40-507"><a href="#cb40-507" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb40-508"><a href="#cb40-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-509"><a href="#cb40-509" aria-hidden="true" tabindex="-1"></a>Replace paths with the local exercise directory, a new writable destination and the installed Quarto executable. The raw NASA files and national boundary must be present in their documented locations. Required R packages include sf, dplyr, ggplot2, spatstat.geom, spatstat.explore, knitr and rmarkdown. The runner checks dependencies and refuses to reuse an existing destination. It rebuilds the extraction, reconciles confidence-subset rows with the retained inputs, runs all diagnostic and inferential stages, executes independent verification, and renders the report and summary. Step logs and session information are written under the new build&#39;s <span class="in">`logs/`</span> directory. It does not delete data, publish a site, commit or push.</span>
+<span id="cb40-509"><a href="#cb40-509" aria-hidden="true" tabindex="-1"></a>Replace paths with the local exercise directory, a new writable destination and the installed Quarto executable. The raw NASA files and national boundary must be present in their documented locations. Required R packages include sf, dplyr, ggplot2, spatstat.geom, spatstat.explore, knitr and rmarkdown. The runner checks dependencies and refuses to reuse an existing destination. It rebuilds the extraction, reconciles confidence-subset rows with the retained inputs, runs all diagnostic and inferential stages, executes independent verification, and renders the report and summary. Step logs and session information are written under the new build&#39;s <span class="in">`logs/`</span> directory. It does not delete data.</span>
 <span id="cb40-510"><a href="#cb40-510" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-511"><a href="#cb40-511" aria-hidden="true" tabindex="-1"></a>For a faster render from existing results, render the two QMD documents without running the rebuild script. The distinction between regenerating analysis and rendering saved analysis is explicit. Detailed dependencies and source-data restrictions remain documented in the data README.</span>
 <span id="cb40-512"><a href="#cb40-512" aria-hidden="true" tabindex="-1"></a></span>

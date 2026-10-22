@@ -1,0 +1,9 @@
+"variable","graph","transform","I","permutation_p","permutations","seed","min_neighbours","max_neighbours","holm_p_8","positive_supported"
+"events","Queen","Raw",0.490029164967925,2e-04,9999,2026102101,1,11,0.0016,TRUE
+"events","Queen","log1p",0.661732306451794,2e-04,9999,2026102101,1,11,0.0016,TRUE
+"events","Symmetric 6-NN","Raw",0.428791145777832,2e-04,9999,2026102101,6,12,0.0016,TRUE
+"events","Symmetric 6-NN","log1p",0.591419494840264,2e-04,9999,2026102101,6,12,0.0016,TRUE
+"fatalities","Queen","Raw",0.558078388811239,2e-04,9999,2026102102,1,11,0.0016,TRUE
+"fatalities","Queen","log1p",0.707461660547401,2e-04,9999,2026102102,1,11,0.0016,TRUE
+"fatalities","Symmetric 6-NN","Raw",0.490812080248248,2e-04,9999,2026102102,6,12,0.0016,TRUE
+"fatalities","Symmetric 6-NN","log1p",0.658621630937252,2e-04,9999,2026102102,6,12,0.0016,TRUE

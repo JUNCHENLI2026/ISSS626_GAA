@@ -81,9 +81,7 @@ The summary uses the same final results. Its recurrence map comes from
 `recurrence_map.R`; the optional `presentation` argument only adjusts label size
 and the visible map extent. It does not alter input records or calculations.
 
-The coursework navbar links to the report and summary. Publishing and GitHub
-submission are separate steps from local rendering. The temporary whole-exercise Git exclusion has been removed so that source files
-can be included in a submission commit. Do not add the excluded national boundary.
+The coursework navbar links to the report and summary.
 
 ## Course-aligned presentation and portable checks
 

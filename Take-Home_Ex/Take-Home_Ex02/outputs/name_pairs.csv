@@ -1,0 +1,15 @@
+"admin1","admin3","region","name","audit_class","records"
+"Yangon","Hlaingtharya-East","Yangon","Hlaingtharya (East)","Formatting-only difference",182
+"Yangon","Dagon Myothit-South","Yangon","Dagon Myothit (South)","Formatting-only difference",128
+"Yangon","Dagon Myothit-North","Yangon","Dagon Myothit (North)","Formatting-only difference",107
+"Mandalay",,"Mandalay","Chanayethazan","Missing township name",71
+"Yangon","Dagon Myothit-Seikkan","Yangon","Dagon Myothit (Seikkan)","Formatting-only difference",49
+"Yangon","Dagon Myothit-East","Yangon","Dagon Myothit (East)","Formatting-only difference",39
+"Yangon",,"Yangon","Bahan","Missing township name",23
+"Nay Pyi Taw",,"Nay Pyi Taw","Za Bu Thi Ri","Missing township name",13
+"Yangon","Hlaingtharya-West","Yangon","Hlaingtharya (West)","Formatting-only difference",12
+"Sagaing","Lay Shi","Sagaing","Layshi","Formatting-only difference",5
+"Shan-North","Pangsang","Shan (North)","Pangsang (Panghkam)","Boundary primary-name match",4
+"Yangon","Kawhmu","Yangon","Twantay","Conflicting unique township label",2
+"Rakhine","Toungup","Rakhine","Ann","Conflicting unique township label",1
+"Shan-South","Pekon","Shan (South)","Pinlaung","Conflicting unique township label",1

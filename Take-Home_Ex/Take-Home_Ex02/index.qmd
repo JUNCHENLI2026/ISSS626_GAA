@@ -1,0 +1,41 @@
+---
+title: "Take-home Exercise 2"
+subtitle: "Geospatial Analytics for Peace"
+toc: false
+---
+
+## Conflict patterns across Myanmar townships
+
+January 2021–September 2025 · ISSS626 Geospatial Analytics and Applications
+
+Where does recorded armed conflict concentrate, and how do those concentrations change over time? In this exercise, I examine event frequency and reported fatalities across **330 Myanmar townships**, connecting spatial statistics with cautious interpretation for peace-building and humanitarian discussion.
+
+### Explore the assignment
+
+| Deliverable | Link | What to expect |
+|---|---|---|
+| Executive Summary | [Open the slides](executive_summary.qmd) | Ten content slides presenting the research question, key maps, findings and limitations |
+| Technical Report | [Read the report](Take-Home_Ex02.qmd) | Data checks, analytical decisions, results, robustness tests and reproducible R code |
+| Coursework Repository | [Open GitHub](https://github.com/JUNCHENLI2026/ISSS626_GAA) | Quarto project and analytical R scripts |
+
+### Data and analytical approach
+
+The study combines an **ACLED event extract** with **MIMU v9.4 township boundaries**. It retains battles, explosions/remote violence and violence against civilians, and aggregates the assigned records into a complete **57-month township panel**. Spatial matching, name discrepancies, geographic precision and unassigned records are checked before analysis.
+
+- **Overall spatial association:** Global Moran's I and Moran scatterplots assess whether similar township totals occur near one another.
+- **Local clusters and outliers:** Local Moran's I and Getis–Ord Gi* identify local contrasts and concentrations of events and reported fatalities.
+- **Changing patterns:** Emerging Hot Spot Analysis uses monthly space-time Gi* values and Mann–Kendall trends to examine how clustering evolves.
+- **Robustness and regional interpretation:** Alternative weights, transformed totals, multiple-testing adjustments and temporal checks qualify the findings. Township profiles compare local changes with national trends, while a conditional simulation examines fatality severity given recorded event locations, months and types.
+
+### What the analysis reveals
+
+Overall positive spatial association persists across the tested raw/log-transformed totals and queen/symmetric six-neighbour weights. Individual EHSA labels are more sensitive: **14 of 60 event patterns** and **23 of 58 fatality patterns** pass the additional trend screen. Overall concentration and robust local temporal change are therefore separate conclusions.
+
+Case studies of **Kawkareik, Nawnghkio, Monywa and Myingyan** illustrate differences between cumulative burden, recent counts and national shares. Additional severity profiles examine neighbourhoods centred on **Kyunhla, Kawlin and Taze**, with repeated-seed and largest-record-deletion checks.
+
+### Reading the findings responsibly
+
+Recorded counts depend on reporting coverage, location precision and uncertain fatality estimates. They do not measure population-adjusted risk. A non-significant or cold area is not established safe, and spatial association does not establish causation. The findings support contextual assessment alongside displacement, service-access and local evidence.
+
+For a quick overview, start with the slides. The report explains the methods, distinguishes nominal from adjusted results and documents the limits of each conclusion. The [course assignment brief](https://isss626-ay2026-27aug.netlify.app/take-home_ex02) provides the original task and assessment requirements.
+

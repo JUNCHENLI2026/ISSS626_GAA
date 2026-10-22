@@ -1,0 +1,9 @@
+.reveal { font-family: Arial, sans-serif; font-size: 27px; color: #162e41; }
+.reveal h1 { font-size: 2em; }
+.reveal h2 { font-size: 1.45em; color: #163f5b; margin-bottom: .55em; }
+.reveal p, .reveal li { line-height: 1.3; }
+.reveal table { font-size: .78em; }
+.reveal .columns { gap: 1.2rem; }
+.reveal .column img { object-fit: contain; max-width: 100%; }
+.reveal .small-note { font-size: .66em; color: #526575; margin-top: 1em; }
+.reveal a { color: #166b85; }

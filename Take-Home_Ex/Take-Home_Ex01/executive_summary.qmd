@@ -210,7 +210,7 @@ Missing or cloudy imagery remains inconclusive. Before allocating resources, age
 - [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/descriptions/FIRMS_MODIS_Firehotspots.html) and supplied Indonesian administrative boundaries.
 - [Knox-type test](https://search.r-project.org/CRAN/refmans/surveillance/html/knox.html), [permutation p-values](https://arxiv.org/abs/1603.05766) and [Holm adjustment](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/p.adjust.html).
 - [Technical report](Take-Home_Ex01.html): full methods, code, geographic tables and all comparisons.
-- [Coursework repository](https://github.com/JUNCHENLI2026/ISSS626_GAA): submission destination for the complete project.
+- [Coursework repository](https://github.com/JUNCHENLI2026/ISSS626_GAA): Quarto project and reproducible R scripts.
 
 ::: {.note}
 The report renders saved analytical results. The separate rebuild entry point starts from raw inputs and records step logs. Standard and NRT data differ, boundary vintage is uncertain, and detection opportunity is unavailable.

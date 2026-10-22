@@ -92,6 +92,18 @@ editor: source
       <a class="card-link" href="Take-Home_Ex/Take-Home_Ex01/index.html">View assignment overview <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
     </article>
 
+    <article class="portfolio-card take-home-card" aria-labelledby="take-home-two-title">
+      <span class="card-icon"><i class="bi bi-map-fill"></i></span>
+      <span class="card-meta">Take-home Exercise 2 · January 2021–September 2025</span>
+      <h3 id="take-home-two-title">Conflict patterns across Myanmar</h3>
+      <p>Explore recorded conflict across Myanmar's 330 townships using ACLED events and MIMU boundaries. Global and local spatial statistics, emerging hot-spot analysis, and regional case studies distinguish overall concentration, changing patterns, and reported fatality severity. Robustness checks show which findings persist and which remain sensitive.</p>
+      <nav class="submission-actions" aria-label="Take-home Exercise 2 deliverables">
+        <a href="Take-Home_Ex/Take-Home_Ex02/Take-Home_Ex02.html">Technical Report <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+        <a href="Take-Home_Ex/Take-Home_Ex02/executive_summary.html">Executive Summary <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+      </nav>
+      <a class="card-link" href="Take-Home_Ex/Take-Home_Ex02/index.html">View assignment overview <i class="bi bi-arrow-up-right" aria-hidden="true"></i></a>
+    </article>
+
     <div class="portfolio-card">
       <span class="card-icon"><i class="bi bi-tools"></i></span>
       <span class="card-meta">My learning toolkit</span>
