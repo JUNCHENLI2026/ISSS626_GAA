@@ -1,0 +1,14 @@
+Exercise: Hands-on Exercise 8, Chapter 18 Huff market-area analysis
+Chapter: https://r4gdsa.netlify.app/chap18
+Installed on: 2026-10-22 (Asia/Singapore)
+Acquisition: user-supplied course archive in the local Downloads folder
+Archive: Hands-on_Ex08.zip
+Archive SHA256: 53C477238076480FFC36C02AA120213756B6720A34F9D809DC9BC3FD0AB3B106
+The chapter lists local data paths but does not provide data download links.
+Those paths on the chapter website returned HTTP 404 when checked.
+No data were retrieved from the instructor's GitHub repository.
+Installed: pop2019.csv, Store_sales_data.csv, STORES_TC, TOWN_TC, VILLAGE_TC.
+Shapefile companions were copied together without modifying raw contents.
+Excluded: STORES_TC1 alternative layer and GIS .qmd metadata sidecars.
+The upstream acquisition channel and dates are not independently verified.
+Retain the original archive. Check course-data redistribution permissions before publishing raw data.

@@ -1,0 +1,434 @@
+---
+title: "Hands-on Exercise 8: Market Area Analysis with the Huff Model"
+author: "JUNCHEN LI"
+date: "2026-10-22"
+date-modified: "2026-10-22"
+lang: en
+date-format: long
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+    fig-width: 10
+    fig-height: 7
+editor: source
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Overview
+
+How do distance and competition shape a store's potential market area? This exercise follows [Chapter 18](https://r4gdsa.netlify.app/chap18) and applies the Huff model to the supplied Taichung teaching data. I prepare village population and store sales, construct an origin–destination distance matrix, map the patronage probability for store BT, and compare population-based allocations with recorded sales.
+
+The model is an illustrative allocation among the supplied stores. It is not a calibrated forecast of current demand, revenue or profitability.
+
+# 1 Data sources and acquisition
+
+The chapter's [data section](https://r4gdsa.netlify.app/chap18#the-data) names the inputs but supplies no direct download link. Its local paths are not working public downloads. The data used here come from the user-downloaded course archive **Hands-on_Ex08.zip**, installed from the local Downloads folder. No inputs were downloaded from the instructor's GitHub repository. The archive checksum and installation record are in `data/source-manifest.txt`.
+
+| Input | Role | Local location |
+|---|---|---|
+| `STORES_TC` and shapefile companions | Locations and identifiers of the study stores | `data/geospatial/` |
+| `TOWN_TC` and shapefile companions | District boundaries for map context | `data/geospatial/` |
+| `VILLAGE_TC` and shapefile companions | Village polygons and join keys | `data/geospatial/` |
+| `pop2019.csv` | December 2019 households and population | `data/aspatial/` |
+| `Store_sales_data.csv` | Store-level bill and sales records requiring aggregation | `data/aspatial/` |
+
+The chapter's introductory list uses `_TN`, but its Taichung import code uses `_TC` and also reads `TOWN_TC`. This exercise follows those actual imports. The alternative `STORES_TC1` layer is not substituted. GIS metadata files ending in `.qmd` are not Quarto documents and are excluded from the website source tree.
+
+To reproduce the exercise, obtain the matching course package through the instructor's authorised distribution channel, then place the files in the locations above. Do not replace the 2019 population with a recent release without reconciling geography and documenting the change. Keep raw files unchanged and check their redistribution permissions before publishing them.
+
+## Packages
+
+The workflow uses the chapter's `sf`, `MCI`, `tmap` and `ggstatsplot` tools, with explicit tidyverse components. Install missing packages before rendering; the document checks dependencies without installing software automatically.
+
+```{r}
+#| label: setup
+packages <- c("sf", "dplyr", "tidyr", "readr", "ggplot2", "MCI",
+              "tmap", "ggstatsplot", "knitr")
+missing_packages <- packages[!vapply(packages, requireNamespace,
+                                    logical(1), quietly = TRUE)]
+if (length(missing_packages)) {
+  stop("Install these packages before rendering: ",
+       paste(missing_packages, collapse = ", "))
+}
+library(sf)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(ggplot2)
+library(tmap)
+library(knitr)
+tmap_mode("plot")
+theme_set(theme_minimal(base_size = 12))
+fmt <- function(x) format(x, big.mark = ",", scientific = FALSE, trim = TRUE)
+```
+
+# 2 Importing and checking the inputs
+
+## Spatial layers and coordinate reference systems
+
+The supplied layers describe TWD97 / TM2 zone 121. Read their stored CRS definitions and transform them to EPSG:3826, a projected CRS in metres. Assigning a CRS label would not transform coordinates. Geometry checks precede distance calculation.
+
+```{r}
+#| label: spatial-import
+read_projected <- function(layer) {
+  x <- st_read(paste0("data/geospatial/", layer, ".shp"), quiet = TRUE)
+  if (is.na(st_crs(x))) stop("Missing CRS for ", layer)
+  st_transform(x, 3826) |> st_make_valid()
+}
+stores <- read_projected("STORES_TC") |> arrange(Store_CD)
+town <- read_projected("TOWN_TC")
+village_raw <- read_projected("VILLAGE_TC") |> arrange(VILLCODE)
+stopifnot(!anyNA(stores$Store_CD), !anyDuplicated(stores$Store_CD),
+          !anyNA(village_raw$VILLCODE), !anyDuplicated(village_raw$VILLCODE),
+          all(st_is_valid(village_raw)), !any(st_is_empty(village_raw)),
+          !any(st_is_empty(stores)))
+kable(data.frame(Layer = c("Stores", "Districts", "Villages"),
+                 Features = c(nrow(stores), nrow(town), nrow(village_raw)),
+                 EPSG = 3826))
+```
+
+```{r}
+#| label: fig-study-area
+#| fig-cap: "Supplied study villages, district boundaries and store locations."
+tm_shape(village_raw) + tm_polygons(fill = "grey93", col = "grey75") +
+  tm_shape(town) + tm_borders(col = "grey40") +
+  tm_shape(stores) + tm_dots(fill = "#b2182b", col = "white", size = 0.9) +
+  tm_title("Taichung teaching-data study area") +
+  tm_scalebar() + tm_compass(type = "arrow")
+```
+
+These polygons define the supplied study extent, rather than a claim to cover every current administrative unit. The store set defines the competitors considered by the model; omitted stores and alternative brands are outside its choice set.
+
+## Population and sales tables
+
+Read identifiers as text to preserve leading zeros and separators. Retain only the population columns needed for joining and interpretation; this avoids duplicated geographic-name columns.
+
+```{r}
+#| label: tabular-import
+pop2019 <- read_csv("data/aspatial/pop2019.csv",
+                   col_types = cols(V_ID = col_character()),
+                   show_col_types = FALSE) |>
+  mutate(V_ID = gsub("-", "", V_ID, fixed = TRUE))
+store_sales <- read_csv("data/aspatial/Store_sales_data.csv",
+                       col_types = cols(`Store Code` = col_character()),
+                       show_col_types = FALSE)
+stopifnot(!anyNA(pop2019$V_ID), !anyDuplicated(pop2019$V_ID))
+kable(data.frame(Input = c("Population rows", "Sales rows"),
+                 Records = c(nrow(pop2019), nrow(store_sales))))
+```
+
+# 3 Data preparation
+
+## Aggregating and matching store sales
+
+The sales table includes stores outside the spatial layer. Aggregate by store code, then match only the supplied study stores. Missing store identifiers and unmatched sales-store codes are counted, not treated as extra Taichung competitors. Sales amounts are not used as attractiveness, avoiding a circular comparison against the same sales observations later.
+
+```{r}
+#| label: sales-join
+sales_in_scope <- store_sales |>
+  filter(`Store Code` %in% stores$Store_CD)
+stopifnot(all(is.finite(sales_in_scope$Bills)),
+          all(is.finite(sales_in_scope$Amount)),
+          all(sales_in_scope$Bills >= 0), all(sales_in_scope$Amount >= 0))
+store_sales_aggre <- sales_in_scope |>
+  group_by(`Store Code`) |>
+  summarise(Total_Bill = sum(Bills), Total_Sales = sum(Amount),
+            .groups = "drop")
+stores <- stores |>
+  left_join(store_sales_aggre, by = c("Store_CD" = "Store Code"),
+            relationship = "one-to-one") |>
+  mutate(Store_size = 100)
+stopifnot(!anyNA(stores$Total_Sales), !anyNA(stores$Total_Bill))
+kable(data.frame(Check = c("Sales rows without a store code",
+                           "Non-missing sales codes outside the study layer",
+                           "Matched study stores", "Matched sales records"),
+                 Count = c(sum(is.na(store_sales$`Store Code`)),
+                           n_distinct(store_sales$`Store Code`[
+                             !is.na(store_sales$`Store Code`) &
+                             !store_sales$`Store Code` %in% stores$Store_CD]),
+                           nrow(stores), nrow(sales_in_scope))))
+```
+
+All stores receive the chapter's illustrative attractiveness of 100. This is not measured floor area. Equal attractiveness makes baseline probabilities depend only on relative distance.
+
+## Joining population and documenting exclusions
+
+Remove the hyphen from `V_ID` before matching it to `VILLCODE`. Use explicit join keys and a one-to-one relationship. An unmatched polygon is not assumed to contain zero people.
+
+```{r}
+#| label: population-join
+population_fields <- pop2019 |>
+  select(V_ID, H_CNT, P_CNT, M_CNT, F_CNT, INFO_TIME)
+unmatched_population <- population_fields |>
+  anti_join(st_drop_geometry(village_raw), by = c("V_ID" = "VILLCODE"))
+village_joined <- village_raw |>
+  left_join(population_fields, by = c("VILLCODE" = "V_ID"),
+            relationship = "one-to-one")
+excluded_villages <- village_joined |> filter(is.na(P_CNT))
+village <- village_joined |> filter(!is.na(P_CNT))
+stopifnot(nrow(village) > 0,
+          all(is.finite(village$P_CNT)), all(village$P_CNT >= 0),
+          !anyNA(st_drop_geometry(village)[c("H_CNT", "M_CNT", "F_CNT")]))
+kable(data.frame(Check = c("Input village polygons", "Population-unmatched polygons",
+                           "Retained villages", "Population rows without a polygon",
+                           "Retained population", "Male/female reconciliation differences"),
+                 Value = c(nrow(village_raw), nrow(excluded_villages),
+                           nrow(village), nrow(unmatched_population), sum(village$P_CNT),
+                           sum(village$M_CNT + village$F_CNT != village$P_CNT))),
+      format.args = list(big.mark = ","))
+kable(st_drop_geometry(excluded_villages) |> select(VILLCODE, VILLENG),
+      col.names = c("Excluded village code", "Village label"))
+```
+
+The current files retain **`r nrow(village)` villages** and exclude **`r nrow(excluded_villages)`** polygons without population. The exclusions follow the chapter but may leave geographic gaps. Population-table rows without matching polygons are outside this spatial allocation, and should not be silently redistributed.
+
+# 4 Computing the distance and interaction matrices
+
+Use `st_point_on_surface()` to obtain one point inside each village. Although the chapter describes these as centroids, the function returns an interior representative point. Distances are straight-line metres from these points to stores, not road-network distance or travel time. Large villages may be poorly represented by one point.
+
+```{r}
+#| label: distances
+village_center <- st_point_on_surface(village)
+distmat <- st_distance(village_center, stores)
+D <- matrix(as.numeric(distmat), nrow = nrow(village), ncol = nrow(stores),
+            dimnames = list(village$VILLCODE, stores$Store_CD))
+stopifnot(all(is.finite(D)), all(D > 0))
+distmat_long <- as.data.frame(D) |>
+  tibble::rownames_to_column("VILLCODE") |>
+  pivot_longer(-VILLCODE, names_to = "Store_CD", values_to = "distance")
+interaction_matrix <- distmat_long |>
+  left_join(st_drop_geometry(stores) |> select(Store_CD, Store_size),
+            by = "Store_CD", relationship = "many-to-one") |>
+  select(VILLCODE, Store_CD, Store_size, distance) |> as.data.frame()
+stopifnot(nrow(interaction_matrix) == nrow(village) * nrow(stores),
+          !anyDuplicated(interaction_matrix[c("VILLCODE", "Store_CD")]),
+          !anyNA(interaction_matrix))
+kable(data.frame(Pairs = nrow(interaction_matrix),
+                 Minimum_m = min(D), Median_m = median(D), Maximum_m = max(D)),
+      digits = 1)
+```
+
+Zero distances would make the inverse-power model undefined. The assertion stops rather than silently choosing an arbitrary offset. The full matrix includes every retained village–store pair, with IDs retained through all transformations.
+
+# 5 Computing and validating Huff probabilities
+
+For village $i$ and store $j$, the model is
+
+$$p_{ij}=\frac{A_j^{\gamma}d_{ij}^{\lambda}}{\sum_k A_k^{\gamma}d_{ik}^{\lambda}}.$$
+
+Follow the [MCI defaults](https://cran.r-project.org/web/packages/MCI/refman/MCI.html): $\gamma=1$, $\lambda=-2$, and power functions for attraction and distance. Negative $\lambda$ reduces attraction with distance. The denominator normalises probabilities over the supplied stores, so each village's probabilities must sum to one. There is no outside option for not purchasing or choosing an omitted competitor.
+
+```{r}
+#| label: huff-baseline
+huff_share <- MCI::huff.shares(interaction_matrix, "VILLCODE", "Store_CD",
+                               "Store_size", "distance",
+                               gamma = 1, lambda = -2,
+                               atype = "pow", dtype = "pow")
+huff_share <- as_tibble(huff_share) |>
+  mutate(VILLCODE = as.character(VILLCODE), Store_CD = as.character(Store_CD))
+probability_checks <- huff_share |>
+  group_by(VILLCODE) |> summarise(probability_sum = sum(p_ij), .groups = "drop")
+manual <- interaction_matrix |>
+  group_by(VILLCODE) |>
+  mutate(manual_p = Store_size * distance^(-2),
+         manual_p = manual_p / sum(manual_p)) |> ungroup()
+comparison <- huff_share |>
+  left_join(manual |> select(VILLCODE, Store_CD, manual_p),
+            by = c("VILLCODE", "Store_CD"), relationship = "one-to-one")
+stopifnot(nrow(huff_share) == nrow(interaction_matrix),
+          all(is.finite(huff_share$p_ij)), all(huff_share$p_ij >= 0),
+          all(huff_share$p_ij <= 1),
+          max(abs(probability_checks$probability_sum - 1)) < 1e-10,
+          max(abs(comparison$p_ij - comparison$manual_p)) < 1e-10)
+kable(data.frame(Check = c("Largest origin-sum error", "Largest formula-check error"),
+                 Error = c(max(abs(probability_checks$probability_sum - 1)),
+                           max(abs(comparison$p_ij - comparison$manual_p)))), digits = 12)
+```
+
+The independent formula check tests numerical agreement with MCI, not real-world validity. Multiplying every distance by the same unit-conversion factor leaves these power-model probabilities unchanged because that common factor cancels. Equal attractiveness similarly cancels from each origin's probability ratios.
+
+# 6 Trade-area analysis for store BT
+
+The chapter's narrative mentions TG once, but its selection and map use **BT**. Use BT consistently. Join its probability by village code, and keep missing-population polygons in grey for context.
+
+```{r}
+#| label: bt-selection
+market_share <- huff_share |> filter(Store_CD == "BT")
+selected_store <- stores |> filter(Store_CD == "BT")
+stopifnot(nrow(selected_store) == 1, nrow(market_share) == nrow(village))
+trade_area <- village |>
+  left_join(market_share |> select(VILLCODE, p_ij), by = "VILLCODE",
+            relationship = "one-to-one")
+```
+
+```{r}
+#| label: fig-bt-probability
+#| fig-cap: "Modelled patronage probability for BT, conditional on the supplied store choice set. Grey background includes villages excluded for missing population."
+tm_shape(village_raw) + tm_polygons(fill = "grey90", col = "white") +
+  tm_shape(trade_area) +
+  tm_polygons(fill = "p_ij",
+              fill.scale = tm_scale_intervals(style = "quantile", n = 10,
+                                               values = "brewer.blues"),
+              fill.legend = tm_legend(title = "BT probability")) +
+  tm_shape(town) + tm_borders(col = "grey40", lwd = 0.5) +
+  tm_shape(selected_store) + tm_dots(fill = "red", col = "black", size = 1.3) +
+  tm_title("Potential market area of store BT") +
+  tm_compass(type = "arrow") + tm_scalebar()
+```
+
+The highest village-level BT probability is **`r sprintf('%.3f', max(trade_area$p_ij))`**. Quantile classes distribute villages across colour groups, rather than defining equal probability intervals or an observed catchment boundary. Darker areas indicate stronger relative attraction under the assumed parameters, not demonstrated customer loyalty.
+
+# 7 Allocating population and comparing recorded sales
+
+Append population to each village–store probability and use `shares.total()` to compute $E_j=\sum_i P_i p_{ij}$. Since the input market size is a population count, $E_j$ is a **population allocation**, not dollars or recorded customers. Revenue estimation would additionally require a compatible spending rate, time period and calibrated purchase behaviour. The chapter's sales comparison is retained as an exploratory association.
+
+```{r}
+#| label: population-allocation
+huff_share_pp <- huff_share |>
+  left_join(st_drop_geometry(village) |> select(VILLCODE, P_CNT),
+            by = "VILLCODE", relationship = "many-to-one") |> as.data.frame()
+huff_total <- MCI::shares.total(huff_share_pp, "VILLCODE", "Store_CD",
+                                "p_ij", "P_CNT")
+huff_total$suppliers_single <- as.character(huff_total$suppliers_single)
+store_sales_est <- stores |>
+  left_join(huff_total, by = c("Store_CD" = "suppliers_single"),
+            relationship = "one-to-one")
+store_sales_nongeom <- st_drop_geometry(store_sales_est)
+stopifnot(!anyNA(store_sales_est$sum_E_j),
+          abs(sum(store_sales_est$sum_E_j) - sum(village$P_CNT)) < 1e-6)
+allocation_check <- huff_share_pp |>
+  group_by(Store_CD) |> summarise(manual_total = sum(P_CNT * p_ij), .groups = "drop")
+allocation_check <- left_join(allocation_check, store_sales_nongeom,
+                              by = "Store_CD", relationship = "one-to-one")
+stopifnot(max(abs(allocation_check$manual_total - allocation_check$sum_E_j)) < 1e-6)
+kable(store_sales_nongeom |> arrange(desc(sum_E_j)) |>
+        select(Store_CD, sum_E_j, Total_Bill, Total_Sales), digits = 1,
+      col.names = c("Store", "Allocated population", "Recorded bills", "Recorded sales"))
+```
+
+```{r}
+#| label: fig-sales-comparison
+#| fig-cap: "Exploratory association across study stores. The axes have different units; this is not a predicted-versus-observed revenue calibration plot."
+ggstatsplot::ggscatterstats(
+  data = store_sales_nongeom, x = sum_E_j, y = Total_Sales,
+  type = "parametric", marginal = FALSE,
+  xlab = "Huff-allocated population", ylab = "Recorded sales amount (source units)",
+  title = "Population allocation and recorded store sales")
+```
+
+```{r}
+#| label: association-summary
+pearson_r <- cor(store_sales_nongeom$sum_E_j, store_sales_nongeom$Total_Sales)
+spearman_r <- cor(store_sales_nongeom$sum_E_j, store_sales_nongeom$Total_Sales,
+                  method = "spearman")
+kable(data.frame(Stores = nrow(stores), Pearson_r = pearson_r,
+                 Spearman_rho = spearman_r), digits = 3)
+```
+
+The observed Pearson correlation is **`r sprintf('%.3f', pearson_r)`** and Spearman's rank correlation is **`r sprintf('%.3f', spearman_r)`**. These describe this store sample; they do not establish causal effects or out-of-sample forecast accuracy. Allocations share a common population total and competing choice set, so independent-store inference is questionable. The supplied sales period and currency are not independently documented here, and population refers to December 2019.
+
+# 8 Probability table and distance-decay sensitivity
+
+## Wide probability matrix
+
+Following the chapter's final step, retain one row per village and one column per store. The preview shows only a few columns for readability; the exported table contains all stores.
+
+```{r}
+#| label: wide-probabilities
+huff_share_wider <- huff_share |> select(VILLCODE, Store_CD, p_ij) |>
+  pivot_wider(names_from = Store_CD, values_from = p_ij)
+stopifnot(nrow(huff_share_wider) == nrow(village),
+          ncol(huff_share_wider) == nrow(stores) + 1)
+kable(head(huff_share_wider[, seq_len(min(6, ncol(huff_share_wider)))], 6), digits = 4)
+```
+
+## Supplement: alternative distance exponents
+
+Compare $\lambda=-1,-2,-3$ while keeping the origins, competitors and equal attractiveness fixed. This supplements the chapter and does not fit parameters to sales. Stronger distance decay concentrates probabilities on nearer stores. With equal attractiveness, the most probable store is the nearest one regardless of these negative exponents; uncertainty and total allocations can still change substantially.
+
+```{r}
+#| label: sensitivity
+scenarios <- lapply(c(-1, -2, -3), function(exponent) {
+  result <- MCI::huff.shares(interaction_matrix, "VILLCODE", "Store_CD", "Store_size",
+                             "distance", gamma = 1, lambda = exponent)
+  as_tibble(result) |>
+    mutate(VILLCODE = as.character(VILLCODE), Store_CD = as.character(Store_CD),
+           lambda = exponent)
+}) |> bind_rows()
+scenario_origins <- scenarios |>
+  group_by(lambda, VILLCODE) |>
+  summarise(probability_sum = sum(p_ij), maximum_probability = max(p_ij),
+            .groups = "drop")
+stopifnot(max(abs(scenario_origins$probability_sum - 1)) < 1e-10)
+scenario_totals <- scenarios |>
+  left_join(st_drop_geometry(village) |> select(VILLCODE, P_CNT),
+            by = "VILLCODE", relationship = "many-to-one") |>
+  group_by(lambda, Store_CD) |>
+  summarise(allocated_population = sum(P_CNT * p_ij), .groups = "drop")
+scenario_summary <- scenario_origins |>
+  group_by(lambda) |>
+  summarise(mean_maximum_probability = mean(maximum_probability), .groups = "drop") |>
+  left_join(scenario_totals |> filter(Store_CD == "BT") |>
+              select(lambda, BT_allocated_population = allocated_population), by = "lambda")
+kable(scenario_summary, digits = 3,
+      col.names = c("Distance exponent", "Mean maximum probability", "BT population allocation"))
+```
+
+```{r}
+#| label: fig-sensitivity
+#| fig-cap: "Store population allocations under three uncalibrated distance-decay assumptions."
+ggplot(scenario_totals, aes(Store_CD, allocated_population,
+                            colour = factor(lambda), group = factor(lambda))) +
+  geom_line() + geom_point() +
+  labs(x = "Store code", y = "Allocated population", colour = "Distance exponent") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+This comparison reveals parameter dependence, not which exponent is correct. Empirical customer-origin data would be needed for defensible calibration and an independent validation design.
+
+# 9 Findings, limitations and reproducibility
+
+The model allocates **`r fmt(sum(village$P_CNT))` residents** across **`r nrow(stores)` stores** using **`r fmt(nrow(interaction_matrix))` origin–destination pairs**. Store BT receives **`r fmt(round(store_sales_est$sum_E_j[store_sales_est$Store_CD == 'BT']))` population-equivalents** under the baseline. These totals reconcile with retained population, but they are conditional model outputs rather than observed patronage.
+
+The main limitations are uniform store attractiveness, straight-line distance, one representative point per village, missing population matches, historical population, an incomplete choice set and an undocumented sales period. No parameter was selected to maximise a reported association. Customer surveys, measured floor area, compatible expenditure data and network travel costs would be needed before making investment recommendations.
+
+```{r}
+#| label: export-results
+dir.create("outputs", showWarnings = FALSE)
+write_csv(huff_share_wider, "outputs/village_store_probabilities.csv")
+write_csv(store_sales_nongeom |> select(Store_CD, sum_E_j, Total_Bill, Total_Sales),
+          "outputs/store_population_allocation.csv")
+write_csv(scenario_totals, "outputs/distance_decay_sensitivity.csv")
+raw_files <- list.files("data", recursive = TRUE, full.names = TRUE,
+                        pattern = "\\.(csv|shp|shx|dbf|prj|cpg)$")
+fingerprints <- data.frame(file = raw_files, md5 = unname(tools::md5sum(raw_files)))
+write_csv(fingerprints, "outputs/input_fingerprints.csv")
+```
+
+<details>
+<summary>Package versions and input fingerprints</summary>
+
+```{r}
+#| echo: false
+kable(data.frame(Package = packages,
+                 Version = vapply(packages, function(p) as.character(packageVersion(p)),
+                                  character(1))))
+kable(fingerprints)
+sessionInfo()
+```
+
+</details>
+
+# References
+
+- [Chapter 18: Market Area Analysis for Retail and Service Locations using Huff model](https://r4gdsa.netlify.app/chap18). Exercise sequence, teaching-data definitions and baseline method.
+- [MCI official reference manual](https://cran.r-project.org/web/packages/MCI/refman/MCI.html). `huff.shares()` parameters and `shares.total()` aggregation.
+- [sf geometric unary operations](https://r-spatial.github.io/sf/reference/geos_unary.html). Interior points and geometry operations.
+- [Return to the Hands-on directory](../../hands-on.qmd).

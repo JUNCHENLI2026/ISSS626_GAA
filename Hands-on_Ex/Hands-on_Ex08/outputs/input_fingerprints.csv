@@ -1,0 +1,17 @@
+file,md5
+data/aspatial/pop2019.csv,3ad19937dcf65e729580966b584242e0
+data/aspatial/Store_sales_data.csv,2018f2de374a02ac0a75fc42526b0a73
+data/geospatial/STORES_TC.dbf,d0877897a8d204437644cc93ddb8c48b
+data/geospatial/STORES_TC.prj,b1ca0d38de5ebbabb3c0a440ecfd30f3
+data/geospatial/STORES_TC.shp,fdf4e4d83b84adb6fcc9929ea6740bac
+data/geospatial/STORES_TC.shx,a88a7d74377537dd832fe7e513dfcee1
+data/geospatial/TOWN_TC.cpg,ae3b3df9970b49b6523e608759bc957d
+data/geospatial/TOWN_TC.dbf,6218a9eba3acc6a85ce5aeeca7fc65fc
+data/geospatial/TOWN_TC.prj,b1ca0d38de5ebbabb3c0a440ecfd30f3
+data/geospatial/TOWN_TC.shp,6947a3ca64055324b69d54e35e416add
+data/geospatial/TOWN_TC.shx,214d5ee2d39821ed41e9a0f7626a74d6
+data/geospatial/VILLAGE_TC.cpg,ae3b3df9970b49b6523e608759bc957d
+data/geospatial/VILLAGE_TC.dbf,0bde8ed507b6308778726dc6dd219839
+data/geospatial/VILLAGE_TC.prj,b1ca0d38de5ebbabb3c0a440ecfd30f3
+data/geospatial/VILLAGE_TC.shp,1afb1b8fff9a97fdf04d3afdff8f0123
+data/geospatial/VILLAGE_TC.shx,9f2015d8b46fc2a3af22d3aee4b6f333

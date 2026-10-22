@@ -15,7 +15,7 @@ editor: source
     <p>Explore my practical work in geospatial data science. Each exercise documents the data preparation, analytical decisions, R workflow, results, and reflections developed during the course.</p>
   </div>
   <div class="exercise-summary" aria-label="Portfolio summary">
-    <span class="summary-value">10</span>
+    <span class="summary-value">11</span>
     <span class="summary-label">Exercises completed</span>
   </div>
 </header>
@@ -25,7 +25,7 @@ editor: source
     <span class="exercise-eyebrow">Assignment directory</span>
     <h2>Choose an exercise</h2>
   </div>
-  <p>The exercises progress from preparing and visualising geospatial data to analysing point patterns, spatial autocorrelation, regional clusters, and service accessibility.</p>
+  <p>The exercises progress from preparing and visualising geospatial data to analysing point patterns, spatial autocorrelation, regional clusters, service accessibility, and retail market areas.</p>
 </section>
 
 <div class="exercise-grid">
@@ -166,6 +166,21 @@ editor: source
     <p>Compare Hansen, KD2SFCA, and SAM accessibility across Singapore using teaching data. Align network-distance matrices, map service catchments, compare planning regions, and examine sensitivity to modelling assumptions.</p>
     <div class="exercise-tags"><span>SpatialAcc</span><span>Network distance</span><span>Accessibility</span></div>
     <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex07/Hands-on_Ex0701.html">Open Exercise 7 <i class="bi bi-arrow-up-right"></i></a>
+  </article>
+</div>
+
+<div class="exercise-grid" style="margin-top: 1rem;">
+  <article class="exercise-card accent-violet">
+    <div class="exercise-card-top">
+      <span class="exercise-number">08</span>
+      <span class="exercise-icon"><i class="bi bi-shop"></i></span>
+    </div>
+    <span class="exercise-category">Retail market areas</span>
+    <h3>Store Competition and the Huff Model</h3>
+    <p>Explore retail competition in Taichung with the Huff model. Combine December 2019 population, village boundaries, and 28 store locations to estimate patronage probabilities for 617 matched villages and map store BT's potential market area.</p>
+    <p>Build and validate the distance matrix, compare population allocations with recorded sales, and test alternative distance-decay assumptions. Interpret the results as conditional market potential, not a calibrated revenue forecast.</p>
+    <div class="exercise-tags"><span>Huff model</span><span>MCI</span><span>Trade areas</span></div>
+    <a class="exercise-link" href="Hands-on_Ex/Hands-on_Ex08/Hands-on_Ex0801.html">Open Exercise 8 <i class="bi bi-arrow-up-right"></i></a>
   </article>
 </div>
 
