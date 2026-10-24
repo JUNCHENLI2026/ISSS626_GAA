@@ -1,0 +1,10 @@
+Exercise: In-class Exercise 8, Chapter 18 Huff market-area analysis
+Chapter: https://r4gdsa.netlify.app/chap18
+Acquisition: files already supplied by the user in this exercise's data folder.
+The analysis uses pop2019.csv, Store_sales_data.csv, STORES_TC, TOWN_TC and VILLAGE_TC.
+Their source files match the corresponding local Hands-on Exercise 8 inputs.
+No data were downloaded from the instructor's GitHub repository for this exercise.
+The original acquisition channel and date of this local copy are not independently verified.
+Additional storeCD.csv and STORES_TC1 files are preserved but not used by the baseline.
+QGIS .qmd metadata sidecars are preserved and excluded from website rendering.
+Raw data have not been modified. Check redistribution permission before publishing.
